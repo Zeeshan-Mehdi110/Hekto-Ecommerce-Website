@@ -1,30 +1,42 @@
 import { MailOutline } from "@mui/icons-material";
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
-import styles from './header.module.css'
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { globalStyles } from "../../../globalStyle";
+import PositionedMenu from "./PositionedMenu";
 export default function Header() {
     return (
-        <Box className= {styles.headerBox} >
-            <Grid container className={styles.gridContainer} >
-            <Grid md={2} ></Grid>
-            <Grid md={4} display={'flex'} justifyContent='space-evenly' flexDirection={'row'}  >
-                <Box className={styles.contentBox} >
-                <Typography variant="body1">
-                <MailOutline className={styles.headerIcon} />
-                <a href="sd" className={styles.links} >mhhasanul@gmail.com</a>
-                </Typography>
+        <Grid container sx={{ ...globalStyles.gridContainer }} >
+            <Grid item md={1} ></Grid>
+            <Grid md={5} item display={'flex'} justifyContent='space-evenly' >
+                <Box>
+                    <MailOutline sx={{ ...globalStyles.headerIcon }} />
+                    <a href="sd" style={{ ...globalStyles.links }} >mhhasanul@gmail.com</a>
                 </Box>
-                <Box className={styles.contentBox} >
-                <Typography variant="body1" >
-                <PhoneInTalkIcon className={styles.headerIcon} />
-                <a href="sfa" className={styles.links} >(12345)67890</a>
-                </Typography>
+                <Box>
+                    <PhoneInTalkIcon sx={{ ...globalStyles.headerIcon }} />
+                    <a href="sfa" style={{ ...globalStyles.links }} >(12345)67890</a>
                 </Box>
             </Grid>
-            <Grid md={6} >
+            <Grid md={1} item ></Grid>
+            <Grid md={5} item display={'flex'}  >
+                <PositionedMenu label='English' options={englishOptions} /> {/*Mui Positioned components*/}
+                <PositionedMenu label='USD' options={usdOptions} />
+                <Button sx={{ ...globalStyles.btnMenu }} endIcon={<PersonOutlineIcon />}>
+                    Login
+                </Button>
+                <Button sx={{ ...globalStyles.btnMenu }} endIcon={<FavoriteBorderIcon />}>
+                    Whishlist
+                </Button>
+                <IconButton sx={{ ...globalStyles.btnMenu }} >
+                    <AddShoppingCartIcon />
+                </IconButton>
             </Grid>
-            </Grid>
-        </Box>
+        </Grid>
     )
 }
+const englishOptions = ['Urdu', 'Pashto', 'English']
+const usdOptions = ['Erench', 'Idaale', 'Sadjad', 'Oblige', 'Qamar']
