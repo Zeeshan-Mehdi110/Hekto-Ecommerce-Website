@@ -25,5 +25,27 @@ export const globalStyles = {
         fontFamily: 'var(--josifin)',
         fontStyle: 'normal',
         textTransform: 'none' // sets text to all lowerCase
-    }
+    },
+    menuOptions: {
+        color: '#000',
+        "textDecoration": "none"
+    },
+    navbarMenu: {
+        color: "black",
+        fontSize: "15px",
+        fontWeight: "600",
+        fontFamily: 'var(--josifin)',
+        fontStyle: 'normal',
+        textTransform: 'none' // sets text to all lowerCase
+    },
+    headerSearchInputIcon: {
+        borderRadius: 0,
+        backgroundColor: 'var(--pink)',
+        '&:hover': {
+            backgroundColor: 'var(--pink)',
+        },
+        '&:focus': {
+            backgroundColor: 'var(--pink)',
+        },
+    },
 }
