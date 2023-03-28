@@ -1,4 +1,12 @@
+import { createTheme } from '@mui/material/styles';
+
+export const theme = createTheme({
+    typography: {
+        fontFamily: 'var(--lato)',
+    },
+});
 export const globalStyles = {
+
     gridContainer: {
         backgroundColor: 'var(--voilet)',
         height: "44px",
@@ -6,6 +14,13 @@ export const globalStyles = {
         alignItems: 'center',
         color: '#f1f1f1',
         fontSize: '16px'
+    },
+    mainHeading: {
+        fontFamily: 'Josefin Sans',
+        fontSize: "42px",
+        lineHeight: "49px",
+        color: "#1A0B5B",
+        fontWeight: '700'
     },
     headerIcon: {
         marginRight: "10px",
@@ -32,13 +47,14 @@ export const globalStyles = {
     },
     navbarMenu: {
         color: "black",
-        fontSize: "15px",
-        fontWeight: "600",
-        fontFamily: 'var(--josifin)',
+        fontSize: "16px",
+        fontWeight: "400",
+        fontFamily: 'var(--lato)',
         fontStyle: 'normal',
         textTransform: 'none' // sets text to all lowerCase
     },
     headerSearchInputIcon: {
+        border: 0,
         borderRadius: 0,
         backgroundColor: 'var(--pink)',
         '&:hover': {
@@ -48,4 +64,11 @@ export const globalStyles = {
             backgroundColor: 'var(--pink)',
         },
     },
+    productTitle: {
+        fontStyle: 'normal',
+        fontWeight: 700,
+        fontSize: '18px',
+        lineHeight: '22px',
+        color: 'var(--pink)',
+    }
 }

@@ -25,7 +25,7 @@ export default function Header() {
                             </Box>
                         </Grid>
                         <Grid md={1} item ></Grid>
-                        <Grid md={5} item display={'flex'}  >
+                        <Grid md={5} item display={'flex'} >
                             <MenuLinks label='English' options={languageOptions} /> {/*Mui Positioned components*/}
                             <MenuLinks label='USD' options={currencyOptions} />
                             <Button sx={{ ...globalStyles.btnMenu }} endIcon={<PersonOutlineIcon />}>
@@ -61,7 +61,6 @@ const currencyOptions = [
     { to : 'pakistaniRupay' , label : 'Pakistani Rupay' },
 ]
 const navbarOptions = [
-    { to: 'home', label: 'Home' },
     { to: 'about', label: 'Pages' },
     { to: 'contactUs', label: 'Products' },
     { to: 'blogs', label: 'Blog' },

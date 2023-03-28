@@ -1,31 +1,14 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Header from "./components/common/header/Header"
-import Header2 from "./pages/Header2"
-import Pashto from "./pages/Pashto"
-import Urdu from "./pages/Urdu"
+import { Route, Routes } from "react-router-dom"
+import Home from "./components/home/Home"
 
 export default function AppRoutes() {
     const routes = [
         {
             path : '/',
-            element : Header
+            element : Home
         },
-        {
-            path : '/header2',
-            element : Header2 
-        },
-        {
-            path : '/Urdu',
-            element : Urdu 
-        },
-        {
-            path : '/Pashto',
-            element : Pashto 
-        },
-        
     ]
     return (
-        <BrowserRouter>
             <Routes>
                 {
                     routes.map((route,index) => {
@@ -33,6 +16,5 @@ export default function AppRoutes() {
                     } )
                 }
             </Routes>
-        </BrowserRouter>
     )
 }

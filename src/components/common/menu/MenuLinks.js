@@ -1,27 +1,36 @@
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Menu from '@mui/material/Menu'; 
+import MenuItem from '@mui/material/MenuItem'; 
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'; 
 import { globalStyles } from '../../../globalStyle';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react'; 
+import { Link } from 'react-router-dom'; 
 
-export default function MenuLinks({ options,label,navbarMenu }) {
+export default function MenuLinks({ options, label, navbarMenu }) {
+    // Declare state variable for menu anchor element
     const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+    
+    // Create a boolean value to check whether the menu is open or not
+    const open = Boolean(anchorEl); 
+    
+    // Handle click event to set the menu anchor element
     const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget); 
     };
+    
+    // Handle close event to reset the menu anchor element
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null); 
     };
 
     return (
         <div>
-            {
-                options ? <div>
+            {options ? (
+                // If options prop exists, render a button with a dropdown menu
+                <div>
+                    {/* Render a button with a dropdown menu */}
                     <Button
-                        sx={{ ...globalStyles.btnMenu ,...navbarMenu}}
+                        sx={{ ...globalStyles.btnMenu, ...navbarMenu }}
                         endIcon={<KeyboardArrowDownIcon />}
                         id="demo-positioned-button"
                         aria-controls={open ? 'demo-positioned-menu' : undefined}
@@ -31,7 +40,8 @@ export default function MenuLinks({ options,label,navbarMenu }) {
                     >
                         {label}
                     </Button>
-
+                    
+                    {/* Render a dropdown menu with options */}
                     <Menu
                         id="demo-positioned-menu"
                         aria-labelledby="demo-positioned-button"
@@ -46,20 +56,24 @@ export default function MenuLinks({ options,label,navbarMenu }) {
                             vertical: 'top',
                             horizontal: 'left',
                         }}>
-                        {
-                            options.map((option, index) => { //options array as prop
-                                return (
-                                    <MenuItem key={index} onClick={handleClose}><Link  style={{ ...globalStyles.menuOptions , ...navbarMenu }}  to={option.to} >{option.label}</Link></MenuItem>
-                                )
-                            })
-                        }
+                        {options.map((option, index) => (
+                            <MenuItem key={index} onClick={handleClose}>
+                                <Link
+                                    style={{ ...globalStyles.menuOptions, ...navbarMenu }}
+                                    to={option.to}
+                                >
+                                    {option.label}
+                                </Link>
+                            </MenuItem>
+                        ))}
                     </Menu>
-                </div> : <Button
-                        sx={{ ...globalStyles.btnMenu ,...navbarMenu }}
-                        onClick={handleClick} >
-                            {label}
-                        </Button>
-            }
+                </div>
+            ) : (
+                // If options prop does not exist, render a simple button without a dropdown menu
+                <Button sx={{ ...globalStyles.btnMenu, ...navbarMenu }} onClick={handleClick}>
+                    {label}
+                </Button>
+            )}
         </div>
     );
 }
