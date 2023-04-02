@@ -4,7 +4,17 @@ export const theme = createTheme({
     typography: {
         fontFamily: 'var(--lato)',
     },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'capitalize',
+                },
+            },
+        },
+    },
 });
+
 export const globalStyles = {
 
     gridContainer: {
@@ -70,5 +80,43 @@ export const globalStyles = {
         fontSize: '18px',
         lineHeight: '22px',
         color: 'var(--pink)',
-    }
+    },
+    productPrice: {
+        fontFamily: 'var(--josefin)',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        fontSize: '14px',
+        lineHeight: '17px',
+        color: 'var(--off-blue)',
+    },
+    productCode: {
+        fontFamily: 'var(--josefin)',
+        fontSize: '14px',
+        lineHeight: '16px',
+        color: 'var(--off-blue)',
+    },
+    singleTab: {
+        fontFamily: "var(--lato)!important",
+        fontStyle: 'normal',
+        fontWeight: '400',
+        fontSize: '18px',
+        lineHeight: '22px',
+        textTransform: 'capitalize',
+    },
+    uniqueFeature: {
+        fontFamily: 'var(--josefin)',
+        fontSize: '14px',
+        lineHeight: '16px',
+        letterSpacing: " 0.02em",
+        color: '#151875',
+
+    },
+    uniqueFeaturePrice: {
+        fontFamily: 'var(--lato)',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        fontSize: '14px',
+        lineHeight: '17px',
+        color: '#151875',
+    },
 }

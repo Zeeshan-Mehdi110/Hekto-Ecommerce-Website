@@ -1,94 +1,43 @@
-import { Box, Grid, Typography } from "@mui/material";
-import { globalStyles } from "../../globalStyle";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ProductCardVertical from "../common/ProductCardVertical";
-import featuredImage1 from '../../static/images/featured1.png'
-import featuredImage2 from '../../static/images/featured2.png'
-import featuredImage3 from '../../static/images/featured3.png'
-import featuredImage4 from '../../static/images/featured4.png'
+import { globalStyles } from "../../globalStyle";
+import featureImage1 from '../../static/images/featured1.png';
+import featureImage2 from '../../static/images/featured2.png';
+import featureImage3 from '../../static/images/featured3.png';
+import featureImage4 from '../../static/images/featured4.png';
 import Slider from "react-slick";
 
-export default function FeaturedProduct() {
-    const settings = {
+function FeaturedProducts() {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    let settings = {
         dots: true,
         infinite: true,
-        speed: 700,
-        autoplay: true,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    dots : false
-                }
-            }
-        ],
-
+        speed: 500,
+        autoplay: false,
+        slidesToShow: isMobile ? 1 : 4,
+        slidesToScroll: isMobile ? 1 : 4,
+        arrows: false
     };
 
-
     return (
-        <Grid mt={5}>
-            <Box >
-                <Typography textAlign={'center'} sx={globalStyles.mainHeading} variant='h1' >Featured Products</Typography>
+        <>
+            <Box mt={5} textAlign="center">
+                <Typography variant="h1" sx={{ ...globalStyles.mainHeading, fontSize: !isMobile ? '42px' : '32px' }}>Featured Products</Typography>
             </Box>
-            <Slider {...settings}>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage1} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage2} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage3} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage4} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage3} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage2} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage4} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage1} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage3} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage1} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage4} />
-                </Grid>
-                <Grid item>
-                    <ProductCardVertical productImage={featuredImage2} />
-                </Grid>
+            <Slider key={isMobile ? "mobile" : "desktop"} {...settings}>
+                <ProductCardVertical productImage={featureImage1} isMobile={isMobile} />
+                <ProductCardVertical productImage={featureImage2} isMobile={isMobile} />
+                <ProductCardVertical productImage={featureImage3} isMobile={isMobile} />
+                <ProductCardVertical productImage={featureImage4} isMobile={isMobile} />
+                <ProductCardVertical productImage={featureImage1} isMobile={isMobile} />
+                <ProductCardVertical productImage={featureImage2} isMobile={isMobile} />
+                <ProductCardVertical productImage={featureImage3} isMobile={isMobile} />
+                <ProductCardVertical productImage={featureImage4} isMobile={isMobile} />
             </Slider>
-        </Grid>
+        </>
     );
 }
+
+export default FeaturedProducts;
