@@ -4,7 +4,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { globalStyles } from "../../globalStyle";
 const UniqueFeatures = () => {
 return (
-    <Grid container maxWidth={'xl'} mt={9} style={{'backgroundColor':'#F1F0FF','height':'580px'}} >
+    <Grid container maxWidth={'xl'} mt={9} style={{'height':'580px'}} >
         <Grid item md={5} xs={12} sx={{ 'paddingRight' : { md : '20px' } , 'marginTop' : { xs : '15px' } }} >
             <img src={sofa2} alt='sofa2' width={'100%'} />
         </Grid>

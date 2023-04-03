@@ -119,4 +119,9 @@ export const globalStyles = {
         lineHeight: '17px',
         color: '#151875',
     },
+    imageBoxStyle : {
+        width : '209px',
+        height : '236px',
+        backgroundColor: 'var(--product-background-hover)',
+    },
 }

@@ -1,6 +1,11 @@
-import { Box, GlobalStyles, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ShopProductCard from "../common/ShopProductCard";
-import LeatestProduct1 from '../../static/images/LeatestProducts1.png'
+import LeatestProducts1 from '../../static/images/LeatestProducts1.png'
+import LeatestProducts2 from '../../static/images/LeatestProducts2.png'
+import LeatestProducts3 from '../../static/images/LeatestProducts3.png'
+import LeatestProducts4 from '../../static/images/LeatestProducts4.png'
+import LeatestProducts5 from '../../static/images/LeatestProducts5.png'
+import LeatestProducts6 from '../../static/images/LeatestProducts6.png'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useState } from 'react';
@@ -12,13 +17,17 @@ export default function LatestProducts() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     return (
-        <div>
+        <>
             <Box mt={5} textAlign="center">
-                <Typography variant="h1" sx={{ ...GlobalStyles.mainHeading, fontSize: !isMobile ? '42px' : '32px', fontWeight: 'bold' }}>Featured Products</Typography>
+                <Typography variant="h1" sx={{ ...globalStyles.mainHeading, fontSize: !isMobile ? '42px' : '32px', fontWeight: 'bold' }}>Latest Products</Typography>
             </Box>
             <Box sx={{ width: '100%' }}>
-                <Box sx={{ borderColor: 'divider', 'justifyContent': 'space-evenly', 'display': 'flex' }}>
+                <Box>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+                        centered={ !isMobile ? true : false }
+                        variant={ isMobile ? 'scrollable' : 'standard' }
+                        scrollButtons={ isMobile ? true : false }
+                        allowScrollButtonsMobile={ isMobile ? true : false}
                         sx={{
                             '& .Mui-selected': {
                                 color: 'var(--pink)',
@@ -31,79 +40,579 @@ export default function LatestProducts() {
                         <Tab style={globalStyles.singleTab} label="New Arival" id={`simple-tabpanel-0`} />
                         <Tab style={globalStyles.singleTab} label="Best Seller" id={`simple-tabpannel-1`} />
                         <Tab style={globalStyles.singleTab} label="Featured" id={`simple-tabpanel-2`} />
-                        <Tab style={globalStyles.singleTab} label="Special Offer" id={`simple-tabpanel-2`} />
+                        <Tab style={globalStyles.singleTab} label="Special Offer" id={`simple-tabpanel-3`} />
                     </Tabs>
                 </Box>
-                <div role="tabpanel" hidden={value !== 0} aria-labelledby={`simple-tab-${0}`} >
-                    <Box sx={{ p: 3 }}>
-                        <Grid container columnSpacing={1}>
-                            <ShopProductCard
-                                columnNumber={4}
-                                productImage={LeatestProduct1}
-                                isMobile={isMobile}
-                                title="Comfort product"
-                                price="$42"
-                                discount="$42"
-                                saleText="50% OFF"
-                            />
-                            <ShopProductCard productImage={LeatestProduct1} title="Comfort product" discount="$42" price="$42" saleText="50% OFF" isMobile={isMobile} />
-                            <ShopProductCard productImage={LeatestProduct1} title="Comfort product" discount="$42" price="$42" saleText="50% OFF" isMobile={isMobile} />
-                        </Grid>
-                    </Box>
+                <div hidden={value !== 0} aria-labelledby={`simple-tab-${0}`} >
+                    <Grid container columnSpacing={3}>
+                    <ShopProductCard
+                        productImage={LeatestProducts1}
+                        title={"RevolvingChair"}
+                        price={"$42.00"}
+                        discount={"$65.00"}
+                        saleText={"50% OFF"}
+                        isMobile={isMobile}
+                        columnNumber={4}
+                        paperStyle={{}}
+                        imgHoverStyle={{}}
+                        iconHoverStyle={{}}
+                        paperHoverStyle={{}}
+                        saleTagHoverStyle={{}}
+                        imgBoxStyle={{}}
+                        imgStyle={{}}
+                        saleTagStyle={{}}
+                        saleBoxStyle={{}}
+                        iconsStyle={{}}
+                        detailsBoxStyle={{}}
+                        titleStyle={{}}
+                        priceStyle={{}}
+                        discountStyle={{}}
+                    />
+                    <ShopProductCard
+                        productImage={LeatestProducts2}
+                        title={"RevolvingChair"}
+                        price={"$42.00"}
+                        discount={"$65.00"}
+                        saleText={"50% OFF"}
+                        isMobile={isMobile}
+                        columnNumber={4}
+                        paperStyle={{}}
+                        imgHoverStyle={{}}
+                        iconHoverStyle={{}}
+                        paperHoverStyle={{}}
+                        saleTagHoverStyle={{}}
+                        imgBoxStyle={{}}
+                        imgStyle={{}}
+                        saleTagStyle={{}}
+                        saleBoxStyle={{}}
+                        iconsStyle={{}}
+                        detailsBoxStyle={{}}
+                        titleStyle={{}}
+                        priceStyle={{}}
+                        discountStyle={{}}
+                    />
+                    <ShopProductCard
+                        productImage={LeatestProducts3}
+                        title={"RevolvingChair"}
+                        price={"$42.00"}
+                        discount={"$65.00"}
+                        saleText={"50% OFF"}
+                        isMobile={isMobile}
+                        columnNumber={4}
+                        paperStyle={{}}
+                        imgHoverStyle={{}}
+                        iconHoverStyle={{}}
+                        paperHoverStyle={{}}
+                        saleTagHoverStyle={{}}
+                        imgBoxStyle={{}}
+                        imgStyle={{}}
+                        saleTagStyle={{}}
+                        saleBoxStyle={{}}
+                        iconsStyle={{}}
+                        detailsBoxStyle={{}}
+                        titleStyle={{}}
+                        priceStyle={{}}
+                        discountStyle={{}}
+                    />
+                    <ShopProductCard
+                        productImage={LeatestProducts4}
+                        title={"RevolvingChair"}
+                        price={"$42.00"}
+                        discount={"$65.00"}
+                        saleText={"50% OFF"}
+                        isMobile={isMobile}
+                        columnNumber={4}
+                        paperStyle={{}}
+                        imgHoverStyle={{}}
+                        iconHoverStyle={{}}
+                        paperHoverStyle={{}}
+                        saleTagHoverStyle={{}}
+                        imgBoxStyle={{}}
+                        imgStyle={{}}
+                        saleTagStyle={{}}
+                        saleBoxStyle={{}}
+                        iconsStyle={{}}
+                        detailsBoxStyle={{}}
+                        titleStyle={{}}
+                        priceStyle={{}}
+                        discountStyle={{}}
+                    />
+                    <ShopProductCard
+                        productImage={LeatestProducts5}
+                        title={"RevolvingChair"}
+                        price={"$42.00"}
+                        discount={"$65.00"}
+                        saleText={"50% OFF"}
+                        isMobile={isMobile}
+                        columnNumber={4}
+                        paperStyle={{}}
+                        imgHoverStyle={{}}
+                        iconHoverStyle={{}}
+                        paperHoverStyle={{}}
+                        saleTagHoverStyle={{}}
+                        imgBoxStyle={{}}
+                        imgStyle={{}}
+                        saleTagStyle={{}}
+                        saleBoxStyle={{}}
+                        iconsStyle={{}}
+                        detailsBoxStyle={{}}
+                        titleStyle={{}}
+                        priceStyle={{}}
+                        discountStyle={{}}
+                    />
+                    <ShopProductCard
+                        productImage={LeatestProducts6}
+                        title={"RevolvingChair"}
+                        price={"$42.00"}
+                        discount={"$65.00"}
+                        saleText={"50% OFF"}
+                        isMobile={isMobile}
+                        columnNumber={4}
+                        paperStyle={{}}
+                        imgHoverStyle={{}}
+                        iconHoverStyle={{}}
+                        paperHoverStyle={{}}
+                        saleTagHoverStyle={{}}
+                        imgBoxStyle={{}}
+                        imgStyle={{}}
+                        saleTagStyle={{}}
+                        saleBoxStyle={{}}
+                        iconsStyle={{}}
+                        detailsBoxStyle={{}}
+                        titleStyle={{}}
+                        priceStyle={{}}
+                        discountStyle={{}}
+                    />
+                    </Grid>
                 </div>
-                <div role="tabpanel" hidden={value !== 1} aria-labelledby={`simple-tab-${1}`} >
-                    <Box sx={{ p: 3 }}>
-                        <Grid container columnSpacing={1}>
+                <div hidden={value !== 1} aria-labelledby={`simple-tab-${1}`} >
+                    <Grid container columnSpacing={3}>
                             <ShopProductCard
-                                columnNumber={4}
-                                productImage={LeatestProduct1}
+                                productImage={LeatestProducts1}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
                                 isMobile={isMobile}
-                                title="Comfort product"
-                                price="$42"
-                                discount="$42"
-                                saleText="50% OFF"
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
                             />
-                            <ShopProductCard productImage={LeatestProduct1} title="Comfort product" discount="$42" price="$42" saleText="50% OFF" isMobile={isMobile} />
-                            <ShopProductCard productImage={LeatestProduct1} title="Comfort product" discount="$42" price="$42" saleText="50% OFF" isMobile={isMobile} />
-                        </Grid>
-                    </Box>
+                            <ShopProductCard
+                                productImage={LeatestProducts2}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts3}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts4}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts5}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts6}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                    </Grid>
                 </div>
-                <div role="tabpanel" hidden={value !== 2} aria-labelledby={`simple-tab-${2}`}>
-                    <Box sx={{ p: 3 }}>
-                        <Grid container columnSpacing={1}>
+                <div hidden={value !== 2} aria-labelledby={`simple-tab-${2}`}>
+                    <Grid container columnSpacing={3}>
                             <ShopProductCard
-                                columnNumber={4}
-                                productImage={LeatestProduct1}
+                                productImage={LeatestProducts1}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
                                 isMobile={isMobile}
-                                title="Comfort product"
-                                price="$42"
-                                discount="$42"
-                                saleText="50% OFF"
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
                             />
-                            <ShopProductCard productImage={LeatestProduct1} title="Comfort product" discount="$42" price="$42" saleText="50% OFF" isMobile={isMobile} />
-                            <ShopProductCard productImage={LeatestProduct1} title="Comfort product" discount="$42" price="$42" saleText="50% OFF" isMobile={isMobile} />
-                        </Grid>
-                    </Box>
+                            <ShopProductCard
+                                productImage={LeatestProducts2}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts3}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts4}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts5}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts6}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                    </Grid>
                 </div>
-                <div role="tabpane4" hidden={value !== 3} aria-labelledby={`simple-tab-${3}`}>
-                    <Box sx={{ p: 3 }}>
-                        <Grid container columnSpacing={1}>
+                <div hidden={value !== 3} aria-labelledby={`simple-tab-${3}`}>
+                    <Grid container columnSpacing={3}>
                             <ShopProductCard
-                                columnNumber={4}
-                                productImage={LeatestProduct1}
+                                productImage={LeatestProducts1}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
                                 isMobile={isMobile}
-                                title="Comfort product"
-                                price="$42"
-                                discount="$42"
-                                saleText="50% OFF"
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
                             />
-                            <ShopProductCard productImage={LeatestProduct1} title="Comfort product" discount="$42" price="$42" saleText="50% OFF" isMobile={isMobile} />
-                            <ShopProductCard productImage={LeatestProduct1} title="Comfort product" discount="$42" price="$42" saleText="50% OFF" isMobile={isMobile} />
-                        </Grid>
-                    </Box>
+                            <ShopProductCard
+                                productImage={LeatestProducts2}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts3}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts4}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts5}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                            <ShopProductCard
+                                productImage={LeatestProducts6}
+                                title={"RevolvingChair"}
+                                price={"$42.00"}
+                                discount={"$65.00"}
+                                saleText={"50% OFF"}
+                                isMobile={isMobile}
+                                columnNumber={4}
+                                paperStyle={{}}
+                                imgHoverStyle={{}}
+                                iconHoverStyle={{}}
+                                paperHoverStyle={{}}
+                                saleTagHoverStyle={{}}
+                                imgBoxStyle={{}}
+                                imgStyle={{}}
+                                saleTagStyle={{}}
+                                saleBoxStyle={{}}
+                                iconsStyle={{}}
+                                detailsBoxStyle={{}}
+                                titleStyle={{}}
+                                priceStyle={{}}
+                                discountStyle={{}}
+                            />
+                    </Grid>
                 </div>
             </Box>
 
-        </div>
+        </>
     )
 }

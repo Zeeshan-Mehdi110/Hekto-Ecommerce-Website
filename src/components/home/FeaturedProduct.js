@@ -27,14 +27,54 @@ function FeaturedProducts() {
                 <Typography variant="h1" sx={{ ...globalStyles.mainHeading, fontSize: !isMobile ? '42px' : '32px' }}>Featured Products</Typography>
             </Box>
             <Slider key={isMobile ? "mobile" : "desktop"} {...settings}>
-                <ProductCardVertical productImage={featureImage1} isMobile={isMobile} />
-                <ProductCardVertical productImage={featureImage2} isMobile={isMobile} />
-                <ProductCardVertical productImage={featureImage3} isMobile={isMobile} />
-                <ProductCardVertical productImage={featureImage4} isMobile={isMobile} />
-                <ProductCardVertical productImage={featureImage1} isMobile={isMobile} />
-                <ProductCardVertical productImage={featureImage2} isMobile={isMobile} />
-                <ProductCardVertical productImage={featureImage3} isMobile={isMobile} />
-                <ProductCardVertical productImage={featureImage4} isMobile={isMobile} />
+                <ProductCardVertical 
+                productImage={featureImage1} 
+                isMobile={isMobile} 
+                productTitle={'Cantilever chair'}
+                productPrice={'$42.00'}
+                productDiscount={'Code - Y523201'}/>
+                <ProductCardVertical 
+                productImage={featureImage2} 
+                isMobile={isMobile} 
+                productTitle={'Cantilever chair'}
+                productPrice={'$42.00'}
+                productDiscount={'Code - Y523201'}/>
+                <ProductCardVertical 
+                productImage={featureImage3} 
+                isMobile={isMobile} 
+                productTitle={'Cantilever chair'}
+                productPrice={'$42.00'}
+                productDiscount={'Code - Y523201'}/>
+                <ProductCardVertical 
+                productImage={featureImage4} 
+                isMobile={isMobile} 
+                productTitle={'Cantilever chair'}
+                productPrice={'$42.00'}
+                productDiscount={'Code - Y523201'}/>
+                <ProductCardVertical 
+                productImage={featureImage1} 
+                isMobile={isMobile} 
+                productTitle={'Cantilever chair'}
+                productPrice={'$42.00'}
+                productDiscount={'Code - Y523201'}/>
+                <ProductCardVertical 
+                productImage={featureImage2} 
+                isMobile={isMobile} 
+                productTitle={'Cantilever chair'}
+                productPrice={'$42.00'}
+                productDiscount={'Code - Y523201'}/>
+                <ProductCardVertical 
+                productImage={featureImage3} 
+                isMobile={isMobile} 
+                productTitle={'Cantilever chair'}
+                productPrice={'$42.00'}
+                productDiscount={'Code - Y523201'}/>
+                <ProductCardVertical 
+                productImage={featureImage4} 
+                isMobile={isMobile} 
+                productTitle={'Cantilever chair'}
+                productPrice={'$42.00'}
+                productDiscount={'Code - Y523201'}/>
             </Slider>
         </>
     );

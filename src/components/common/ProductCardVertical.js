@@ -4,7 +4,14 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import { globalStyles } from "../../globalStyle";
 
-function ProductCardVertical({ productImage, isMobile }) {
+function ProductCardVertical({
+    productImage, 
+    isMobile,
+    imageBoxStyle,
+    productTitle,
+    productPrice,
+    productDiscount
+    }) {
     return (
         <Box m={!isMobile ? 1 : 2}>
             <Paper square elevation={3} sx={{
@@ -39,13 +46,14 @@ function ProductCardVertical({ productImage, isMobile }) {
                     height: '236px',
                     backgroundColor: 'var(--product-background)',
                     position: 'relative',
+                    ...imageBoxStyle,
                 }}>
                     <img
                         style={{
                             maxWidth: '100%',
                             height: 'auto',
                         }}
-                        src={productImage} />
+                        src={productImage} alt='img' />
                     <Box className="iconsContainer" sx={{
                         position: 'absolute',
                         top: 7,
@@ -70,9 +78,9 @@ function ProductCardVertical({ productImage, isMobile }) {
 
                 </Box>
                 <Box textAlign='center' className="detailsBox" paddingBottom={2}>
-                    <Typography className="productTitle" varinat='h5' mb={2} paddingTop={2} sx={{ ...globalStyles.productTitle }}>Cantilever chair</Typography>
-                    <Typography className="productOtherDetails" sx={{ ...globalStyles.productCode }} mb={1}>Code - Y523201</Typography>
-                    <Typography className="productOtherDetails" sx={{ ...globalStyles.productPrice }} mt={2}>$42.00</Typography>
+                    <Typography className="productTitle" varinat='h5' mb={2} paddingTop={2} sx={{ ...globalStyles.productTitle }}>{productTitle}</Typography>
+                    <Typography className="productOtherDetails" sx={{ ...globalStyles.productCode }} mb={1}>{productDiscount}</Typography>
+                    <Typography className="productOtherDetails" sx={{ ...globalStyles.productPrice }} mt={2}>{productPrice}</Typography>
                 </Box>
             </Paper>
         </Box>
