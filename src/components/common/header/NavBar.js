@@ -24,57 +24,51 @@ function NavBar({ options }) {
 
     return (
         <AppBar sx={{ 'backgroundColor': '#ffffff' }} position="static">
-            <Grid container sx={{'alignItems':'center','justifyContent': {xs : 'flex-end' , sm : 'center'}}} >
+            <Grid container sx={{'alignItems':'center','justifyContent': { xs : 'space-around',sm : 'center'}}} >
             <Grid item md={2} >
-            <Toolbar disableGutters sx={{'justifyContent':'center'}}  >
-                    <Typography
-                        noWrap
-                        href="/"
-                        sx={{
-                            display: { xs: 'none', md: 'flex' }
-                        }}
-                    >
-                        <img src={logo} alt='img' />
-                    </Typography>
-                    {/* Mobile */}
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon sx={{'color':'black'}} />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {options.map((option, index) => (
-                                <MenuItem key={index} >
-                                    <Typography textAlign="center">{option.label}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    
-            </Toolbar>
+                <Toolbar disableGutters sx={{'justifyContent':{sm : 'center',xs : 'space-between'}}}  >
+                        <Typography noWrap href="/" sx={{ display: 'flex'}}>
+                            <img src={logo} alt='img' />
+                        </Typography>
+                        {/* Mobile */}
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <MenuIcon sx={{'color':'black'}} />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElNav}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchorElNav)}
+                                onClose={handleCloseNavMenu}
+                                sx={{
+                                    display: { xs: 'block', md: 'none' },
+                                }}
+                            >
+                                {options.map((option, index) => (
+                                    <MenuItem key={index} >
+                                        <Typography textAlign="center">{option.label}</Typography>
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                        
+                </Toolbar>
             </Grid>
             <Grid item md={5}>
             <Box   sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex'},'alignItems':'center',color:'black' }}>

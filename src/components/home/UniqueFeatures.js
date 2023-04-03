@@ -4,7 +4,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { globalStyles } from "../../globalStyle";
 const UniqueFeatures = () => {
 return (
-    <Grid container maxWidth={'xl'} mt={9} style={{'height':'580px'}} >
+    <Grid container maxWidth={'xl'}>
         <Grid item md={5} xs={12} sx={{ 'paddingRight' : { md : '20px' } , 'marginTop' : { xs : '15px' } }} >
             <img src={sofa2} alt='sofa2' width={'100%'} />
         </Grid>
@@ -21,7 +21,7 @@ return (
                     <FiberManualRecordIcon sx={{fontSize: "15px", color: 'var(--pink)' }} />
                     All frames constructed with hardwood solids and laminates
                 </Typography>
-                <Box display={'flex'} margin={'20px 0px'}>
+                <Box display={'flex'} margin={'20px 0px'} sx={{'justifyContent':{ xs : 'center' , md : 'start' }}} >
                     <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '16px 40px', 'fontFamily': 'var(--josefin)', 'fontSize': '17px', 'letterSpacing': '0.02em','marginRight':'20px' }} >Add To Cart</Button>
                     <Box>
                         <Typography sx={{...globalStyles.uniqueFeature}}>B&B Italian Sofa</Typography>

@@ -119,9 +119,65 @@ export const globalStyles = {
         lineHeight: '17px',
         color: '#151875',
     },
-    imageBoxStyle : {
-        width : '209px',
-        height : '236px',
+    imageBoxStyle: {
+        width: '209px',
+        height: '236px',
         backgroundColor: 'var(--product-background-hover)',
     },
+
+    discountItemHeading: {
+        fontFamily: 'var(--josefin)',
+        fontSize: "30px",
+        lineHeight: "132%",
+        letterSpacing: "0.015em",
+        color: "var(--off-blue)",
+        margin: "10px 0 ",
+        fontWeight: "bold",
+    },
+    discountedItemSubHeading: {
+        fontFamily: 'var(--josefin)',
+        fontSize: "21px",
+        lineHeight: "30px",
+        letterSpacing: "0.015em",
+        color: "var(--pink)",
+        margin: "10px 0 ",
+    },
+    discountedItemDescription: {
+        fontFamily: 'var(--lato)',
+        fontStyle: "normal",
+        fontHeight: 400,
+        fontSize: "16px",
+        lineHeight: "30px",
+        letterSpacing: "0.02em",
+        color: "var(--light-gray)",
+    },
+    discountedItemDescriptionPoints: {
+        fontFamily: 'var(--lato)',
+        fontStyle: "normal",
+        fontHeight: 400,
+        fontSize: "15px",
+        lineHeight: "30px",
+        letterSpacing: "0.02em",
+        color: "var(--light-gray)",
+    },
+    Btn: {
+        borderRadius: 0,
+        color: "var(--white)",
+        padding: "15px 48px",
+        marginTop: "20px",
+        backgroundColor: 'var(--pink)',
+        '&:hover': {
+            backgroundColor: 'var(--pink)',
+        },
+        '&:focus': {
+            backgroundColor: 'var(--pink)',
+        },
+    },
+    btnText: {
+        fontFamily: 'var(--josefin)',
+        fontSize: '17px',
+        lineHeight: '20px',
+        letterSpacing: '0.02em',
+        color: '#FFFFFF',
+    }
 }
