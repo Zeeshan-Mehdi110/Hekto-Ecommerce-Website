@@ -1,12 +1,12 @@
 import { Button, Grid, Typography,Box } from "@mui/material";
-import sofa2 from '../../static/images/sofa2.png'
+import sofa from '../../static/images/uniqueFeatures/sofa.png'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { globalStyles } from "../../globalStyle";
 const UniqueFeatures = () => {
 return (
     <Grid container maxWidth={'xl'}>
         <Grid item md={5} xs={12} sx={{ 'paddingRight' : { md : '20px' } , 'marginTop' : { xs : '15px' } }} >
-            <img src={sofa2} alt='sofa2' width={'100%'} />
+            <img src={sofa} alt='sofa2' width={'100%'} />
         </Grid>
         <Grid item md={7} xs={12}  sx={{ display: 'flex', textAlign: {xs: 'center', md: 'left'}, 'alignItems': 'center' }}>
             <Box dipslay="flex" alignItems="center">

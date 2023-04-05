@@ -1,6 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box,Grid, Toolbar, IconButton, Typography, Menu, Button, MenuItem, TextField } from '@mui/material';
-import logo from '../../../static/images/logo.png'
+import logo from '../../../static/images/logo/logo.png'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { globalStyles } from '../../../globalStyle';

@@ -1,11 +1,15 @@
-import { Container,Box } from "@mui/material";
+import { Box, Container} from "@mui/material";
 import FeaturedProduct from "./FeaturedProduct";
 import InfoSlider from "./InfoSlider";
 import LatestProducts from "./LatestProducts";
 import OffersList from "./OffersList";
 import UniqueFeatures from "./UniqueFeatures";
-// import TrendingProducts from "./TrendingProducts";
+import TrendingProducts from "./TrendingProducts";
 import DiscountItem from "./DiscountItem";
+import TopCategories from "./TopCategories";
+import GetUpdates from "./GetUpdates";
+import AdCard from "./AdCard";
+
 
 export default function Home() {
     return (
@@ -20,8 +24,13 @@ export default function Home() {
                 <UniqueFeatures />
             </Box>
             <Container maxWidth='md' disableGutters >
-                {/* <TrendingProducts /> */}
+                <TrendingProducts />
                 <DiscountItem />
+                <TopCategories />
+            </Container>
+                <GetUpdates />
+            <Container maxWidth='md' disableGutters >
+                <AdCard />
             </Container>
         </>
     )

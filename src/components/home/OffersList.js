@@ -1,9 +1,9 @@
 import { Box, Grid, Paper, Typography } from "@mui/material"
 import { globalStyles } from "../../globalStyle"
-import offer1 from '../../static/offers/offer1.png'
-import offer2 from '../../static/offers/offer2.png'
-import offer3 from '../../static/offers/offer3.png'
-import offer4 from '../../static/offers/offer4.png'
+import offer1 from '../../static/images/offers/offer1.png'
+import offer2 from '../../static/images/offers/offer2.png'
+import offer3 from '../../static/images/offers/offer3.png'
+import offer4 from '../../static/images/offers/offer4.png'
 function OffersList() {
     return (
         <>

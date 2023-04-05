@@ -173,11 +173,33 @@ export const globalStyles = {
             backgroundColor: 'var(--pink)',
         },
     },
+    btn: {
+        borderRadius: 0,
+        color: "var(--white)",
+        padding: {md : "12px 40px",xs : '5px 10px'},
+        fontFamily : 'var(--josefin)',
+        backgroundColor: 'var(--pink)',
+        '&:hover': {
+            backgroundColor: 'var(--pink)',
+        },
+        '&:focus': {
+            backgroundColor: 'var(--pink)',
+        },
+
+    },
     btnText: {
         fontFamily: 'var(--josefin)',
         fontSize: '17px',
         lineHeight: '20px',
         letterSpacing: '0.02em',
         color: '#FFFFFF',
+    },
+    updatesHeading : {
+        fontFamily : 'var(--josefin)',
+        fontSize: '35px',
+        lineHeight: '155%',
+        color: '#151875',
+        textAlign : 'center',
+        letterSpacing : '0.0015em'
     }
 }

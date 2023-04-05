@@ -1,11 +1,11 @@
 import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ShopProductCard from "../common/ShopProductCard";
-import LeatestProducts1 from '../../static/images/LeatestProducts1.png'
-import LeatestProducts2 from '../../static/images/LeatestProducts2.png'
-import LeatestProducts3 from '../../static/images/LeatestProducts3.png'
-import LeatestProducts4 from '../../static/images/LeatestProducts4.png'
-import LeatestProducts5 from '../../static/images/LeatestProducts5.png'
-import LeatestProducts6 from '../../static/images/LeatestProducts6.png'
+import latestImage1 from '../../static/images/latestImages/latestImage1.png'
+import latestImage2 from '../../static/images/latestImages/latestImage2.png'
+import latestImage3 from '../../static/images/latestImages/latestImage3.png'
+import latestImage4 from '../../static/images/latestImages/latestImage5.png'
+import latestImage5 from '../../static/images/latestImages/latestImage5.png'
+import latestImage6 from '../../static/images/latestImages/latestImage6.png'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useState } from 'react';
@@ -46,7 +46,7 @@ export default function LatestProducts() {
                 <div hidden={value !== 0} aria-labelledby={`simple-tab-${0}`} >
                     <Grid container columnSpacing={3}>
                     <ShopProductCard
-                        productImage={LeatestProducts1}
+                        productImage={latestImage1}
                         title={"RevolvingChair"}
                         price={"$42.00"}
                         discount={"$65.00"}
@@ -69,7 +69,7 @@ export default function LatestProducts() {
                         discountStyle={{}}
                     />
                     <ShopProductCard
-                        productImage={LeatestProducts2}
+                        productImage={latestImage2}
                         title={"RevolvingChair"}
                         price={"$42.00"}
                         discount={"$65.00"}
@@ -92,7 +92,7 @@ export default function LatestProducts() {
                         discountStyle={{}}
                     />
                     <ShopProductCard
-                        productImage={LeatestProducts3}
+                        productImage={latestImage3}
                         title={"RevolvingChair"}
                         price={"$42.00"}
                         discount={"$65.00"}
@@ -115,7 +115,7 @@ export default function LatestProducts() {
                         discountStyle={{}}
                     />
                     <ShopProductCard
-                        productImage={LeatestProducts4}
+                        productImage={latestImage4}
                         title={"RevolvingChair"}
                         price={"$42.00"}
                         discount={"$65.00"}
@@ -138,7 +138,7 @@ export default function LatestProducts() {
                         discountStyle={{}}
                     />
                     <ShopProductCard
-                        productImage={LeatestProducts5}
+                        productImage={latestImage5}
                         title={"RevolvingChair"}
                         price={"$42.00"}
                         discount={"$65.00"}
@@ -161,7 +161,7 @@ export default function LatestProducts() {
                         discountStyle={{}}
                     />
                     <ShopProductCard
-                        productImage={LeatestProducts6}
+                        productImage={latestImage6}
                         title={"RevolvingChair"}
                         price={"$42.00"}
                         discount={"$65.00"}

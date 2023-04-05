@@ -1,7 +1,7 @@
 import { Button, Grid, Typography,Box } from "@mui/material";
 import Slider from "react-slick";
-import sofa from '../../static/images/sofa.png';
-import image32 from '../../static/images/image32.png';
+import sofa from '../../static/images/infoSlider/sofa.png';
+import lamp from '../../static/images/infoSlider/lamp.png';
 
 function InfoSlider() {
     let settings = {
@@ -29,7 +29,7 @@ function InfoSlider() {
         <Slider {...settings}>
             <Grid container sx={{ height: { xs: 'auto', md: '80vh' }, display: 'flex !important', 'backgroundColor': 'var(--light-purple)' }}>
                 <Grid item md={2} xs={12} sx={{ display: { xs: 'flex', md: 'block' }, justifyContent: { xs: 'center', md: 'block' } }} >
-                    <img src={image32} alt='img' width={250} />
+                    <img src={lamp} alt='img' width={250} />
                 </Grid>
                 <Grid item md={6} xs={12}  sx={{ display: 'flex', textAlign: {xs: 'center', md: 'left'}, 'alignItems': 'center' }}>
                     <Box dipslay="flex" alignItems="center">
@@ -53,7 +53,7 @@ function InfoSlider() {
             </Grid>
             <Grid container sx={{ height: { xs: 'auto', md: '80vh' }, display: 'flex !important', 'backgroundColor': 'var(--light-purple)' }}>
                 <Grid item md={2} xs={12} sx={{ display: { xs: 'flex', md: 'block' }, justifyContent: { xs: 'center', md: 'block' } }} >
-                    <img src={image32} alt='img' width={250} />
+                    <img src={lamp} alt='img' width={250} />
                 </Grid>
                 <Grid item md={6} xs={12}  sx={{ display: 'flex', textAlign: {xs: 'center', md: 'left'}, 'alignItems': 'center' }}>
                     <Box dipslay="flex" alignItems="center">
@@ -77,7 +77,7 @@ function InfoSlider() {
             </Grid>
             <Grid container sx={{ height: { xs: 'auto', md: '80vh' }, display: 'flex !important', 'backgroundColor': 'var(--light-purple)' }}>
                 <Grid item md={2} xs={12} sx={{ display: { xs: 'flex', md: 'block' }, justifyContent: { xs: 'center', md: 'block' } }} >
-                    <img src={image32} alt='img' width={250} />
+                    <img src={lamp} alt='img' width={250} />
                 </Grid>
                 <Grid item md={6} xs={12}  sx={{ display: 'flex', textAlign: {xs: 'center', md: 'left'}, 'alignItems': 'center' }}>
                     <Box dipslay="flex" alignItems="center">

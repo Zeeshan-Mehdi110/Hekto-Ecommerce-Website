@@ -12,10 +12,10 @@ export default function ShopProductCard({
     productImage,
     isMobile ,
     paperStyle,
-    imageHoverBoxStyle,
+    imageBoxStyle,
     iconsHoverStyle,
     paperHoverStyle,
-    saleTagHoverStyles,
+    saleTagHoverStyle,
     imageStyle,
     imageHoverStyle,
     saleBoxStyle,
@@ -24,6 +24,7 @@ export default function ShopProductCard({
     titleStyle,
     discountStyle,
     priceStyle,
+    imageBoxContent,
     }) {
 
     return (
@@ -48,7 +49,7 @@ export default function ShopProductCard({
                     },
                     '&:hover .saleTagBox': {
                         visibility: 'visible',
-                        ...saleTagHoverStyles,
+                        ...saleTagHoverStyle,
                     }
                     
 
@@ -58,7 +59,7 @@ export default function ShopProductCard({
                         height: '236px',
                         backgroundColor: 'var(--product-background-hover)',
                         position: 'relative',
-                        ...imageHoverBoxStyle
+                        ...imageBoxStyle
                     }}>
                         <img
                             style={{
@@ -103,17 +104,19 @@ export default function ShopProductCard({
                         </Box>
 
                         {/* Add button */}
-                        <Box position="absolute" bottom={0} transform="translateX(-50%)" py={1} visibility="hidden" className="detailsButton">
+                        {/* <Box position="absolute" bottom={0} transform="translateX(-50%)" py={1} visibility="hidden" className="detailsButton">
                             <Button variant="contained" sx={{ padding: '8px 13px', borderRadius: '2px', backgroundColor: '#08D15F', color: '#FFFFFF', fontFamily: 'var(--josefin)', fontSize: '12px', '&:hover': { backgroundColor: '#08D15F', color: '#FFFFFF' } }} size="small">
                                 View Details
                             </Button>
-                        </Box>
-
+                        </Box> */}
+                        {imageBoxContent}
                     </Box>
-                    <Box display="flex" alignItems="baseline" pt={3} px={1} sx={{...detailsBoxStyle}} justifyContent='space-between' className="detailsBox" paddingBottom={1}>
-                        <Typography className="productTitle" sx={{ ...globalStyles.productTitle, color: 'var(--off-blue)', fontSize: '16px',fontFamily : 'var(--josefin)','fontWeight':'normal',...titleStyle }}>{title}</Typography>
-                        <Typography className="productOtherDetails" sx={{...globalStyles.productPrice, fontFamily: 'var(--josefin)',...priceStyle}}>{price}</Typography>
-                        <Typography className="productOtherDetails" sx={{...globalStyles.productPrice, fontFamily: 'var(--josefin)',...discountStyle, textDecorationLine: 'line-through', color: 'var(--pink)', fontSize: '12px', lineHeight: '14px'}}>{discount}</Typography>
+                    <Box display="flex" alignItems="baseline" pt={3} px={1} justifyContent='space-between' className="detailsBox" paddingBottom={1} sx={{...detailsBoxStyle}}>
+                        <Box><Typography className="productTitle" sx={{ ...globalStyles.productTitle, color: 'var(--off-blue)', fontSize: '16px', fontFamily: 'var(--josefin)', fontWeight: 'normal', ...titleStyle }}>{title}</Typography></Box>
+                        <Box display="flex" flexDirection="row" justifyContent="space-between">
+                            <Typography className="productOtherDetails" sx={{...globalStyles.productPrice, fontFamily: 'var(--josefin)', marginRight: '20px', ...priceStyle}}>{price}</Typography>
+                            <Typography className="productOtherDetails" sx={{...globalStyles.productPrice, fontFamily: 'var(--josefin)', textDecorationLine: 'line-through', color: 'var(--pink)', fontSize: '12px', lineHeight: '14px', ...discountStyle}}>{discount}</Typography>
+                        </Box>
                     </Box>
                 </Paper>
             </Box>

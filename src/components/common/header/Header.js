@@ -14,7 +14,7 @@ export default function Header() {
                 <Box fontFamily={'var(--josifin)'}  >
                     <Grid container sx={{ ...globalStyles.gridContainer }} >
                         <Grid item md={1} xs={0} ></Grid>
-                        <Grid md={5} xs={12} item sx={{'display': { xs : 'none' , sm : 'flex' }}} alignItems={'center'} justifyContent='space-evenly' >
+                        <Grid md={5} xs={12} item display={'flex'}  alignItems={'center'} justifyContent='space-evenly' >
                             <Box>
                                 <MailOutline sx={{ ...globalStyles.headerIcon }} />
                                 <a href="sd" style={{ ...globalStyles.links }} >mhhasanul@gmail.com</a>
@@ -25,7 +25,7 @@ export default function Header() {
                             </Box>
                         </Grid>
                         <Grid md={1} item ></Grid>
-                        <Grid md={5} xs={12} item display={'flex'} alignItems={'center'} >
+                        <Grid md={5} xs={12} item  sx={{'display': { xs : 'none' , sm : 'flex' }}} alignItems={'center'} >
                             <MenuLinks label='English' options={languageOptions} /> {/*Mui Positioned components*/}
                             <MenuLinks label='USD' options={currencyOptions} />
                             <Button sx={{ ...globalStyles.btnMenu }} endIcon={<PersonOutlineIcon />}>

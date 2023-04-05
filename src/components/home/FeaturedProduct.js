@@ -1,10 +1,10 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ProductCardVertical from "../common/ProductCardVertical";
 import { globalStyles } from "../../globalStyle";
-import featureImage1 from '../../static/images/featured1.png';
-import featureImage2 from '../../static/images/featured2.png';
-import featureImage3 from '../../static/images/featured3.png';
-import featureImage4 from '../../static/images/featured4.png';
+import featureImage1 from '../../static/images/featureProduct/featured1.png';
+import featureImage2 from '../../static/images/featureProduct/featured2.png';
+import featureImage3 from '../../static/images/featureProduct/featured3.png';
+import featureImage4 from '../../static/images/featureProduct/featured4.png';
 import Slider from "react-slick";
 
 function FeaturedProducts() {

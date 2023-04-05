@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react';
 import { globalStyles } from '../../globalStyle';
 import DoneIcon from '@mui/icons-material/Done';
-import discountedProduct from '../../static/images/discountedProduct.png'
+import discountedImage from '../../static/images/discountItem/discountImage.png'
 const DiscountItem = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -71,7 +71,7 @@ const DiscountItem = () => {
                         </Box>
                     </Grid>
                     <Grid item md={6} xs={12} sx={{ display: "flex", justifyContent: { md: "start", xs: "center" } }}>
-                        <img width={"85%"} src={discountedProduct} alt="" />
+                        <img width={"85%"} src={discountedImage} alt="" />
                     </Grid>
                 </Grid>
             </div>
