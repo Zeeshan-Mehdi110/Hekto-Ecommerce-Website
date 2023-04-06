@@ -20,7 +20,7 @@ function Footer() {
         <>
             <Box sx={{
                 backgroundColor: '#F4F6F8',
-                padding: '40px 20px 0 20px', margin: "20px 0 0 0"
+                padding: '40px 20px 0 20px'
             }}>
                 <Container maxWidth={"md"} disableGutters>
                     <Grid container justifyContent={isMobile ? "center" : "start"} >

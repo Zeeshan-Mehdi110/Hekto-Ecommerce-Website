@@ -25,12 +25,13 @@ export default function ShopProductCard({
     discountStyle,
     priceStyle,
     imageBoxContent,
+    paperElevation
     }) {
 
     return (
         <Grid item md={columnNumber || 4} xs={12} >
             <Box m={!isMobile ? 1 : 2}>
-                <Paper square elevation={3} sx={{
+                <Paper square elevation={ paperElevation || 3} sx={{
                     borderTopRightRadius: '5px', borderTopLeftRadius: '5px',
                     ...paperStyle,
                     '&:hover .imageBox': {
