@@ -232,11 +232,11 @@ export const globalStyles = {
     },
     breaCrumbsHeading: {
         "fontFamily": 'var(--josefin)',
-        "fontSize": {xs : "28px" , md : '36px'},
+        "fontSize": { xs: "28px", md: '36px' },
         "lineHeight": "42px",
         "color": "#101750",
         "fontWeight": "600",
-        
+
     },
     breaCrumbsLink: {
         "my": 2,
@@ -247,9 +247,87 @@ export const globalStyles = {
         'fontWeight': '500',
         'textDecoration': 'none',
     },
-    breadcrumbsBox : {
-        "padding" : { md : "72px" } ,
-        "paddingTop" : {xs : "40px"},
-        "paddingBottom" : { xs :"40px"}
+    breadcrumbsBox: {
+        "padding": { md: "72px" },
+        "paddingTop": { xs: "40px" },
+        "paddingBottom": { xs: "40px" }
+    },
+
+    footerLogo: {
+        fontFamily: 'Josefin Sans',
+        fontSize: '38px !important',
+        lineHeight: '45px',
+        color: '#000000',
+        marginBottom: '20px',
+        fontWeight: "700 !important",
+        marginBottom: "20px !important"
+    },
+    footerInput: {
+        background: '#FFFFFF',
+        borderRadius: '3px',
+        marginRight: '10px',
+    },
+    footerButton: {
+        backgroundColor: 'var(--pink) !important',
+        borderRadius: '3px',
+        '&:hover': {
+            background: 'var(--pink)',
+        },
+    },
+    footerButtonText: {
+        fontFamily: 'Roboto',
+        fontStyle: 'normal',
+        fontWeight: 500,
+        fontSize: '16px',
+        lineHeight: '19px',
+        color: '#EEEFFB',
+    },
+    footerAddress: {
+        fontFamily: 'Lato',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        fontSize: '16px',
+        lineHeight: '19px',
+        color: '#8A8FB9',
+    },
+    footerSection: {
+        marginBottom: '20px',
+    },
+    footerHeading: {
+        fontFamily: 'Josefin Sans',
+        fontSize: '22px !important',
+        lineHeight: '26px',
+        color: '#000000',
+        marginBottom: '10px',
+        fontWeight: "700 !important",
+        marginBottom: "20px !important"
+    },
+    footerLinks: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    footerLink: {
+        fontFamily: 'Lato',
+        fontStyle: 'normal',
+        textDecoration: "none",
+        fontWeight: 400,
+        fontSize: '14px',
+        lineHeight: '35px',
+        color: '#8A8FB9',
+        marginBottom: '5px',
+        textDecoration: 'none',
+        '&:hover': {
+            color: '#FB2E86',
+        },
+    },
+    productListProductTitle: {
+        fontFamily: 'Josefin Sans',
+        fontStyle: 'normal',
+        fontHeight: 700,
+        fontSize: '18px',
+        lineHeight: '18px',
+        textAlign: 'center',
+        color: '#151875',
+        fontWeight: "bold"
     }
 }
