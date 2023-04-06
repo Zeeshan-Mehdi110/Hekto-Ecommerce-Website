@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
-import creame from '../../static/images/AdCard/creame.jpg';
+import creame from '../../static/images/adCard/creame.jpg';
 import { globalStyles } from '../../globalStyle';
 
 const AdCard = () => {

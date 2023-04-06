@@ -176,8 +176,8 @@ export const globalStyles = {
     btn: {
         borderRadius: 0,
         color: "var(--white)",
-        padding: {md : "12px 40px",xs : '5px 10px'},
-        fontFamily : 'var(--josefin)',
+        padding: { md: "12px 40px", xs: '5px 10px' },
+        fontFamily: 'var(--josefin)',
         backgroundColor: 'var(--pink)',
         '&:hover': {
             backgroundColor: 'var(--pink)',
@@ -194,12 +194,62 @@ export const globalStyles = {
         letterSpacing: '0.02em',
         color: '#FFFFFF',
     },
-    updatesHeading : {
-        fontFamily : 'var(--josefin)',
+    updatesHeading: {
+        fontFamily: 'var(--josefin)',
         fontSize: '35px',
         lineHeight: '155%',
         color: '#151875',
-        textAlign : 'center',
-        letterSpacing : '0.0015em'
+        textAlign: 'center',
+        letterSpacing: '0.0015em'
+    },
+    latestBlogsHeading: {
+        fontFamily: 'Josefin Sans',
+        fontSize: '18px',
+        color: '#151875',
+        fontStyle: "600",
+        margin: "20px 0"
+    },
+    latestBlogDescription: {
+        fontFamily: 'Lato',
+        fontStyle: 'normal',
+        fontHeight: 400,
+        fontSize: '16px',
+    },
+    latestBlogAuthor: {
+        fontFamily: 'Josefin Sans',
+        fontSize: '14px',
+        lineHeight: '16px',
+        color: '#151875',
+    },
+    latestBlogButton: {
+        fontFamily: 'Lato',
+        fontStyle: 'normal',
+        fontWeight: '400',
+        fontSize: '16px',
+        lineHeight: '30px',
+        textDecoration: ' underline',
+        marginBottom: "20px"
+    },
+    breaCrumbsHeading: {
+        "fontFamily": 'var(--josefin)',
+        "fontSize": {xs : "28px" , md : '36px'},
+        "lineHeight": "42px",
+        "color": "#101750",
+        "fontWeight": "600",
+        
+    },
+    breaCrumbsLink: {
+        "my": 2,
+        "color": 'var(--pink)',
+        "display": 'block',
+        'fontSize': '16px',
+        "fontFamily": "var(--lato)",
+        'fontWeight': '500',
+        'textDecoration': 'none',
+    },
+    breadcrumbsBox : {
+        "padding" : { md : "72px" } ,
+        "paddingTop" : {xs : "40px"},
+        "paddingBottom" : { xs :"40px"}
     }
 }

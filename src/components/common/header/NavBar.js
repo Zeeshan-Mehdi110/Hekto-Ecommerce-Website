@@ -5,6 +5,7 @@ import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { globalStyles } from '../../../globalStyle';
 import MenuLinks from '../menu/MenuLinks';
+import { Link } from 'react-router-dom';
 
 // Defining the Navigation Bar component that takes "options" as a parameter
 function NavBar({ options }) {
@@ -28,7 +29,7 @@ function NavBar({ options }) {
             <Grid item md={2} >
                 <Toolbar disableGutters sx={{'justifyContent':{sm : 'center',xs : 'space-between'}}}  >
                         <Typography noWrap href="/" sx={{ display: 'flex'}}>
-                            <img src={logo} alt='img' />
+                            <Link to='/' ><img src={logo} alt='img' /></Link>
                         </Typography>
                         {/* Mobile */}
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
@@ -62,7 +63,9 @@ function NavBar({ options }) {
                             >
                                 {options.map((option, index) => (
                                     <MenuItem key={index} >
-                                        <Typography textAlign="center">{option.label}</Typography>
+                                        <Typography textAlign="center">
+                                        <Link style={{ my: 2, color: 'black', display: 'block','fontSize':'16px','fontWeight':'400','textDecoration':'none' }} to={option.path} >{option.label}</Link>
+                                        </Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
@@ -72,15 +75,15 @@ function NavBar({ options }) {
             </Grid>
             <Grid item md={5}>
             <Box   sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex'},'alignItems':'center',color:'black' }}>
-                <MenuLinks label={'Home'} options={optionsArr} navbarMenu={globalStyles.navbarMenu} />
+                <MenuLinks label={'Home'}  options={optionsArr} navbarMenu={globalStyles.navbarMenu} />
                 {options.map((page,index) => (
                     <Button
                         style={globalStyles.navbarMenu}
                         key={index}
                         onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'black', display: 'block','fontSize':'16px','fontWeight':'400' }}
+                        
                     >
-                        {page.label}
+                        <Link style={{ my: 2, color: 'black', display: 'block','fontSize':'16px','fontWeight':'400','textDecoration':'none' }} to={page.path} >{page.label}</Link>
                     </Button>
                 ))}
             </Box>

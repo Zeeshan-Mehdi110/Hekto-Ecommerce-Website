@@ -61,9 +61,9 @@ const currencyOptions = [
     { to : 'pakistaniRupay' , label : 'Pakistani Rupay' },
 ]
 const navbarOptions = [
-    { to: 'about', label: 'Pages' },
-    { to: 'contactUs', label: 'Products' },
-    { to: 'blogs', label: 'Blog' },
-    { to: 'blogs', label: 'Shop' },
-    { to: 'blogs', label: 'Contact' },
+    { to: 'about', label: 'Pages',"path" : "./pages" },
+    { to: 'contactUs', label: 'Products', "path" : '/products' },
+    { to: 'blogs', label: 'Blog',"path" : "./blog" },
+    { to: 'blogs', label: 'Shop',"path" : "./shop" },
+    { to: 'blogs', label: 'Contact' , "path" : "./contacts" },
 ]

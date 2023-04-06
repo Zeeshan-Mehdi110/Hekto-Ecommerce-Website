@@ -9,6 +9,7 @@ import DiscountItem from "./DiscountItem";
 import TopCategories from "./TopCategories";
 import GetUpdates from "./GetUpdates";
 import AdCard from "./AdCard";
+import LatestBlogs from "./LatestBlogs";
 
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
                 <GetUpdates />
             <Container maxWidth='md' disableGutters >
                 <AdCard />
+                <LatestBlogs />
             </Container>
         </>
     )
