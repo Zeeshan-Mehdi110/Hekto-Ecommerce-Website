@@ -65,7 +65,7 @@ export default function ShopProductCard({
                         <img
                             style={{
                                 maxWidth: '100%',
-                                height: 'auto',
+                                height: isMobile ? "95%" : "auto",
                                 ...imageStyle
                             }}
                             src={productImage}

@@ -30,7 +30,7 @@ function ProductsListVertical() {
         <div>
             <Grid container columnSpacing={1} mb={5} >
                 <ShopProductCard
-                    productImage={shopProduct3}
+                    productImage={shopProduct7}
                     title={"RevolvingChair"}
                     price={"$42.00"}
                     discount={"$65.00"}
@@ -53,10 +53,9 @@ function ProductsListVertical() {
                     discountStyle={{}}
                     paperElevation={"0"}
                     priceBoxStyle ={ { marginTop: "20px" } }
-
                 />
                 <ShopProductCard
-                    productImage={shopProduct3}
+                    productImage={shopProduct8}
                     title={"RevolvingChair"}
                     price={"$42.00"}
                     discount={"$65.00"}
@@ -106,7 +105,7 @@ function ProductsListVertical() {
                     priceBoxStyle ={ { marginTop: "20px" } }
                     />
                 <ShopProductCard
-                    productImage={shopProduct3}
+                    productImage={shopProduct4}
                     title={"RevolvingChair"}
                     price={"$42.00"}
                     discount={"$65.00"}
@@ -129,8 +128,306 @@ function ProductsListVertical() {
                     discountStyle={{}}
                     paperElevation={"0"}
                     priceBoxStyle ={ { marginTop: "20px" } }
-
                 />
+            {/* <ShopProductCard
+                    productImage={shopProduct5}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct6}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct7}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                /><ShopProductCard
+                productImage={shopProduct8}
+                title={"RevolvingChair"}
+                price={"$42.00"}
+                discount={"$65.00"}
+                saleText={"50% OFF"}
+                isMobile={isMobile}
+                columnNumber={3}
+                paperStyle={{}}
+                imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                iconHoverStyle={{ backgroundColor: "#fff" }}
+                paperHoverStyle={{ border: "none" }}
+                saleTagHoverStyle={{ visibility: 'hidden' }}
+                imageBoxStyle={{}}
+                imageStyle={{}}
+                saleTagStyle={{}}
+                saleBoxStyle={{}}
+                iconsStyle={{}}
+                detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                titleStyle={{ ...globalStyles.productListProductTitle }}
+                priceStyle={{}}
+                discountStyle={{}}
+                paperElevation={"0"}
+                priceBoxStyle ={ { marginTop: "20px" } }
+            />
+            <ShopProductCard
+                    productImage={shopProduct9}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct10}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct11}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct12}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct13}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct14}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct15}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                />
+                <ShopProductCard
+                    productImage={shopProduct16}
+                    title={"RevolvingChair"}
+                    price={"$42.00"}
+                    discount={"$65.00"}
+                    saleText={"50% OFF"}
+                    isMobile={isMobile}
+                    columnNumber={3}
+                    paperStyle={{}}
+                    imageHoverStyle={{ backgroundColor: "#EBF4F3" }}
+                    iconHoverStyle={{ backgroundColor: "#fff" }}
+                    paperHoverStyle={{ border: "none" }}
+                    saleTagHoverStyle={{ visibility: 'hidden' }}
+                    imageBoxStyle={{}}
+                    imageStyle={{}}
+                    saleTagStyle={{}}
+                    saleBoxStyle={{}}
+                    iconsStyle={{}}
+                    detailsBoxStyle={{ "flexDirection": "column", alignItems: "center", border: "1px solid #E7E6EF" }}
+                    titleStyle={{ ...globalStyles.productListProductTitle }}
+                    priceStyle={{}}
+                    discountStyle={{}}
+                    paperElevation={"0"}
+                    priceBoxStyle ={ { marginTop: "20px" } }
+                /> */}
             </Grid>
         </div>
     )

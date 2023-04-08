@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import Home from "./components/home/Home"
 import ProductsList from "./components/products/ProductsList"
+import ShopingCart from "./components/products/ShopingCart"
 
 export default function AppRoutes() {
     const routes = [
@@ -11,6 +12,10 @@ export default function AppRoutes() {
         {
             path : '/products',
             element : ProductsList
+        },
+        {
+            path : '/shopingcart',
+            element : ShopingCart
         },
     ]
     return (
