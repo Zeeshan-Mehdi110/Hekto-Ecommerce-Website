@@ -54,7 +54,7 @@ export default function ProductsFilters() {
         md={5}
         xs={12}
         sx={{
-         ...globalStyles.filterPerPageContainer
+          ...globalStyles.filterPerPageContainer
         }}
       >
         <Typography
@@ -139,7 +139,7 @@ export default function ProductsFilters() {
         md={4}
         xs={12}
         sx={{
-         ...globalStyles.filterSearchInputContainer
+          ...globalStyles.filterSearchInputContainer
         }}
       >
         <Typography

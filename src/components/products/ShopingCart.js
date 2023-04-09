@@ -6,12 +6,12 @@ import shopingCart4 from "../../static/images/shopingCart/shopingCart4.png"
 import shopingCart5 from "../../static/images/shopingCart/shopingCart5.png"
 const ShopingCart = () => {
     return (
-        <Container maxWidth={"md"}    >
-            <Grid container mt={9} mb={9} >
-                <Grid item md={7} xs={12} >
+        <Container maxWidth={"md"}>
+            <Grid container mt={9} mb={9}  >
+                <Grid item md={8} xs={12}>
                     <Grid item md={12} mb={6} display={"flex"} alignItems={"center"} justifyContent={"space-between"}  >
-                        <Grid item md={5} display={"flex"} justifyContent={"space-between"} >
-                            <Typography color="#1D3178" fontSize={"20px"} fontFamily={"var(--josefin)"} lineHeight={"23px"}  >Product</Typography>
+                        <Grid item md={5} xs={5} display={"flex"} sx={{justifyContent  : {md : "space-between", xs : "center"}}} >
+                            <Typography color="#1D3178" fontSize={"20px"} fontFamily={"var(--josefin)"} lineHeight={"23px"}   >Product</Typography>
                         </Grid>
                         <Grid item md={2} display={"flex"} justifyContent={"space-between"} >
                             <Typography color="#1D3178" fontSize={"20px"} fontFamily={"var(--josefin)"} lineHeight={"23px"}  >Price</Typography>
@@ -25,7 +25,7 @@ const ShopingCart = () => {
                     </Grid>
                     <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
                         <Grid item md={5} display={"flex"}  >
-                            <Box display={"flex"} >
+                            <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} >
                                 <Box width={'40%'} >
                                     <img src={shopingCart1} alt="img1" width={"100%"} />
                                 </Box>
@@ -45,10 +45,10 @@ const ShopingCart = () => {
                         </Grid>
                         <Grid item md={2} >
                             <Box display={"flex"} >
-                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{"backgroundColor":"#F0EFF2"}} justifyContent={"space-evenly"} >
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >-</button>
-                                    <span style={{"border":"0px","backgroundColor":"#F0EFF2","width":"14px","height":"15px","display":"block","textAlign":"center","fontSize":"13px"}} >1</span>
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >+</button>
+                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{ "backgroundColor": "#F0EFF2" }} justifyContent={"space-evenly"} >
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >-</button>
+                                    <span style={{ "border": "0px", "backgroundColor": "#F0EFF2", "width": "14px", "height": "15px", "display": "block", "textAlign": "center", "fontSize": "13px" }} >1</span>
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >+</button>
                                 </Box>
                             </Box>
                         </Grid>
@@ -62,7 +62,7 @@ const ShopingCart = () => {
                     </Grid>
                     <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
                         <Grid item md={5} display={"flex"}  >
-                            <Box display={"flex"} >
+                            <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} >
                                 <Box width={'40%'} >
                                     <img src={shopingCart2} alt="img1" width={"100%"} />
                                 </Box>
@@ -82,10 +82,10 @@ const ShopingCart = () => {
                         </Grid>
                         <Grid item md={2} >
                             <Box display={"flex"} >
-                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{"backgroundColor":"#F0EFF2"}} justifyContent={"space-evenly"} >
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >-</button>
-                                    <span style={{"border":"0px","backgroundColor":"#F0EFF2","width":"14px","height":"15px","display":"block","textAlign":"center","fontSize":"13px"}} >1</span>
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >+</button>
+                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{ "backgroundColor": "#F0EFF2" }} justifyContent={"space-evenly"} >
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >-</button>
+                                    <span style={{ "border": "0px", "backgroundColor": "#F0EFF2", "width": "14px", "height": "15px", "display": "block", "textAlign": "center", "fontSize": "13px" }} >1</span>
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >+</button>
                                 </Box>
                             </Box>
                         </Grid>
@@ -99,7 +99,7 @@ const ShopingCart = () => {
                     </Grid>
                     <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
                         <Grid item md={5} display={"flex"}  >
-                            <Box display={"flex"} >
+                            <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} >
                                 <Box width={'40%'} >
                                     <img src={shopingCart3} alt="img1" width={"100%"} />
                                 </Box>
@@ -119,10 +119,10 @@ const ShopingCart = () => {
                         </Grid>
                         <Grid item md={2} >
                             <Box display={"flex"} >
-                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{"backgroundColor":"#F0EFF2"}} justifyContent={"space-evenly"} >
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >-</button>
-                                    <span style={{"border":"0px","backgroundColor":"#F0EFF2","width":"14px","height":"15px","display":"block","textAlign":"center","fontSize":"13px"}} >1</span>
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >+</button>
+                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{ "backgroundColor": "#F0EFF2" }} justifyContent={"space-evenly"} >
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >-</button>
+                                    <span style={{ "border": "0px", "backgroundColor": "#F0EFF2", "width": "14px", "height": "15px", "display": "block", "textAlign": "center", "fontSize": "13px" }} >1</span>
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >+</button>
                                 </Box>
                             </Box>
                         </Grid>
@@ -136,7 +136,7 @@ const ShopingCart = () => {
                     </Grid>
                     <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
                         <Grid item md={5} display={"flex"}  >
-                            <Box display={"flex"} >
+                            <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} >
                                 <Box width={'40%'} >
                                     <img src={shopingCart4} alt="img1" width={"100%"} />
                                 </Box>
@@ -156,10 +156,10 @@ const ShopingCart = () => {
                         </Grid>
                         <Grid item md={2} >
                             <Box display={"flex"} >
-                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{"backgroundColor":"#F0EFF2"}} justifyContent={"space-evenly"} >
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >-</button>
-                                    <span style={{"border":"0px","backgroundColor":"#F0EFF2","width":"14px","height":"15px","display":"block","textAlign":"center","fontSize":"13px"}} >1</span>
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >+</button>
+                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{ "backgroundColor": "#F0EFF2" }} justifyContent={"space-evenly"} >
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >-</button>
+                                    <span style={{ "border": "0px", "backgroundColor": "#F0EFF2", "width": "14px", "height": "15px", "display": "block", "textAlign": "center", "fontSize": "13px" }} >1</span>
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >+</button>
                                 </Box>
                             </Box>
                         </Grid>
@@ -173,7 +173,7 @@ const ShopingCart = () => {
                     </Grid>
                     <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
                         <Grid item md={5} display={"flex"}  >
-                            <Box display={"flex"} >
+                            <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} >
                                 <Box width={'40%'} >
                                     <img src={shopingCart5} alt="img1" width={"100%"} />
                                 </Box>
@@ -193,10 +193,10 @@ const ShopingCart = () => {
                         </Grid>
                         <Grid item md={2} >
                             <Box display={"flex"} >
-                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{"backgroundColor":"#F0EFF2"}} justifyContent={"space-evenly"} >
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >-</button>
-                                    <span style={{"border":"0px","backgroundColor":"#F0EFF2","width":"14px","height":"15px","display":"block","textAlign":"center","fontSize":"13px"}} >1</span>
-                                    <button style={{"border":"0px","backgroundColor":"#F0EFF2"}} >+</button>
+                                <Box display={"flex"} width={"51px"} height={"15px"} sx={{ "backgroundColor": "#F0EFF2" }} justifyContent={"space-evenly"} >
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >-</button>
+                                    <span style={{ "border": "0px", "backgroundColor": "#F0EFF2", "width": "14px", "height": "15px", "display": "block", "textAlign": "center", "fontSize": "13px" }} >1</span>
+                                    <button style={{ "border": "0px", "backgroundColor": "#F0EFF2" }} >+</button>
                                 </Box>
                             </Box>
                         </Grid>
@@ -208,20 +208,19 @@ const ShopingCart = () => {
                             </Box>
                         </Grid>
                     </Grid>
-                    <Grid item md={12} sx={{'marginTop':{xs : '20px',md : "40px"}}} >
+                    <Grid item md={12} sx={{ 'marginTop': { xs: '20px', md: "40px" } }} >
                         <Box display={"flex"} justifyContent={"space-between"} >
                             <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '6px 30px', 'fontFamily': 'Josefin Sans', 'fontSize': '16px', 'letterSpacing': '0.02em' }} >Update Cart</Button>
                             <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '6px 30px', 'fontFamily': 'Josefin Sans', 'fontSize': '16px', 'letterSpacing': '0.02em' }} >Clear Cart</Button>
                         </Box>
                     </Grid>
                 </Grid>
-                <Grid item md={1} ></Grid>
-                <Grid item md={4} xs={12} sx={{'marginTop':{xs : '30px',md : "0px"}}} display={"flex"} flexDirection={"column"} >
+                <Grid item md={4} xs={12} sx={{ 'marginTop': { xs: '30px', md: "0px" } }} display={"flex"} flexDirection={"column"} >
                     <Grid item md={12} >
                         <Box mb={4} display={"flex"} justifyContent={"center"} >
-                            <Typography color="#1D3178" fontFamily={"var(--josefin)" } fontSize={"20px"} >Cart Totals</Typography>
+                            <Typography color="#1D3178" fontFamily={"var(--josefin)"} fontSize={"20px"} >Cart Totals</Typography>
                         </Box>
-                        <Box sx={{"backgroundColor":"#F4F4FC"}} p={3} pb={0} >
+                        <Box sx={{ "backgroundColor": "#F4F4FC" }} p={3} pb={0} >
                             <Box mb={5} display={"flex"} justifyContent={"space-around"} borderBottom={"2px solid #E8E6F1"} >
                                 <Typography fontSize={"16px"} fontFamily={"var(--lato)"} color="#1D3178" fontWeight={600} lineHeight={"20px"} >Subtotals :</Typography>
                                 <Typography fontSize={"16px"} fontFamily={"var(--lato)"} color="#1D3178" fontWeight={600} >$219.00</Typography>
@@ -233,10 +232,10 @@ const ShopingCart = () => {
                             <Box mb={4} display={"flex"} flexDirection={'column'}   >
                                 <Box mb={3} display={"flex"} alignItems={"center"} >
                                     <Checkbox size="small" color="success" defaultChecked />
-                                    <Typography fontFamily={"var(--josefin)"}  fontSize={"10px"} >Shipping & taxes calculated at checkout</Typography>
+                                    <Typography fontFamily={"var(--josefin)"} fontSize={"10px"} >Shipping & taxes calculated at checkout</Typography>
                                 </Box>
                                 <Box display={"flex"} alignItems={"center"}  >
-                                    <Button sx={{"backgroundColor":"#19D16F","width":"100%","color":"white","fontSize":"14px","fontFamily":"var(--lato)","fontWeight":"700","fontStyle":"normal"}} >Proceed To Checkout</Button>
+                                    <Button sx={{ "backgroundColor": "#19D16F", "width": "100%", "color": "white", "fontSize": "14px", "fontFamily": "var(--lato)", "fontWeight": "700", "fontStyle": "normal" }} >Proceed To Checkout</Button>
                                 </Box>
                             </Box>
 
@@ -244,21 +243,21 @@ const ShopingCart = () => {
                     </Grid>
                     <Grid item md={12} >
                         <Box mb={4} display={"flex"} justifyContent={"center"} >
-                            <Typography color="#1D3178" fontFamily={"var(--josefin)" } fontSize={"20px"} >Calculate Shopping</Typography>
+                            <Typography color="#1D3178" fontFamily={"var(--josefin)"} fontSize={"20px"} >Calculate Shopping</Typography>
                         </Box>
-                        <Box sx={{"backgroundColor":"#F4F4FC"}} p={3} pb={0} >
+                        <Box sx={{ "backgroundColor": "#F4F4FC" }} p={3} pb={0} >
                             <Box mb={1}>
-                                <TextField fullWidth style={{"borderBottom":"2px solid #E8E6F1"}}  label="Bangladesh" variant="standard" /> 
+                                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Bangladesh" variant="standard" />
                             </Box>
                             <Box mb={1} >
-                                <TextField fullWidth style={{"borderBottom":"2px solid #E8E6F1"}}  label="Mirpur Dhaka - 1200" variant="standard" />
+                                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Mirpur Dhaka - 1200" variant="standard" />
                             </Box>
                             <Box mb={1}>
-                                <TextField fullWidth style={{"borderBottom":"2px solid #E8E6F1"}} label="Postal Code" variant="standard" />
+                                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Postal Code" variant="standard" />
                             </Box>
                             <Box mt={4} display={"flex"} flexDirection={'column'}   >
                                 <Box mb={2} display={"flex"} alignItems={"center"}  >
-                                    <Button sx={{"backgroundColor":"#19D16F","width":"100%","color":"white","fontSize":"14px","fontFamily":"var(--lato)","fontWeight":"700","fontStyle":"normal"}} >Proceed To Checkout</Button>
+                                    <Button sx={{ "backgroundColor": "#19D16F", "width": "100%", "color": "white", "fontSize": "14px", "fontFamily": "var(--lato)", "fontWeight": "700", "fontStyle": "normal" }} >Proceed To Checkout</Button>
                                 </Box>
                             </Box>
                         </Box>

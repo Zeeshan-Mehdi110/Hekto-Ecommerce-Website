@@ -130,10 +130,12 @@ function Footer() {
                                 &copy; Hekto - All Rights Reserved
                             </Typography>
                         </Grid>
-                        <Grid item md={6}  xs={12} my={isMobile ? 1 : 0}  textAlign={isMobile ? "center" : "end"}>
+                        <Grid item md={6}  xs={12} my={isMobile ? 1 : 0} display={"flex"}  justifyContent={isMobile ? "center" : "end"}>
+                            <Box display={"flex"} alignItems={"center"} >
                             <FacebookIcon sx={{...globalStyles.footerSocialIcon}} />
                             <InstagramIcon sx={{...globalStyles.footerSocialIcon}}  />
                             <TwitterIcon sx={{...globalStyles.footerSocialIcon}}  />
+                            </Box>
                         </Grid>
                     </Grid>
                 </Container>
