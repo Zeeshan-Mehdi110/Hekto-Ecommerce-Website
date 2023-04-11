@@ -16,7 +16,7 @@ export default function Home() {
     return (
         <>
             <InfoSlider />
-            {/* <Container maxWidth='md' disableGutters >
+            <Container maxWidth='md' disableGutters >
                 <FeaturedProduct />
                 <LatestProducts />
                 <OffersList />
@@ -33,7 +33,7 @@ export default function Home() {
             <Container maxWidth='md' disableGutters >
                 <AdCard />
                 <LatestBlogs />
-            </Container> */}
+            </Container>
         </>
     )
 }

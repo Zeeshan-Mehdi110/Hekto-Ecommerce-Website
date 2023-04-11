@@ -398,5 +398,59 @@ export const globalStyles = {
             borderWidth: "1px",
         },
     },
+
     // horizontal filters
+
+    //product details page
+    productDetailsPrice: {
+        fontFamily: 'Josefin Sans',
+        fontSize: '14px',
+        lineHeight: '16px',
+        color: '#111C85',
+        marginRight: '10px'
+    },
+    productDetailsDiscountedPrice: {
+        fontFamily: 'Josefin Sans',
+        fontSize: '14px',
+        lineHeight: '16px',
+        textDecoration: 'line-through',
+        color: "#FF2AAA",
+        marginBottom: '20px'
+    },
+    productDetailsDescription: {
+        fontFamily: 'Lato',
+        fontStyle: 'normal',
+        fontHeight: '400',
+        fontSize: '16px',
+        lineHeight: '28px',
+        color: '#9295AA',
+        marginBottom: '20px'
+    },
+    productDetailsAddToCartButton: {
+        backgroundColor: 'var(--pink) !important',
+        borderRadius: '0',
+        boxShadow: '0',
+        '&:hover': {
+            background: 'var(--pink)',
+            boxShadow: '0'
+        }
+    },
+    productDetailsSubTitle: {
+        fontFamily: 'var(--josefin)',
+        fontSize: '18px',
+        lineHeight: '21px',
+        fontWeight: "bold",
+        color: "#0D134E"
+    },
+    productDetailsTotalRating: {
+        fontFamily: "var(--josefin)",
+        fontSize: "14px",
+        lineHeight: "29px",
+        textTransform: "capitalize",
+        color: '#151875',
+        marginLeft: '5px',
+        marginBottom: '20px'
+    }
+    //product details page: ended
+
 }

@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActions } from '@mui/material';
 import blogImage1 from '../../static/images/blogs/blog1.png'
 import CreateIcon from '@mui/icons-material/Create';
 import { Box } from '@mui/system';
@@ -32,7 +32,6 @@ function BlogCardVertical() {
                 color: "var(--pink)"
             }
         }}>
-                <CardActionArea>
                     <CardMedia
                         sx={{
                             height: '255px',
@@ -67,7 +66,6 @@ function BlogCardVertical() {
                         Read More
                     </Button>
                 </CardActions>
-                </CardActionArea>
             </Card>
         </Grid>
     )

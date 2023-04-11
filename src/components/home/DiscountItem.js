@@ -40,7 +40,7 @@ const DiscountItem = () => {
                         <Box>
                             <Grid item md={12} sx={{textAlign : {md : 'start', xl : 'center' }}}>
                                 <Typography sx={{ ...globalStyles.discountItemHeading , textAlign : {xs : 'center',md : 'start'} }}>20% Discount Of All Products</Typography>
-                                <Typography sx={{ ...globalStyles.discountedItemSubHeading , textAlign : {xs : 'center',md : 'start'} }}discountedItemSubHeading>Eams Sofa Compact</Typography>
+                                <Typography sx={{ ...globalStyles.discountedItemSubHeading , textAlign : {xs : 'center',md : 'start'} }}>Eams Sofa Compact</Typography>
                                 <Typography sx={{ ...globalStyles.discountedItemDescription , textAlign : {xs : 'center',md : 'start'}}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu eget feugiat habitasse nec, bibendum condimentum.</Typography>
                             </Grid>
                             <Grid container sx={{ textAlign: { md: "start", xs: "center" } }}>

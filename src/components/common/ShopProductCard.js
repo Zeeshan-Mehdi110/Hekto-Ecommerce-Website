@@ -2,7 +2,7 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
-import {globalStyles} from '../../globalStyle'
+import { globalStyles } from '../../globalStyle'
 
 export default function ShopProductCard({
     columnNumber,
@@ -10,7 +10,7 @@ export default function ShopProductCard({
     price,
     discount,
     productImage,
-    isMobile ,
+    isMobile,
     paperStyle,
     imageBoxStyle,
     iconsHoverStyle,
@@ -26,12 +26,12 @@ export default function ShopProductCard({
     priceStyle,
     imageBoxContent,
     paperElevation
-    }) {
+}) {
 
     return (
         <Grid item md={columnNumber || 4} xs={12} >
             <Box m={!isMobile ? 1 : 2}>
-                <Paper square elevation={ paperElevation || 3} sx={{
+                <Paper square elevation={paperElevation || 3} sx={{
                     borderTopRightRadius: '5px', borderTopLeftRadius: '5px',
                     ...paperStyle,
                     '&:hover .imageBox': {
@@ -52,7 +52,7 @@ export default function ShopProductCard({
                         visibility: 'visible',
                         ...saleTagHoverStyle,
                     }
-                    
+
 
                 }}>
                     <Box className="imageBox" display="flex" justifyContent="center" alignItems="center" sx={{
@@ -69,39 +69,41 @@ export default function ShopProductCard({
                                 ...imageStyle
                             }}
                             src={productImage}
-                            alt='img' />
-                            {/* Top Left Sale Tag */}
-                                <Box className="saleTagBox" sx={{ visibility: 'hidden',...saleBoxStyle }}>
-                                    <span className="saleTag" style={{
-                                        position: 'absolute',
-                                        top: 15,
-                                        left: 10,
-                                        fontFamily: 'var(--josefin)',
-                                        backgroundColor: 'var(--off-navy-blue)',
-                                        color: '#ffffff',
-                                        fontSize: '14px',
-                                        padding: '5px 10px',
-                                        borderRadius: '5px',
-                                        width: '60px',
-                                        textAlign: 'center',
-                                        transform: 'rotate(-20deg) skew(-10deg) translateX(-5px)'
-                                    }}>Sale</span>
-                    </Box>
-                        <Box  className="iconsContainer" sx={{
+                            alt='img'
+                        />
+
+                        {/* Top Left Sale Tag */}
+                        <Box className="saleTagBox" sx={{ visibility: 'hidden', ...saleBoxStyle }}>
+                            <span className="saleTag" style={{
+                                position: 'absolute',
+                                top: 15,
+                                left: 10,
+                                fontFamily: 'var(--josefin)',
+                                backgroundColor: 'var(--off-navy-blue)',
+                                color: '#ffffff',
+                                fontSize: '14px',
+                                padding: '5px 10px',
+                                borderRadius: '5px',
+                                width: '60px',
+                                textAlign: 'center',
+                                transform: 'rotate(-20deg) skew(-10deg) translateX(-5px)'
+                            }}>Sale</span>
+                        </Box>
+                        <Box className="iconsContainer" sx={{
                             position: 'absolute',
                             bottom: 7,
                             left: 10,
                             visibility: 'hidden',
                             display: 'flex',
-                            flexDirection : 'column',
+                            flexDirection: 'column',
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             zIndex: 2,
                             ...iconsStyle
                         }}>
-                            <AddShoppingCartIcon className="productHoverIcons" sx={{ padding: '10px',color:'#2F1AC4', '&:hover': { backgroundColor: '#EEEFFB',  borderRadius: '50%', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.05)' } }} />
-                            <FavoriteBorderIcon className="productHoverIcons" sx={{ padding: '10px',color:'#2F1AC4', '&:hover': { backgroundColor: '#EEEFFB',  borderRadius: '50%', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.05)' } }} />
-                            <ZoomInIcon className="productHoverIcons" sx={{ padding: '10px',color : '#2F1AC4', '&:hover': { backgroundColor: '#EEEFFB',  borderRadius: '50%', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.05)' } }} />
+                            <AddShoppingCartIcon className="productHoverIcons" sx={{ padding: '10px', color: '#2F1AC4', '&:hover': { backgroundColor: '#EEEFFB', borderRadius: '50%', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.05)' } }} />
+                            <FavoriteBorderIcon className="productHoverIcons" sx={{ padding: '10px', color: '#2F1AC4', '&:hover': { backgroundColor: '#EEEFFB', borderRadius: '50%', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.05)' } }} />
+                            <ZoomInIcon className="productHoverIcons" sx={{ padding: '10px', color: '#2F1AC4', '&:hover': { backgroundColor: '#EEEFFB', borderRadius: '50%', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.05)' } }} />
                         </Box>
 
                         {/* Add button */}
@@ -112,11 +114,11 @@ export default function ShopProductCard({
                         </Box> */}
                         {imageBoxContent}
                     </Box>
-                    <Box display="flex" alignItems="baseline" pt={3} px={1} justifyContent='space-between' className="detailsBox" paddingBottom={1} sx={{...detailsBoxStyle}}>
+                    <Box display="flex" alignItems="baseline" pt={3} px={1} justifyContent='space-between' className="detailsBox" paddingBottom={1} sx={{ ...detailsBoxStyle }}>
                         <Box><Typography className="productTitle" sx={{ ...globalStyles.productTitle, color: 'var(--off-blue)', fontSize: '16px', fontFamily: 'var(--josefin)', fontWeight: 'normal', ...titleStyle }}>{title}</Typography></Box>
                         <Box display="flex" flexDirection="row" justifyContent="space-between">
-                            <Typography className="productOtherDetails" sx={{...globalStyles.productPrice, fontFamily: 'var(--josefin)', marginRight: '20px', ...priceStyle}}>{price}</Typography>
-                            <Typography className="productOtherDetails" sx={{...globalStyles.productPrice, fontFamily: 'var(--josefin)', textDecorationLine: 'line-through', color: 'var(--pink)', fontSize: '12px', lineHeight: '14px', ...discountStyle}}>{discount}</Typography>
+                            <Typography className="productOtherDetails" sx={{ ...globalStyles.productPrice, fontFamily: 'var(--josefin)', marginRight: '20px', ...priceStyle }}>{price}</Typography>
+                            <Typography className="productOtherDetails" sx={{ ...globalStyles.productPrice, fontFamily: 'var(--josefin)', textDecorationLine: 'line-through', color: 'var(--pink)', fontSize: '12px', lineHeight: '14px', ...discountStyle }}>{discount}</Typography>
                         </Box>
                     </Box>
                 </Paper>

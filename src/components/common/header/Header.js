@@ -63,7 +63,7 @@ const currencyOptions = [
 const navbarOptions = [
     { to: 'about', label: 'Pages',"path" : "./pages" },
     { to: 'contactUs', label: 'Products', "path" : '/products' },
-    { to: 'blogs', label: 'Blog',"path" : "./blog" },
+    { to: 'blogs', label: 'productDetails',"path" : "/ProductDetails" },
     { to: 'blogs', label: 'Shoping Cart',"path" : "./shopingCart" },
-    { to: 'blogs', label: 'Contact' , "path" : "./contacts" },
+    { to: 'blogs', label: 'Contact' , "path" : "./contact" },
 ]

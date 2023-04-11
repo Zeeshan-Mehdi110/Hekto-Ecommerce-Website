@@ -4,9 +4,20 @@ import shopingCart2 from "../../static/images/shopingCart/shopingCart2.png"
 import shopingCart3 from "../../static/images/shopingCart/shopingCart3.png"
 import shopingCart4 from "../../static/images/shopingCart/shopingCart4.png"
 import shopingCart5 from "../../static/images/shopingCart/shopingCart5.png"
+import BreadCrumbs from "../common/products/BreadCrumbs"
 const ShopingCart = () => {
+
+    const breadCrumbs = [
+        { to: '/', label: 'Home' },
+        { to: '/products', label: 'Products' },
+    ]
+
     return (
-        <Container maxWidth={"md"}>
+        <Box>
+            <Container maxWidth={'xl'} disableGutters sx={{ 'background': 'var(--bread-crumbs)' }}  >
+                <BreadCrumbs breadCrumbs={breadCrumbs} active={"Shipping Cart"} />
+            </Container>
+            <Container maxWidth={"md"}>
             <Grid container mt={9} mb={9}  >
                 <Grid item md={8} xs={12}>
                     <Grid item md={12} mb={6} display={"flex"} alignItems={"center"} justifyContent={"space-between"}  >
@@ -265,6 +276,7 @@ const ShopingCart = () => {
                 </Grid>
             </Grid>
         </Container>
+        </Box>
     )
 }
 

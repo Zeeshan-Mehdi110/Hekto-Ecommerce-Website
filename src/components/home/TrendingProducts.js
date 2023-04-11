@@ -134,7 +134,7 @@ const TrendingProducts = () => {
                     <Box display={'flex'} flexDirection={'column'} justifyContent={'space-between'} height={'100%'} >
                         <Box display={'flex'} flexDirection={'row'} sx={{ height: { sm: '75px', xs: '80px' } }} >
                             <Box width={'35%'} height={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} sx={{ 'backgroundColor': 'var(--light-blue2)' }} >
-                                <img src={discountProduct3} alt='img' maxWidth={'100%'} height={'100%'} />
+                                <img src={discountProduct3} alt='img' style={{"maxWidth":"100%"}} height={'100%'} />
                             </Box>
                             <Box padding={1} display={'flex'} justifyContent={'center'} flexDirection={'column'}>
                                 <Typography fontFamily={'var(--josefin)'} fontSize={'14px'} >Executive Seat chair</Typography>
@@ -143,7 +143,7 @@ const TrendingProducts = () => {
                         </Box>
                         <Box display={'flex'} flexDirection={'row'} sx={{ height: { sm: '75px', xs: '80px' } }} >
                             <Box width={'35%'} height={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} sx={{ 'backgroundColor': 'var(--light-blue2)' }}  >
-                                <img src={discountProduct4} alt='img' maxWidth={'100%'} height={'100%'} />
+                                <img src={discountProduct4} alt='img' style={{"maxWidth":"100%"}} height={'100%'} />
                             </Box>
                             <Box padding={1} display={'flex'} justifyContent={'center'} flexDirection={'column'} >
                                 <Typography fontFamily={'var(--josefin)'} fontSize={'14px'} >Executive Seat chair</Typography>
@@ -152,7 +152,7 @@ const TrendingProducts = () => {
                         </Box>
                         <Box display={'flex'} flexDirection={'row'} sx={{ height: { sm: '75px', xs: '80px' } }} >
                             <Box width={'35%'} height={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} sx={{ 'backgroundColor': 'var(--light-blue2)' }} >
-                                <img src={discountProduct5} alt='img' maxWidth={'100%'} height={'100%'} />
+                                <img src={discountProduct5} alt='img' style={{"maxWidth":"100%"}} height={'100%'} />
                             </Box>
                             <Box padding={1} display={'flex'} justifyContent={'center'} flexDirection={'column'} >
                                 <Typography fontFamily={'var(--josefin)'} fontSize={'14px'} >Executive Seat chair</Typography>

@@ -7,7 +7,7 @@ const ProductsList = () => {
 return (
   <>
     <Container maxWidth={'xl'} disableGutters sx={{ 'background': 'var(--bread-crumbs)' }}  >
-      <BreadCrumbs breadCrumbs={breadCrumbs} />
+      <BreadCrumbs breadCrumbs={breadCrumbs} active={"Shop Grid Default"} />
     </Container>
     <Container maxWidth={'md'} disableGutters  >
       <ProductsFilters />
