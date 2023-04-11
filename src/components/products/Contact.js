@@ -188,7 +188,7 @@ const Contact = () => {
                     <Typography fontFamily={"var(--josefin)"} fontSize={"10px"} >Shipping & taxes calculated at checkout</Typography>
                   </Box>
                   <Box display={"flex"} alignItems={"center"}  >
-                    <Button sx={{ "backgroundColor": "#19D16F", "width": "100%", "color": "white", "fontSize": "14px", "fontFamily": "var(--lato)", "fontWeight": "700", "fontStyle": "normal" }} >Proceed To Checkout</Button>
+                    <Button variant="contained" style={{ "backgroundColor": "#19D16F", "width": "100%", "color": "white", "fontSize": "14px", "fontFamily": "var(--lato)", "fontWeight": "700", "fontStyle": "normal" }} >Proceed To Checkout</Button>
                   </Box>
                 </Box>
               </Box>
