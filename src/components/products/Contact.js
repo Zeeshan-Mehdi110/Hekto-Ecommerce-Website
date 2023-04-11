@@ -5,6 +5,7 @@ import contact2 from "../../static/images/contact/contact2.png"
 import contact3 from "../../static/images/contact/contact3.png"
 import contact4 from "../../static/images/contact/contact4.png"
 import contact5 from "../../static/images/contact/contact5.png"
+import { Link } from "react-router-dom"
 const Contact = () => {
   const breadCrumbs = [
     { to: '/', label: 'Home' },
@@ -25,8 +26,8 @@ const Contact = () => {
                   <Typography fontSize={'18px'} fontFamily={"var(--josefin)"} fontWeight={700} >Contact Information</Typography>
                 </Box>
                 <Box display={"flex"} >
-                  <Typography>Already have an account?</Typography>
-                  <Typography>Log in</Typography>
+                  <Typography color={"#C1C8E1"} fontSize={"16px"} fontFamily={"var(--lato)"} fontWeight={500} mr={1}  >Already have an account?</Typography>
+                  <Link style={{"color":"#C1C8E1" , "fontFamily" : "var(--lato)" , "fontSize":"16px" , "fontWeight":"500" }} to="/login" >Log in</Link>
                 </Box>
               </Box>
               <Box mb={2}>
@@ -40,10 +41,10 @@ const Contact = () => {
                   <Typography fontSize={'18px'} fontFamily={"var(--josefin)"} fontWeight={700} >Shipping address</Typography>
               </Box>
               <Box mb={2} display={"flex"} justifyContent={"space-between"} >
-                <Box width={"265px"} >
+                <Box width={"230px"} >
                 <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="First name (optional)" variant="standard" />
                 </Box>
-                <Box width={"265px"}>
+                <Box width={"230px"}>
                 <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Last name" variant="standard" />
                 </Box>
               </Box>
@@ -70,7 +71,7 @@ const Contact = () => {
             <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
               <Grid item md={9} display={"flex"}   >
                 <Box display={"flex"} justifyContent={'space-between'} >
-                  <Box width={'84px'} >
+                  <Box width={'84px'} marginRight={"10px"} >
                     <img src={contact1} alt="img1" width={"100%"} />
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
@@ -90,7 +91,7 @@ const Contact = () => {
             </Grid><Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
               <Grid item md={9} display={"flex"}   >
                 <Box display={"flex"} justifyContent={'space-between'} >
-                  <Box width={'84px'} >
+                  <Box width={'84px'} marginRight={"10px"}  >
                     <img src={contact2} alt="img1" width={"100%"} />
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
@@ -111,7 +112,7 @@ const Contact = () => {
             <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
               <Grid item md={9} display={"flex"}   >
                 <Box display={"flex"} justifyContent={'space-between'} >
-                  <Box width={'84px'} >
+                  <Box width={'84px'} marginRight={"10px"}  >
                     <img src={contact3} alt="img1" width={"100%"} />
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
@@ -132,7 +133,7 @@ const Contact = () => {
             <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
               <Grid item md={9} display={"flex"}   >
                 <Box display={"flex"} justifyContent={'space-between'} >
-                  <Box width={'84px'} >
+                  <Box width={'84px'} marginRight={"10px"}  >
                     <img src={contact4} alt="img1" width={"100%"} />
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
@@ -153,7 +154,7 @@ const Contact = () => {
             <Grid item md={12} display={"flex"} alignItems={"center"} justifyContent={"space-between"} mb={1} pb={1} borderBottom={"1px solid #E1E1E4"} >
               <Grid item md={9} display={"flex"}   >
                 <Box display={"flex"} justifyContent={'space-between'} >
-                  <Box width={'84px'} >
+                  <Box width={'84px'} marginRight={"10px"}  >
                     <img src={contact5} alt="img1" width={"100%"} />
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
