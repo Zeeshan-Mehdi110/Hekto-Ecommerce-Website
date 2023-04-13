@@ -3,7 +3,7 @@ import Home from "./components/home/Home"
 import ProductsList from "./components/products/ProductsList"
 import ShopingCart from "./components/products/ShopingCart"
 import ProductDetails from "./components/products/ProductDetails"
-import Contact from "./components/products/Contact"
+import checkOutPage from "./components/products/CheckOutPage"
 
 export default function AppRoutes() {
 	const routes = [
@@ -24,8 +24,8 @@ export default function AppRoutes() {
 			element: ProductDetails
 		},
 		{
-			path: "/contact",
-			element: Contact
+			path: "/checkOutPage",
+			element: checkOutPage
 		}
 	]
 	return (

@@ -450,7 +450,19 @@ export const globalStyles = {
         color: '#151875',
         marginLeft: '5px',
         marginBottom: '20px'
-    }
+    },
     //product details page: ended
-
+    checkOutpageInput: {
+        borderBottom: '1px solid #C1C8E1',
+        '&::placeholder': { color: "#C1C8E1" },
+        '& .MuiInput-underline::before': {
+            borderBottom: '1px solid #C1C8E1'
+        },
+        '&:hover .MuiInput-underline::before': {
+            borderBottom: '1px solid #C1C8E1!important'
+        },
+        '& .MuiInput-underline::after': {
+            borderBottom: '1px solid #C1C8E1'
+        },
+    },
 }

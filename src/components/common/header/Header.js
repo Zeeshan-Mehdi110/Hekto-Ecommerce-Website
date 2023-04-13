@@ -65,5 +65,5 @@ const navbarOptions = [
     { to: 'contactUs', label: 'Products', "path" : '/products' },
     { to: 'blogs', label: 'productDetails',"path" : "/ProductDetails" },
     { to: 'blogs', label: 'Shoping Cart',"path" : "./shopingCart" },
-    { to: 'blogs', label: 'Contact' , "path" : "./contact" },
+    { to: 'blogs', label: 'Contact' , "path" : "./checkOutPage" },
 ]

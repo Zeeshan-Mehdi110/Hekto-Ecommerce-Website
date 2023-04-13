@@ -6,9 +6,10 @@ import contact3 from "../../static/images/contact/contact3.png"
 import contact4 from "../../static/images/contact/contact4.png"
 import contact5 from "../../static/images/contact/contact5.png"
 import { Link } from "react-router-dom"
-const Contact = () => {
+import { globalStyles } from "../../globalStyle"
+const checkOutPage = () => {
   const breadCrumbs = [
-    { to: '/', label: 'Home' },
+    { to: '/', placeholder: 'Home' },
     { to: '/products', label: 'Products' },
   ]
 
@@ -20,49 +21,49 @@ const Contact = () => {
       <Container maxWidth={"md"} disableGutters >
         <Grid container mt={9} mb={9}   >
           <Grid item md={7} xs={12} mr={'20px'} sx={{"backgroundColor":'#F8F8FD'}} >
-            <Box px={3} py={8} >
-              <Box display={"flex"} justifyContent={"space-between"} mb={2} >
-                <Box>
+            <Box px={3} py={8} sx={{"py":{xs : 4,md: 8 }}} >
+              <Box display={"flex"} justifyContent={"space-between"} sx={{"flexDirection":{xs : "column",md : "row"},"textAlign":"center"}} mb={2} >
+                <Box  >
                   <Typography fontSize={'18px'} fontFamily={"var(--josefin)"} fontWeight={700} >Contact Information</Typography>
                 </Box>
-                <Box display={"flex"} >
+                <Box display={"flex"} sx={{"justifyContent":"center"}} >
                   <Typography color={"#C1C8E1"} fontSize={"16px"} fontFamily={"var(--lato)"} fontWeight={500} mr={1}  >Already have an account?</Typography>
                   <Link style={{"color":"#C1C8E1" , "fontFamily" : "var(--lato)" , "fontSize":"16px" , "fontWeight":"500" }} to="/login" >Log in</Link>
                 </Box>
               </Box>
               <Box mb={2}>
-                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Email or mobile phone number" variant="standard" />
+                <TextField fullWidth sx={{...globalStyles.checkOutpageInput }}   placeholder="Email or mobile phone number" variant="standard" />
               </Box>
-              <Box mb={5} display={"flex"} alignItems={"center"} >
+              <Box  display={"flex"} alignItems={"center"} >
                 <Checkbox size="small" color="success" defaultChecked />
                 <Typography fontFamily={"var(--josefin)"} fontSize={"10px"} >Keep me up to date on news and excluive offers</Typography>
               </Box>
-              <Box mt={9} mb={2} >
+              <Box mb={2} sx={{"mt":{xs : 3,md: "9" }}}  >
                   <Typography fontSize={'18px'} fontFamily={"var(--josefin)"} fontWeight={700} >Shipping address</Typography>
               </Box>
-              <Box mb={2} display={"flex"} justifyContent={"space-between"} >
-                <Box width={"230px"} >
-                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="First name (optional)" variant="standard" />
+              <Box  display={"flex"} justifyContent={"space-between"} sx={{"flexDirection":{xs : "column",md : "row"}}} >
+                <Box  mb={2} sx={{"width":{xs : "100%",md : "230px"}}}  >
+                <TextField fullWidth sx={{...globalStyles.checkOutpageInput }} placeholder="First name (optional)" variant="standard" />
                 </Box>
-                <Box width={"230px"}>
-                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Last name" variant="standard" />
+                <Box mb={2} sx={{"width":{xs : "100%",md : "230px"}}}>
+                <TextField fullWidth sx={{...globalStyles.checkOutpageInput }} placeholder="Last name" variant="standard" />
                 </Box>
               </Box>
               <Box mb={2}>
-                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Appaetnentment,suit,e.t.c (optinal)" variant="standard" />
+                <TextField fullWidth sx={{...globalStyles.checkOutpageInput }} placeholder="Appaetnentment,suit,e.t.c (optinal)" variant="standard" />
               </Box>
               <Box mb={2}>
-                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="City" variant="standard" />
+                <TextField fullWidth sx={{...globalStyles.checkOutpageInput }} placeholder="City" variant="standard" />
               </Box>
-              <Box mb={2} display={"flex"} justifyContent={"space-between"} >
-                <Box width={"265px"} >
-                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Bangladesh" variant="standard" />
+              <Box  display={"flex"} justifyContent={"space-between"} sx={{"flexDirection":{xs : "column",md : "row"}}} >
+                <Box mb={2} sx={{"width":{xs : "100%",md : "230px"}}} >
+                <TextField fullWidth sx={{...globalStyles.checkOutpageInput }} placeholder="Bangladesh" variant="standard" />
                 </Box>
-                <Box width={"265px"}>
-                <TextField fullWidth style={{ "borderBottom": "2px solid #E8E6F1" }} label="Postal Code" variant="standard" />
+                <Box mb={2} sx={{"width":{xs : "100%",md : "230px"}}}>
+                <TextField fullWidth sx={{...globalStyles.checkOutpageInput }} placeholder="Postal Code" variant="standard" />
                 </Box>
               </Box>
-              <Box mt={14} >
+              <Box sx={{"mt":{xs : 4,md: 14 }}} >
                 <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '6px 30px', 'fontFamily': 'Josefin Sans', 'fontSize': '16px', 'letterSpacing': '0.02em' }} >Continue Shipping</Button>
               </Box>
             </Box>
@@ -74,10 +75,10 @@ const Contact = () => {
                   <Box width={'84px'} marginRight={"10px"} >
                     <img src={contact1} alt="img1" width={"100%"} />
                   </Box>
-                  <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
+                  <Box display={"flex"} flexDirection={"column"} justifyContent={'space-evenly'} >
                     <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"}  >Ut diam consequat</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
                   </Box>
                 </Box>
               </Grid>
@@ -96,8 +97,8 @@ const Contact = () => {
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
                     <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"}  >Ut diam consequat</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
                   </Box>
                 </Box>
               </Grid>
@@ -117,8 +118,8 @@ const Contact = () => {
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
                     <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"}  >Ut diam consequat</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
                   </Box>
                 </Box>
               </Grid>
@@ -138,8 +139,8 @@ const Contact = () => {
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
                     <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"}  >Ut diam consequat</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
                   </Box>
                 </Box>
               </Grid>
@@ -159,8 +160,8 @@ const Contact = () => {
                   </Box>
                   <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={'space-evenly'} >
                     <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"}  >Ut diam consequat</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
-                    <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color : Brown</Typography>
+                    <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : XL</Typography>
                   </Box>
                 </Box>
               </Grid>
@@ -189,7 +190,7 @@ const Contact = () => {
                     <Typography fontFamily={"var(--josefin)"} fontSize={"10px"} >Shipping & taxes calculated at checkout</Typography>
                   </Box>
                   <Box display={"flex"} alignItems={"center"}  >
-                    <Button variant="contained" style={{ "backgroundColor": "#19D16F", "width": "100%", "color": "white", "fontSize": "14px", "fontFamily": "var(--lato)", "fontWeight": "700", "fontStyle": "normal" }} >Proceed To Checkout</Button>
+                    <Button variant="contained" style={{ "backgroundColor": "#19D16F", "width": "100%", "color": "white", "fontSize": "14px", "fontFamily": "var(--lato)", "fontWeight": "700", "fontStyle": "normal","marginBottom":"20px" }} >Proceed To Checkout</Button>
                   </Box>
                 </Box>
               </Box>
@@ -201,4 +202,4 @@ const Contact = () => {
   )
 }
 
-export default Contact
+export default checkOutPage
