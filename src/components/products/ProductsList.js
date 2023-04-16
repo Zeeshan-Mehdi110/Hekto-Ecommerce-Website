@@ -4,7 +4,7 @@ import ProductsFilters from "../common/ProductsFilters"
 import ProductsListVertical from "./ProductsListVertical"
 import ProductMultiFilters from "./ProductMultiFilters"
 import { globalStyles } from "../../globalStyle"
-import { Box, FormControl, Grid, InputAdornment, OutlinedInput, Typography } from '@mui/material'
+import { FormControl, Grid, InputAdornment, OutlinedInput, Typography } from '@mui/material'
 import { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import ProductsListsHorizontal from "./ProductsListsHorizontal"
@@ -147,7 +147,7 @@ return (
     <Container maxWidth={'md'} disableGutters  >
       <ProductsFilters />
       <ProductsListVertical />
-      <Grid container>
+      <Grid container sx={{display : {xs : "none", md : "flex"}}} >
           <Grid item md={3}  >
             <ProductMultiFilters selectedOption={selectedProductBrandOption} handleFilters={handleProductBrandFilters} filterData={filterData.productBrands} />
             <ProductMultiFilters selectedOption={selectedDiscountedProductOption} handleFilters={handleDiscountedProductFilters} filterData={filterData.discountOffer} />

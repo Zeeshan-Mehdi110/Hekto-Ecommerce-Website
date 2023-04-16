@@ -9,14 +9,14 @@ import { Link } from "react-router-dom"
 import { globalStyles } from "../../globalStyle"
 const checkOutPage = () => {
   const breadCrumbs = [
-    { to: '/', placeholder: 'Home' },
+    { to: '/', label: 'Home' },
     { to: '/products', label: 'Products' },
   ]
 
   return (
     <Box>
       <Container maxWidth={'xl'} disableGutters sx={{ 'background': 'var(--bread-crumbs)' }}  >
-        <BreadCrumbs breadCrumbs={breadCrumbs} active={"Shipping"} />
+        <BreadCrumbs breadCrumbs={breadCrumbs} active={"CheckOut"} />
       </Container>
       <Container maxWidth={"md"} disableGutters >
         <Grid container mt={9} mb={9}   >

@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Rating, Typography } from "@mui/material";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
@@ -25,7 +25,8 @@ export default function ShopProductCard({
     discountStyle,
     priceStyle,
     imageBoxContent,
-    paperElevation
+    paperElevation,
+    rating,
 }) {
 
     return (
@@ -115,7 +116,15 @@ export default function ShopProductCard({
                         {imageBoxContent}
                     </Box>
                     <Box display="flex" alignItems="baseline" pt={3} px={1} justifyContent='space-between' className="detailsBox" paddingBottom={1} sx={{ ...detailsBoxStyle }}>
-                        <Box><Typography className="productTitle" sx={{ ...globalStyles.productTitle, color: 'var(--off-blue)', fontSize: '16px', fontFamily: 'var(--josefin)', fontWeight: 'normal', ...titleStyle }}>{title}</Typography></Box>
+                        {
+                            rating ?
+                                <Box sx={{ textAlign: "center" }}>
+                                    <Typography className="productTitle" sx={{ ...globalStyles.productTitle, color: 'var(--off-blue)', fontSize: '16px', fontFamily: "var(--josefin)", fontWeight: "normal", ...titleStyle }}>{title}</Typography>
+                                    <Rating value={rating} readOnly size='small' />
+                                </Box> :
+                                <Typography className="productTitle" sx={{ ...globalStyles.productTitle, color: 'var(--off-blue)', fontSize: '16px', fontFamily: "var(--josefin)", fontWeight: "normal", ...titleStyle }}>{title}</Typography>
+
+                        }
                         <Box display="flex" flexDirection="row" justifyContent="space-between">
                             <Typography className="productOtherDetails" sx={{ ...globalStyles.productPrice, fontFamily: 'var(--josefin)', marginRight: '20px', ...priceStyle }}>{price}</Typography>
                             <Typography className="productOtherDetails" sx={{ ...globalStyles.productPrice, fontFamily: 'var(--josefin)', textDecorationLine: 'line-through', color: 'var(--pink)', fontSize: '12px', lineHeight: '14px', ...discountStyle }}>{discount}</Typography>

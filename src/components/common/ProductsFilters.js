@@ -142,21 +142,21 @@ export default function ProductsFilters() {
           ...globalStyles.filterSearchInputContainer
         }}
       >
-        <Typography
-          sx={{
-            ...globalStyles.filterViewText
-          }}
-        >
-          View:
-        </Typography>
-        <WindowIcon
-          sx={{
-            ...globalStyles.filterWindowIcon
-          }}
-        />
-        <FormatListBulletedIcon
-          sx={{ color: "var(--off-blue)", fontSize: "20px" }}
-        />
+          <Typography
+            sx={{
+              ...globalStyles.filterViewText
+            }}
+          >
+            View:
+          </Typography>
+          <WindowIcon
+            sx={{
+              ...globalStyles.filterWindowIcon
+            }}
+          />
+          <FormatListBulletedIcon
+            sx={{ color: "var(--off-blue)", fontSize: "20px", display : {md : "flex", xs : "none"} }}
+          />
         <Box>
           <TextField
             id="outlined-basic"

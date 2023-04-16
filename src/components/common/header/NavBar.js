@@ -12,7 +12,7 @@ function NavBar({ options }) {
 
 	// Setting up the state for the Navigation Menu
 	const [anchorElNav, setAnchorElNav] = useState(null);
-	const [activeLink,setActiveLink] = useState(null)
+	const [activeLink, setActiveLink] = useState(null)
 	const handleLinkClick = (index) => {
 		setActiveLink(index)
 	}
@@ -89,9 +89,9 @@ function NavBar({ options }) {
 								<NavLink
 									className="navLink"
 									activeClassName="activeLink"
-									style={{color : activeLink === index ? "red" : "black" , my: 2, display: 'block', fontSize: '16px', fontWeight: '400', textDecoration: 'none' }}
+									style={{ color: activeLink === index ? "red" : "black", my: 2, display: 'block', fontSize: '16px', fontWeight: '400', textDecoration: 'none' }}
 									to={page.path}
-									onClick={() => {handleLinkClick(index)}}
+									onClick={() => { handleLinkClick(index) }}
 								>
 									{page.label}
 								</NavLink>
@@ -102,7 +102,17 @@ function NavBar({ options }) {
 				</Grid>
 				<Grid item md={3} sx={{ display: { xs: 'none', md: 'flex' } }}  >
 					<Box display={'flex'} >
-						<TextField type='search' size="small" variant="outlined" sx={{ borderRadius: 10, 'border': '1px solid #E7E6EF' }} />
+						<TextField type='search' size="small" variant="outlined"
+							sx={{
+								"& fieldset": {
+									borderColor: "#e7e6e8 !important",
+									borderRadius: 0,
+								},
+								"& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+									border: '1px solid #e7e6e8 !important'
+								},
+							}}
+						/>
 						<Button sx={{ ...globalStyles.headerSearchInputIcon }} variant="contained" size="large" ><SearchIcon /> </Button>
 					</Box>
 				</Grid>
@@ -114,8 +124,10 @@ function NavBar({ options }) {
 export default NavBar;
 
 const optionsArr = [
-	{ to: 'urdu', label: 'Urdu' },
-	{ to: 'french', label: 'French' },
-	{ to: 'spanish', label: 'Spanish' },
-	{ to: 'hindi', label: 'Hindi' },
+	{ label: 'Home', "to": '/' },
+	{ label: 'Products', "to": '/products' },
+	{ label: 'Details', "to": "/ProductDetails" },
+	{ label: 'Cart', "to": "./shopingCart" },
+	{ label: 'CheckOut', "to": "./checkOutPage" },
+	{ label: 'Orders', "to": "./orderCompleted" },
 ]

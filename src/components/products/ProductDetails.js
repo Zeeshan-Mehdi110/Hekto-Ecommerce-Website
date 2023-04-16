@@ -20,6 +20,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { globalStyles } from "../../globalStyle";
 import BreadCrumbs from "../common/products/BreadCrumbs";
+import ProductsDetailTabs from "./ProductsDetailTabs";
+import RelatedProducts from "./RelatedProducts";
 
 export default function ProductDetails() {
   const theme = useTheme();
@@ -186,7 +188,13 @@ export default function ProductDetails() {
           </Box>
         </Grid>
       </Grid>
-    </Container>
+      </Container>
+      <Box paddingY={9} sx={{...globalStyles.productDescriptionContainer,}}>
+          <ProductsDetailTabs />
+        </Box>
+      <Box paddingY={9}>
+          <RelatedProducts />
+      </Box>
     </Box>
   )
 }
