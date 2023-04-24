@@ -163,7 +163,9 @@ export const globalStyles = {
   Btn: {
     borderRadius: 0,
     color: "var(--white)",
-    padding: "15px 48px",
+    padding: "12px 20px",
+    fontSize : "16px",
+    fontFamily : "var(--josefin)",
     marginTop: "20px",
     backgroundColor: 'var(--pink)',
     '&:hover': {

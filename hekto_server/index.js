@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/users', userController);
 
+// mongodb connection
 mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
     console.log('database connected successfully')
 }).catch( error => {

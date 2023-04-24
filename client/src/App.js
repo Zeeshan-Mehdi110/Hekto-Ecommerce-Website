@@ -1,18 +1,18 @@
-import { useLocation } from 'react-router';
 import './App.css';
 import AppRoutes from './AppRoutes';
 import Footer from './components/common/Footer';
 import Header from './components/common/header/Header';
+import { useLocation } from "react-router-dom";
 
 function App() {
-  const location = useLocation()
-  const endpoint = location.pathname
-  const isAdminPannel = endpoint === '/admin' || endpoint === "/admin/"  ? true : false;
+const location = useLocation();
+  const endpoint = location.pathname;
+  const isAdminPanel = endpoint.startsWith("/admin");
   return (
     <div className="App">
-      { !isAdminPannel && <Header /> }
+      { !isAdminPanel && <Header /> }
       <AppRoutes />
-      { !isAdminPannel &&<Footer /> }
+      { !isAdminPanel &&<Footer /> }
     </div>
   );
 }

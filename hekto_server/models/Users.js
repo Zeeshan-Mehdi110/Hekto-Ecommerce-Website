@@ -1,30 +1,41 @@
 const moment = require("moment/moment");
 const mongoose = require("mongoose");
-
-const User = mongoose.model("users", {
+const userSchema = mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Name is required"],
+    required: [false, "Name is required"],
     maxlength: 250
   },
   email: {
     type: String,
-    required: [true, "Email is required"],
+    required: [true, "Email must be unique"],
     unique: true,
-    maxlength: 250
+    validate : {
+      validator : function (v) {
+        return v.length <=30;
+      },
+      message : "the email must be less than 30 characters long!"
+    }
   },
   phone_number: {
     type: String,
-    maxlength: 20
-  },
+    required: true,
+    validate: {
+      validator: function (v) {
+        return v.length <= 20;
+      },
+      message: 'The phone number should be at most 20 characters long!'
+    }
+  }
+  ,
   profile_picture: {
     type: String,
-    maxlength: 100
+    maxlength: 100,
   },
   password: {
     type: String,
     required: [true, "Password is required"],
-    maxlength: 300
+    maxlength : 300
   },
   password_reset_code: {
     type: String,
@@ -35,7 +46,7 @@ const User = mongoose.model("users", {
     maxlength: 100
   },
   type: {
-    type: Boolean,
+    type: Number,
     default: process.env.USER_TYPE_SUPERADMIN,
     required: [true, "User type is required"],
   },
@@ -51,6 +62,15 @@ const User = mongoose.model("users", {
     type: Date,
     default: moment().format('YYYY-MM-DD')
   },
+})
+userSchema.set('toJSON', {
+  getters: true,
+  transform: (doc, ret, options) => {
+    ret.created_on = moment(ret.created_on).format('YYYY-MM-DD');
+    ret.modified_on = moment(ret.modified_on).format('YYYY-MM-DD');
+    return ret;
+  }
 });
+const User = mongoose.model("users", userSchema);
 
 module.exports = User;

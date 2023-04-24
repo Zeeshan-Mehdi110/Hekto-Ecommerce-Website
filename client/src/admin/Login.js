@@ -1,6 +1,6 @@
 import { Form, Field } from "react-final-form";
 import { TextField, Button,Box, Typography} from "@mui/material";
-const admin = () => {
+const Login = () => {
 
   const handleSubmit = (data, form) => {
     const fields = form.getRegisteredFields(); // Get all the registered field names
@@ -87,5 +87,5 @@ const admin = () => {
   )
 }
 
-export default admin
+export default Login
 
