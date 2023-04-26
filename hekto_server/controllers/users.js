@@ -183,7 +183,7 @@ router.get("/", async (req, res) => {
     // const users = await User.find({age: 30});
     // const users = await User.find({age:  { $gt: 30 } });
 
-    res.status(200).json({ success: true, users });
+    res.status(200).json({users });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

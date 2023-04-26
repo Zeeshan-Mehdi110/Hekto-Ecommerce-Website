@@ -3,6 +3,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import { globalStyles } from "../../globalStyle";
+import { Link } from "react-router-dom";
 
 function ProductCardVertical({
     productImage, 
@@ -10,7 +11,8 @@ function ProductCardVertical({
     imageBoxStyle,
     productTitle,
     productPrice,
-    productDiscount
+    productDiscount,
+    path
     }) {
     return (
         <Box m={!isMobile ? 1 : 2}>
@@ -71,9 +73,11 @@ function ProductCardVertical({
 
                     {/* Add button */}
                     <Box position="absolute" bottom={0} transform="translateX(-50%)" py={1} visibility="hidden" className="detailsButton">
-                        <Button variant="contained" sx={{ padding: '8px 13px', borderRadius: '2px', backgroundColor: '#08D15F', color: '#FFFFFF', fontFamily: 'var(--josefin)', fontSize: '12px', '&:hover': { backgroundColor: '#08D15F', color: '#FFFFFF' } }} size="small">
-                            View Details
-                        </Button>
+                        <Link to={path} >
+                            <Button variant="contained" sx={{ padding: '8px 13px', borderRadius: '2px', backgroundColor: '#08D15F', color: '#FFFFFF', fontFamily: 'var(--josefin)', fontSize: '12px', '&:hover': { backgroundColor: '#08D15F', color: '#FFFFFF' } }} size="small">
+                                View Details
+                            </Button>
+                        </Link>
                     </Box>
 
                 </Box>

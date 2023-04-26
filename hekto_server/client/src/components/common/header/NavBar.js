@@ -88,7 +88,6 @@ function NavBar({ options }) {
 							>
 								<NavLink
 									className="navLink"
-									activeClassName="activeLink"
 									style={{ color: activeLink === index ? "red" : "black", my: 2, display: 'block', fontSize: '16px', fontWeight: '400', textDecoration: 'none' }}
 									to={page.path}
 									onClick={() => { handleLinkClick(index) }}

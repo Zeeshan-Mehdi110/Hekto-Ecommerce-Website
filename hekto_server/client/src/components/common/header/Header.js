@@ -7,6 +7,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { globalStyles } from "../../../globalStyle";
 import MenuLinks from "../menu/MenuLinks";
 import NavBar from "./NavBar";
+import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <header>
@@ -28,9 +29,11 @@ export default function Header() {
           <Grid md={5} xs={12} item sx={{ 'display': { xs: 'none', sm: 'flex' } }} alignItems={'center'} >
             <MenuLinks label='English' options={languageOptions} /> {/*Mui Positioned components*/}
             <MenuLinks label='USD' options={currencyOptions} />
-            <Button sx={{ ...globalStyles.btnMenu }} endIcon={<PersonOutlineIcon />}>
-              Login
-            </Button>
+            <Link to={"/admin/login"} >
+              <Button sx={{ ...globalStyles.btnMenu }} endIcon={<PersonOutlineIcon />}>
+                Login
+              </Button>
+            </Link>
             <Button sx={{ ...globalStyles.btnMenu }} endIcon={<FavoriteBorderIcon />}>
               Whishlist
             </Button>

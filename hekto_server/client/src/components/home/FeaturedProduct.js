@@ -32,6 +32,7 @@ function FeaturedProducts() {
                 isMobile={isMobile} 
                 productTitle={'Cantilever chair'}
                 productPrice={'$42.00'}
+                path = { "/ProductDetails"}
                 productDiscount={'Code - Y523201'}/>
                 <ProductCardVertical 
                 productImage={featureImage2} 
