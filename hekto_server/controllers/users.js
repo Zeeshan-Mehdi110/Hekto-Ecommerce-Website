@@ -1,10 +1,10 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const User = require("../models/Users");
 const mongoose = require("mongoose");
 // const { createJWTToken } = require('../utils/util');
 // const { verifyUser } = require('../utils/middlewares');
 const { checkSchema, validationResult } = require('express-validator');
+const User = require("../models/Users");
 
 const router = express.Router();
 // router.use(['/profile-settings', '/add', '/edit', '/delete'], verifyUser);
@@ -47,37 +47,6 @@ router.get("/profile-settings", async (req, res) => {
 
 });
 
-router.post("/signup", async (req, res) => {
-  const userExist = await User.findOne({ email: req.body.email });
-
-  try {
-    if (userExist) throw new Error("This email is already registered");
-    if (!req.body.password) throw new Error("Password is required");
-
-    const user = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: await bcrypt.hash(req.body.password, 10),
-    });
-
-    await user.save();
-
-    //promise ko hum await kr skty hn bcz isky andar async task perform hty hn
-    const token = await createJWTToken(user, 12);
-    res.json({ token, user });
-
-  } catch (error) {
-    if (error.name === "ValidationError") {
-      let errors = {};
-
-      Object.keys(error.errors).forEach((key) => {
-        errors[key] = error.errors[key].message;
-      });
-      return res.status(400).json({ errors });
-    }
-    res.status(400).json({ error: error.message });
-  }
-});
 
 const userSchema = checkSchema({
   name: {
@@ -106,52 +75,70 @@ const userSchema = checkSchema({
     notEmpty: {
       errorMessage: 'Password is required',
     },
+  },
+  type: {
+    notEmpty: {
+      errorMessage: 'User type is required',
+    },
   }
+
 });
 
+
 router.post("/add", userSchema, async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errors = validationResult(req).array({ onlyFirstError: true }).map(error => error.msg);
+    return res.status(400).json({ errors });
+  }
+
   try {
-    const user = new User({
+
+    let user = new User({
       name: req.body.name,
       email: req.body.email,
+      type: req.body.type,
+      phone_number: req.body.phone_number,
       password: await bcrypt.hash(req.body.password, 10),
-      type : req.body.type,
-      phone_number : req.body.phone_number
     });
 
     await user.save();
-    res.json({ success: true, user });
+
+    user = user.toObject();
+    delete user.password;
+
+    res.json({ user });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+
+    if (error.name === "ValidationError") {
+      let errors = [];
+
+      Object.keys(error.errors).forEach((key) => {
+        errors.push(error.errors[key].message);
+      });
+      return res.status(400).json({ errors });
+    }
+
+    res.status(400).json([error.message]);
   }
 });
 
-// router.post('/edit/:userId', async (req, res) => {
-router.post("/edit",userSchema, async (req, res) => {
-  const errors = validationResult(req) ;
-  if(!errors.isEmpty()) {
-    return res.status(400).json({ errors :errors.array() })
-  }
+router.post("/edit", async (req, res) => {
   try {
-    // if (!req.body.id) throw new Error("User id is required");
-    // if (!mongoose.isValidObjectId(req.body.id))
-    //   throw new Error("User id is invalid");
-    // if (req.user._id.toString() !== req.body.id) // to string is used to convert req.user._id to string because this returns new ObjectId("6439f4ca31d7babed61963e0") that is object user id and we need only string to compare it.
-    //   throw new Error("Invalid request s");
+    if (!req.body.id) throw new Error("User id is required");
+    if (!mongoose.isValidObjectId(req.body.id))
+      throw new Error("User id is invalid");
+    if (req.user._id.toString() !== req.body.id) // to string is used to convert req.user._id to string because this returns new ObjectId("6439f4ca31d7babed61963e0") that is object user id and we need only string to compare it.
+      throw new Error("Invalid request s");
 
-    // const user = await User.findById(req.body.id);
-    // if (!user) throw new Error("User does not exists");
+    const user = await User.findById(req.body.id);
+    if (!user) throw new Error("User does not exists");
 
     await User.findByIdAndUpdate(req.body.id, {
       name: req.body.name,
-      email: req.body.email,
-      password: await bcrypt.hash(req.body.password, 10),
-      type : req.body.type,
-      phone_number : req.body.phone_number
+      age: req.body.age,
+      salary: req.body.salary,
     });
 
     res.json({ success: true });
@@ -179,13 +166,15 @@ router.delete("/delete", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const users = await User.find();
-    // const users = await User.find({age: 30});
-    // const users = await User.find({age:  { $gt: 30 } });
+    const skip = parseInt(req.query.skip ? req.query.skip : 0);
+    const recordsPerPage = 5;
+    const totalRecords = await User.countDocuments();
+    const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage), sort: { created_on: -1 } });
 
-    res.status(200).json({users });
+    res.status(200).json({users, totalRecords});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
+
 module.exports = router;

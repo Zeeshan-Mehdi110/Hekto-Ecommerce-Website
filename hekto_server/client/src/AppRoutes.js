@@ -5,10 +5,6 @@ import ShopingCart from "./components/products/ShopingCart"
 import ProductDetails from "./components/products/ProductDetails"
 import checkOutPage from "./components/products/CheckOutPage"
 import OrderCompleted from "./components/products/OrderCompleted"
-import Template from "./admin/components/layout/Template"
-import AddUser from "./admin/components/users/AddUser"
-import User from "./admin/components/users"
-import Login from "../src/admin/Login"
 
 export default function AppRoutes() {
 	const routes = [
@@ -35,16 +31,7 @@ export default function AppRoutes() {
 		{
 			path: "/orderCompleted",
 			element: OrderCompleted
-		},
-		//admin routes
-		{
-			path : "/admin",
-			element : Template
-		},
-		{
-			path: '/admin/login',
-			element: Login,
-			},
+		}
 	]
 	return (
 		<Routes>
@@ -53,10 +40,6 @@ export default function AppRoutes() {
 					return <Route key={index} path={route.path} element={<route.element />} />
 				})
 			}
-			<Route path="/admin" element={<Template />}>
-                <Route path="user/add" element={<AddUser />} />
-                <Route path="user/add" element={<User/>} />
-      </Route>
 		</Routes>
 	)
 }
