@@ -17,6 +17,7 @@ import ListItemText from '@mui/material/ListItemText';
 import logo from '../../static/logo.png'
 import { Link, Outlet } from 'react-router-dom';
 import ListIcon from "@mui/icons-material/List";
+import CategoryIcon from '@mui/icons-material/Category';
 import { AddCircleOutline, PeopleOutline } from "@mui/icons-material";
 import SettingsIcon from '@mui/icons-material/Settings';
 import ListDropdown from '../common/ListDropdown';
@@ -99,6 +100,11 @@ const drodownsList = [
     title: 'Users',
     icon: <ListIcon />,
     items: [{ to: '/admin/users/add', text: 'Add user', icon: <AddCircleOutline /> }, { to: '/admin/users', text: 'Users', icon: <GroupIcon /> }]
+  },
+  {
+    title: 'Categories',
+    icon: <CategoryIcon />,
+    items: [{ to: '/admin/products/add', text: 'Add Products', icon: <AddCircleOutline /> }, { to: '/admin/products', text: 'Products', icon: <GroupIcon /> }]
   }
 ];
 

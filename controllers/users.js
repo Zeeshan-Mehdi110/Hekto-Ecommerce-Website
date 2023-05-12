@@ -1,13 +1,14 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
-// const { createJWTToken } = require('../utils/util');
-// const { verifyUser } = require('../utils/middlewares');
+const { createJWTToken } = require('../utils/utils');
 const { checkSchema, validationResult } = require('express-validator');
 const User = require("../models/Users");
+const verifyUser = require("../utils/middlewares");
+
 
 const router = express.Router();
-// router.use(['/profile-settings', '/add', '/edit', '/delete'], verifyUser);
+router.use(['/profile-settings', '/add', '/edit', '/delete'], verifyUser);
 
 router.post("/login", async (req, res) => {
 

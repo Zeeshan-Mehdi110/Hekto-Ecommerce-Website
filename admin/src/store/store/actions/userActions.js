@@ -25,7 +25,7 @@ export const loadUsers = (currentPage = 1, recordsPerPage = process.env.REACT_AP
     else
       skipRecords = (currentPage) * recordsPerPage;
 
-    axios.get('/api/users', { params: { skip: skipRecords, limit: recordsPerPage} }).then(({ data }) => {
+    axios.get('/users', { params: { skip: skipRecords, limit: recordsPerPage} }).then(({ data }) => {
       const state = getState();
       if (state.users.users.length === 0)
         dispatch(hideProgressBar());

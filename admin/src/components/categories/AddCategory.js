@@ -3,15 +3,15 @@ import { Button, CircularProgress, Alert } from "@mui/material";
 import { Box } from "@mui/system";
 import { AddCircleOutline } from "@mui/icons-material";
 import axios from "axios";
-import { FORM_ERROR } from "final-form";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../library/TextInput";
 import SelectInput from "../library/SelectInput";
 import { showError } from "../../store/store/actions/alertActions";
 import { useDispatch } from "react-redux";
 import { userActionTypes } from "../../store/store/actions/userActions";
+import { addCategory, categoryActionTypes } from "../../store/store/actions/categoryActions";
 
-function AddUser() {
+const AddCategory = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
@@ -21,30 +21,13 @@ function AddUser() {
       errors.name = "name is Required";
     else if (data.name.length < 3)
       errors.name = "Name Should be more then 3 Char";
-    if (!data.email) {
-      errors.email = 'Email Address is required';
-    }
-    else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
-      errors.email = 'Email Address is invalid';
-    }
-    if (!data.phone_number)
-    errors.phone_number = "Mobile is Required";
-  else if (data.phone_number.length < 11)
-    errors.phone_number = "phone_number is too short";
-    if (!data.password) {
-      errors.password = 'password  is required';
-    }
-    else if (data.password.length < 6)
-    errors.password = "password must be at least 6";
-    if(!data.type)
-    errors.type = "please select a type";
     return errors
   };
 
   const handleAddUser = async (data, form) => {
     try {
-      let result = await axios.post( "/users/add", data );
-      dispatch({ type : userActionTypes.ADD_USER, payload : result.data.user });
+      let result = await axios.post( "/category/add", data );
+      dispatch(addCategory(result.data.category));
       const fields = form.getRegisteredFields(); // Get all the registered field names
       fields.forEach((field) => {
         form.resetFieldState(field); // Reset the touched state for each field
@@ -74,11 +57,7 @@ function AddUser() {
         }) => (
           <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
             <Field component={TextInput} type='text' name="name" placeholder="Enter Name" label="Name" />
-            <Field component={TextInput} type='email' name="email" placeholder="User Email" label="Email" />
-            <Field component={TextInput} type='number' name="phone_number" placeholder="Phone Number" label="Phone Number" />
-            <Field component={TextInput} type='password' name="password" placeholder="*****" label="Password" />
-            <Field component={SelectInput} name="type" label="Type" options={[{ label: "Select user type", value: ' ' }, { label: "Super Admin", value: process.env.REACT_APP_USER_TYPE_SUPERADMIN }, { label: "Admin", value: process.env.REACT_APP_USER_TYPE_ADMIN }, { label: "Standard", value: process.env.REACT_APP_USER_TYPE_STANDARD }]} />
-
+            <Field component={TextInput} type='' name="description" placeholder="Enter Description" label="Description" />
             {submitting ? (
               <CircularProgress />
             ) : (
@@ -120,4 +99,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default AddCategory

@@ -6,11 +6,13 @@ const app = express();
 
 //controllers
 const userController = require("./controllers/users")
+const categoryController = require("./controllers/category")
 
 //app.use
 app.use(express.json());
 app.use(cors());
 app.use('/api/users', userController);
+app.use('/api/category', categoryController)
 
 // mongodb connection
 mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
