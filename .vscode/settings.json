@@ -1,0 +1,7 @@
+{
+  "files.exclude": {
+    "**/admin": true,
+    "**/node_modules": true,
+    "**client": true
+  }
+}

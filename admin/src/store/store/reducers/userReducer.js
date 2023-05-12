@@ -4,6 +4,7 @@ const initialState = {
     users: [],
     totalRecords: 0,
     allRecordsLoaded: false,
+    paginationArray: []
 }
 
 function userReducer(state = initialState, action) {
@@ -20,11 +21,17 @@ function userReducer(state = initialState, action) {
                 users: newUsers
             }
         case userActionTypes.USERS_LOADED:
+            let updatedUsersArray = [...state.users, ...action.payload.users];
+            let oldPaginationArray = state.paginationArray;
+            let newPageRecord = { startIndex: state.users.length,  endIndex: updatedUsersArray.length};
+            oldPaginationArray[action.payload.page] = newPageRecord;
+
             return {
                 ...state,
                 totalRecords: action.payload.totalRecords,
                 allRecordsLoaded: action.payload.allRecordsLoaded,
-                users: [...action.payload.users, ...state.users]
+                users: updatedUsersArray,
+                paginationArray: oldPaginationArray
             }
         default:
             return state;

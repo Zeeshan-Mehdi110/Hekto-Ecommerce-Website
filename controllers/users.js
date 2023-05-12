@@ -164,12 +164,14 @@ router.delete("/delete", async (req, res) => {
   }
 });
 
+
 router.get("/", async (req, res) => {
   try {
     const skip = parseInt(req.query.skip ? req.query.skip : 0);
-    const recordsPerPage = 5;
+    const recordsPerPage = req.query.limit ? req.query.limit : process.env.RECORDS_PER_PAGE;
     const totalRecords = await User.countDocuments();
-    const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage), sort: { created_on: -1 } });
+    // const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage), sort: { created_on: -1 } });
+    const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage) });
 
     res.status(200).json({users, totalRecords});
   } catch (error) {

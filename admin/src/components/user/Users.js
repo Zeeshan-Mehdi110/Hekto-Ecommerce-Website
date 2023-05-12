@@ -4,11 +4,11 @@ import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import TableContainer from '@mui/material/TableContainer';
-import { loadUsers } from '../../store/store/actions/userActions';
 import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit} from '@fortawesome/free-solid-svg-icons';
-
+import { format } from 'date-fns';
+import { loadUsers } from '../../store/store/actions/userActions';
 
 const columns = [
   { id: 'userName', label: 'Name', },
@@ -92,20 +92,23 @@ const useStyles = makeStyles((theme) => ({
   },
   column: {},
   tableContainer: {
-    overflowX: 'auto',
+    "maxWidth": "100vw",
+    overFlow: "scroll",
     WebkitOverflowScrolling: 'touch',
     '-ms-overflow-style': '-ms-autohiding-scrollbar'
   }
 }));
 
 
-function Users({ users, totalRecords, dispatch }) {
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+function Users({ users, totalRecords, paginationArray, dispatch }) {
+  const [rowsPerPage, setRowsPerPage] = useState(parseInt(process.env.REACT_APP_RECORDS_PER_PAGE));
   const [page, setPage] = useState(0);
+  const [rowsPerPageChanged, setRowsPerPageChanged] = useState(false);
   const classes = useStyles();
 
+
   useEffect(() => {
-    dispatch(loadUsers())
+    dispatch(loadUsers(page, rowsPerPage))
   }, [page, rowsPerPage])
 
 
@@ -115,23 +118,28 @@ function Users({ users, totalRecords, dispatch }) {
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(event.target.value);
+    setRowsPerPageChanged(true)
     setPage(0);
+    dispatch({type: ''})
     // listRef.current && listRef.current.scrollToItem(0);
   };
 
   const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [users, rowsPerPage]);
 
   const visibleRows = React.useMemo(() => {
-    return users.slice(
-      page * rowsPerPage,
-      page * rowsPerPage + rowsPerPage,
-    )
-  }, [page, rowsPerPage, users]);
+    if (paginationArray[page]) {
+      return users.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
+    }
+    else {
+      return [];
+    }
+  }, [users, page, rowsPerPage]);
+
   return (
     <Grid container>
       <Grid item md={12} xs={12}>
-        <TableContainer component={Paper} className={classes.tableContainer} style={{ "maxWidth": "100vw", overFlow: "scroll" }}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
@@ -150,29 +158,25 @@ function Users({ users, totalRecords, dispatch }) {
                   <TableCell>{row.phone_number}</TableCell>
                   <TableCell>
                     {
-                      row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ? 
-                        <Chip size='small' label="Super Admin" color="error" /> :
+                      row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
+                        <Chip size='small' label="Super Admin" color="primary" /> :
                         row.type == process.env.REACT_APP_USER_TYPE_ADMIN ?
-                        <Chip size="small" label="Admin" color="success" />:
-                        <Chip size='small' label="Standard" color="primary" />
+                          <Chip size='small' label="Admin" color="primary" /> :
+                          <Chip size='small' label="Standard" color="primary" />
                     }
                   </TableCell>
                   <TableCell>
                     {
-                      row.active == process.env.REACT_APP_STATUS_ACTIVE ? 
-                      <Chip size='small' label="Active" color="primary" /> :
-                      <Chip size='small' label="Disabled" color="error" />
+                      row.active == process.env.REACT_APP_STATUS_ACTIVE ?
+                        <Chip size='small' label="Active" color="success" /> :
+                        <Chip size='small' label="Not Active" color="primary" />
                     }
                   </TableCell>
                   <TableCell>
-                    {new Date(row.created_on).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "2-digit",
-                      year: "numeric",
-                    })}
+                    {
+                      format(new Date(row.created_on), 'dd MMMM, yyyy')
+                    }
                   </TableCell>
-
-
                   <TableCell sx={{ display: "flex" }}>
                     <IconButton sx={{ color: "blue" }}>
                       <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
@@ -213,11 +217,16 @@ function Users({ users, totalRecords, dispatch }) {
   )
 }
 
+
 const mapStateToProps = state => {
+  // const users = state.users.forEach((record) => {
+  //   record.type = record.type == 1 ? 'Super' : 'Standard';
+  // })
   return {
     users: state.users.users,
     totalRecords: state.users.totalRecords,
-    loadingRecords: state.progressBar.loading
+    loadingRecords: state.progressBar.loading,
+    paginationArray: state.users.paginationArray
   }
 }
 
