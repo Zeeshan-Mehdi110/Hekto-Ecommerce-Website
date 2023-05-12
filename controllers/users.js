@@ -171,12 +171,13 @@ router.get("/", async (req, res) => {
     const recordsPerPage = req.query.limit ? req.query.limit : process.env.RECORDS_PER_PAGE;
     const totalRecords = await User.countDocuments();
     // const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage), sort: { created_on: -1 } });
-    const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage) });
-
+    const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage) }
     res.status(200).json({users, totalRecords});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
+
+
 
 module.exports = router;

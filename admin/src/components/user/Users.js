@@ -108,7 +108,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
 
 
   useEffect(() => {
-    dispatch(loadUsers(page, rowsPerPage))
+    dispatch(loadUsers(page,rowsPerPage))
   }, [page, rowsPerPage])
 
 
