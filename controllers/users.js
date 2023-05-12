@@ -168,7 +168,7 @@ router.get("/", async (req, res) => {
   try {
     const skip = parseInt(req.query.skip ? req.query.skip : 0);
     const recordsPerPage = 5;
-    const totalRecords = await User.countDocuments();
+    let totalRecords = await User.countDocuments();
     const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage), sort: { created_on: -1 } });
 
     res.status(200).json({users, totalRecords});
@@ -176,5 +176,7 @@ router.get("/", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+
 
 module.exports = router;

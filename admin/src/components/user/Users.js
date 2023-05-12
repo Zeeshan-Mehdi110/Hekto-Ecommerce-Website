@@ -105,7 +105,7 @@ function Users({ users, totalRecords, dispatch }) {
   const classes = useStyles();
 
   useEffect(() => {
-    dispatch(loadUsers())
+    dispatch(loadUsers(page,rowsPerPage))
   }, [page, rowsPerPage])
 
 
