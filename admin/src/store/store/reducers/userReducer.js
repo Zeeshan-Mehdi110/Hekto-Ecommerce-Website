@@ -12,7 +12,7 @@ function userReducer(state = initialState, action) {
         case userActionTypes.ADD_USER:
             return {
                 ...state,
-                users: [action.payload, ...state.users]
+                users: [ ...state.users, action.payload]
             }
         case userActionTypes.REMOVE_USER:
             const newUsers = state.users.filter(item => item.id === action.payload ? false : true);
