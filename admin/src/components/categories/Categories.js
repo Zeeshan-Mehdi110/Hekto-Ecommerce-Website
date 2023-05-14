@@ -188,9 +188,6 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
 
 
 const mapStateToProps = state => {
-  // const users = state.users.forEach((record) => {
-  //   record.type = record.type == 1 ? 'Super' : 'Standard';
-  // })
   return {
     categories: state.categories.categories,
     totalRecords: state.categories.totalRecords,
