@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { Provider } from 'react-redux';
-import store from './store/store';
+import store from './store';
 import configureAxios from './config/axios';
 
 configureAxios(store)

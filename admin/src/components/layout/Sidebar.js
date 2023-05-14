@@ -104,7 +104,7 @@ const drodownsList = [
   {
     title: 'Categories',
     icon: <CategoryIcon />,
-    items: [{ to: '/admin/products/add', text: 'Add Products', icon: <AddCircleOutline /> }, { to: '/admin/products', text: 'Products', icon: <GroupIcon /> }]
+    items: [{ to: '/admin/category/add', text: 'Add Category', icon: <AddCircleOutline /> }, { to: '/admin/categories', text: 'Categories', icon: <GroupIcon /> }]
   }
 ];
 

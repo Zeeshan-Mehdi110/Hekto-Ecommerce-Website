@@ -8,7 +8,7 @@ const allReducers = {
     users: userReducer,
     progressBar: progressReducer,
     auth : authReducer,
-    category : categoryReducer,
+    categories : categoryReducer,
 }
 
 const rootReducer = combineReducers(allReducers);

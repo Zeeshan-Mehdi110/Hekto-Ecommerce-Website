@@ -8,7 +8,7 @@ const verifyUser = require("../utils/middlewares");
 
 
 const router = express.Router();
-router.use(['/profile-settings', '/add', '/edit', '/delete'], verifyUser);
+// router.use(['/profile-settings', '/add', '/edit', '/delete'], verifyUser);
 
 router.post("/login", async (req, res) => {
 

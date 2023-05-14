@@ -8,41 +8,11 @@ import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit} from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
-import { loadUsers } from '../../store/actions/userActions';
+import { loadCategories } from '../../store/actions/categoryActions';
 
 const columns = [
-  { id: 'userName', label: 'Name', },
-  { id: 'userEmail', label: 'Email' },
-  {
-    id: 'phone_number',
-    label: 'Phone Number',
-    align: 'left',
-
-  },
-  {
-    id: 'userType',
-    label: 'Type',
-
-    align: 'center',
-  },
-  {
-    id: 'userStatus',
-    label: 'Status',
-
-    align: 'center',
-  },
-  {
-    id: 'created_on',
-    label: 'Created On',
-
-    align: 'center',
-  },
-  {
-    id: 'actions',
-    label: 'Actions',
-    width: 170,
-    align: 'right'
-  }
+  { id: 'categoryName', label: 'Name', },
+  { id: 'categoryDescription', label: 'Description' },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -100,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Users({ users, totalRecords, paginationArray, dispatch }) {
+function Categories({ categories, totalRecords, paginationArray, dispatch }) {
   const [rowsPerPage, setRowsPerPage] = useState(parseInt(process.env.REACT_APP_RECORDS_PER_PAGE));
   const [page, setPage] = useState(0);
   const [rowsPerPageChanged, setRowsPerPageChanged] = useState(false);
@@ -108,7 +78,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
 
 
   useEffect(() => {
-    dispatch(loadUsers(page, rowsPerPage))
+    dispatch(loadCategories(page, rowsPerPage))
   }, [page, rowsPerPage])
 
 
@@ -125,16 +95,16 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
     // listRef.current && listRef.current.scrollToItem(0);
   };
 
-  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [users, rowsPerPage]);
+  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [categories, rowsPerPage]);
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
-      return users.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
+      return categories.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
     }
     else {
       return [];
     }
-  }, [users, page, rowsPerPage]);
+  }, [categories, page, rowsPerPage]);
 
   return (
     <Grid container>
@@ -154,15 +124,14 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
               {visibleRows.map((row) => (
                 <TableRow key={row._id} className={classes.headerRow}>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.phone_number}</TableCell>
+                  <TableCell>{row.description}</TableCell>
                   <TableCell>
                     {
                       row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
                         <Chip size='small' label="Super Admin" color="primary" /> :
                         row.type == process.env.REACT_APP_USER_TYPE_ADMIN ?
-                          <Chip size='small' label="Admin" color="primary" /> :
-                          <Chip size='small' label="Standard" color="primary" />
+                          <Chip size='small' label="Admin" color="success" /> :
+                          <Chip size='small' label="Standard" color="info" />
                     }
                   </TableCell>
                   <TableCell>
@@ -223,11 +192,11 @@ const mapStateToProps = state => {
   //   record.type = record.type == 1 ? 'Super' : 'Standard';
   // })
   return {
-    users: state.users.users,
-    totalRecords: state.users.totalRecords,
+    categories: state.categories.categories,
+    totalRecords: state.categories.totalRecords,
     loadingRecords: state.progressBar.loading,
-    paginationArray: state.users.paginationArray
+    paginationArray: state.categories.paginationArray
   }
 }
 
-export default connect(mapStateToProps)(Users);
+export default connect(mapStateToProps)(Categories);

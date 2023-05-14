@@ -3,7 +3,7 @@ import { TextField, Button,Box, Typography} from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { signin } from "../store/store/actions/authActions";
+import { signin } from "../store/actions/authActions";
 
 
 
