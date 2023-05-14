@@ -5,7 +5,7 @@ const verifyUser = require("../utils/middlewares")
 
 
 const router = express.Router();
-router.use(verifyUser)
+// router.use(verifyUser)
 
 
 
@@ -36,7 +36,7 @@ router.post("/edit", async (req, res) => {
 
         // if id is not available
         if (!req.body.id)
-            throw new Error("Category id is requird")
+            throw new Error("Category id is required")
 
 
         // check for valid object Id using mongoose this will check the id is this id is according to formula of #
@@ -67,7 +67,7 @@ router.delete('/delete', async (req, res) => {
   try {
     //  if id is not available
     if (!req.body.id)
-      throw new Error("Category id is requird")
+      throw new Error("Category id is required")
 
 
     // check for valid object Id using mongoose this will check the id is this id is according to formula of #
@@ -88,14 +88,28 @@ router.delete('/delete', async (req, res) => {
 })
 
 
-router.get("/", async(req, res) =>{
-  try{
-    let categories = await Category.find();
+// router.get("/", async(req, res) =>{
+//   try{
+//     let categories = await Category.find();
 
-    res.status(200).json(categories);
-  }catch(err){
-    res.status(400).json({ error: err.message })
+//     res.status(200).json(categories);
+//   }catch(err){
+//     res.status(400).json({ error: err.message })
+//   }
+// })
+
+router.get("/", async (req, res) => {
+  try {
+    const skip = parseInt(req.query.skip ? req.query.skip : 0);
+    const recordsPerPage = req.query.limit ? req.query.limit : process.env.RECORDS_PER_PAGE;
+    const totalRecords = await Category.countDocuments();
+    // const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage), sort: { created_on: -1 } });
+    const categories = await Category.find({}, null, { skip, limit: parseInt(recordsPerPage) });
+
+    res.status(200).json({categories, totalRecords});
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-})
+});
 
 module.exports = router;

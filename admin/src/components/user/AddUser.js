@@ -7,9 +7,9 @@ import { FORM_ERROR } from "final-form";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../library/TextInput";
 import SelectInput from "../library/SelectInput";
-import { showError } from "../../store/store/actions/alertActions";
+import { showError } from "../../store/actions/alertActions";
 import { useDispatch } from "react-redux";
-import { userActionTypes } from "../../store/store/actions/userActions";
+import { userActionTypes } from "../../store/actions/userActions";
 
 function AddUser() {
   const dispatch = useDispatch()

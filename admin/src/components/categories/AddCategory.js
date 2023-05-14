@@ -5,11 +5,9 @@ import { AddCircleOutline } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../library/TextInput";
-import SelectInput from "../library/SelectInput";
-import { showError } from "../../store/store/actions/alertActions";
+import { showError } from "../../store/actions/alertActions";
 import { useDispatch } from "react-redux";
-import { userActionTypes } from "../../store/store/actions/userActions";
-import { addCategory, categoryActionTypes } from "../../store/store/actions/categoryActions";
+import { addCategory} from "../../store/actions/categoryActions";
 
 const AddCategory = () => {
   const dispatch = useDispatch()
@@ -18,9 +16,9 @@ const AddCategory = () => {
   const validate = (data) => {
     const errors = {};
     if (!data.name)
-      errors.name = "name is Required";
+      errors.name = "Category name is Required";
     else if (data.name.length < 3)
-      errors.name = "Name Should be more then 3 Char";
+      errors.name = "Category name Should be more then 3 Char";
     return errors
   };
 
@@ -33,7 +31,7 @@ const AddCategory = () => {
         form.resetFieldState(field); // Reset the touched state for each field
         form.change(field, null); // Reset the value of each field to null
       });
-      navigate("/admin/users");
+      navigate("/admin/categories");
     } catch (err) {
       let message = err && err.response && err.response.data ? err.response.data.error : err.message;
       dispatch(showError(message))
@@ -70,7 +68,7 @@ const AddCategory = () => {
                 fullWidth
                 disabled={submitting || submitting}
               >
-                Add User
+                Add Category
               </Button>
             )}
             {submitError && typeof submitError === 'string' && (
@@ -89,7 +87,7 @@ const AddCategory = () => {
             </Box>
             <Box mt={2}>
               {submitSucceeded && !submitting && (
-                <Alert color="success">User Added Successfully</Alert>
+                <Alert color="success">Category Added Successfully</Alert>
               )}
             </Box>
           </form>
