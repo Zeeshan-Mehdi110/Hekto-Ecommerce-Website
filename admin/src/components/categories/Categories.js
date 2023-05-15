@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import TableContainer from '@mui/material/TableContainer';
 import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit} from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 import { loadCategories } from '../../store/actions/categoryActions';
 
@@ -91,7 +91,7 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
     setRowsPerPage(event.target.value);
     setRowsPerPageChanged(true)
     setPage(0);
-    dispatch({type: ''})
+    dispatch({ type: '' })
     // listRef.current && listRef.current.scrollToItem(0);
   };
 
@@ -121,39 +121,24 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {visibleRows.map((row) => (
-                <TableRow key={row._id} className={classes.headerRow}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.description}</TableCell>
-                  <TableCell>
-                    {
-                      row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
-                        <Chip size='small' label="Super Admin" color="primary" /> :
-                        row.type == process.env.REACT_APP_USER_TYPE_ADMIN ?
-                          <Chip size='small' label="Admin" color="success" /> :
-                          <Chip size='small' label="Standard" color="info" />
-                    }
-                  </TableCell>
-                  <TableCell>
-                    {
-                      row.active == process.env.REACT_APP_STATUS_ACTIVE ?
-                        <Chip size='small' label="Active" color="success" /> :
-                        <Chip size='small' label="Not Active" color="primary" />
-                    }
-                  </TableCell>
-                  <TableCell>
-                    {
-                      format(new Date(row.created_on), 'dd MMMM, yyyy')
-                    }
-                  </TableCell>
-                  <TableCell sx={{ display: "flex" }}>
-                    <IconButton sx={{ color: "blue" }}>
-                      <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
-                    </IconButton>
-                    <DeletePopUp />
-                  </TableCell>
-                </TableRow>
-              ))}
+              {visibleRows.map((row) => {
+                const descriptionWords = row.description ? row.description.split(' ') : [];
+                const slicedDescription = descriptionWords.slice(0, 6).join(' ');
+                const displayDescription = descriptionWords.length > 6 ? `${slicedDescription}...` : slicedDescription;
+
+                return (
+                  <TableRow key={row._id} className={classes.headerRow}>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{displayDescription}</TableCell>
+                    <TableCell sx={{ display: 'flex' }}>
+                      <IconButton sx={{ color: 'blue' }}>
+                        <FontAwesomeIcon icon={faEdit} style={{ fontSize: '1rem' }} />
+                      </IconButton>
+                      <DeletePopUp />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
           <Box display="flex" justifyContent="space-between" alignItems="center">
