@@ -7,8 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { format } from 'date-fns';
-import { loadCategories } from '../../store/actions/categoryActions';
+import { categoryActionTypes, loadCategories } from '../../store/actions/categoryActions';
+import { Link, useParams } from 'react-router-dom';
 
 const columns = [
   { id: 'categoryName', label: 'Name', },
@@ -71,11 +71,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Categories({ categories, totalRecords, paginationArray, dispatch }) {
+  const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
+
   const [rowsPerPage, setRowsPerPage] = useState(parseInt(process.env.REACT_APP_RECORDS_PER_PAGE));
   const [page, setPage] = useState(0);
   const [rowsPerPageChanged, setRowsPerPageChanged] = useState(false);
   const classes = useStyles();
 
+  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [categories, rowsPerPage]);
 
   useEffect(() => {
     dispatch(loadCategories(page, rowsPerPage))
@@ -89,13 +92,11 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
-    setRowsPerPageChanged(true)
     setPage(0);
-    dispatch({ type: '' })
-    // listRef.current && listRef.current.scrollToItem(0);
+    dispatch({ type: categoryActionTypes.RESET_CATEGORY })
+    dispatch({ type: categoryActionTypes.UPDATE_ROWS_PREPARE, payload: event.target.value })
   };
 
-  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [categories, rowsPerPage]);
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
@@ -104,7 +105,7 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
     else {
       return [];
     }
-  }, [categories, page, rowsPerPage]);
+  }, [categories, page, rowsPerPage])
 
   return (
     <Grid container>
@@ -124,17 +125,19 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
               {visibleRows.map((row) => {
                 const descriptionWords = row.description ? row.description.split(' ') : [];
                 const slicedDescription = descriptionWords.slice(0, 6).join(' ');
-                const displayDescription = descriptionWords.length > 6 ? `${slicedDescription}...` : slicedDescription;
+                const displayDescription = descriptionWords.length > 1 ? `${slicedDescription}...` : slicedDescription;
 
                 return (
                   <TableRow key={row._id} className={classes.headerRow}>
                     <TableCell>{row.name}</TableCell>
-                    <TableCell>{displayDescription}</TableCell>
-                    <TableCell sx={{ display: 'flex' }}>
-                      <IconButton sx={{ color: 'blue' }}>
-                        <FontAwesomeIcon icon={faEdit} style={{ fontSize: '1rem' }} />
-                      </IconButton>
-                      <DeletePopUp />
+                    <TableCell>{row.description ? displayDescription : ''}</TableCell>
+                    <TableCell sx={{ display: "flex" }}>
+                      <Link to={"/admin/category/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                        <IconButton sx={{ color: "blue" }}>
+                          <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
+                        </IconButton>
+                      </Link>
+                      <DeletePopUp id={row._id} page={page} actionType={"category"} />
                     </TableCell>
                   </TableRow>
                 );

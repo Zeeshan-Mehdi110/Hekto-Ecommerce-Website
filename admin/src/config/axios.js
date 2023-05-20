@@ -1,8 +1,9 @@
 import axios from "axios"
-// import { authActions } from "../store/actions/authActions";
+import { authActionsType } from "../store/actions/authActions";
 
 export default function configureAxios(store) {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+  // request middleware
   axios.interceptors.request.use( config => {
     if (!config.headers.Authorization) {
       const state = store.getState();
@@ -11,4 +12,15 @@ export default function configureAxios(store) {
     }
     return config;
   }, error => Promise.reject(error));
+  // response middleware
+  axios.interceptors.response.use( response => response, error => {
+    if ( error.response && error.response.status === 401) {
+      store.dispatch(authActionsType.AUTH_FAILED);
+      localStorage.removeItem('token');
+      return Promise.reject(new Error("Authentication failed"))  
+    }else {
+      return Promise.reject(error);
+    }
+  });
+  
 }

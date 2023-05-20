@@ -5,7 +5,7 @@ import { AddCircleOutline } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../library/TextInput";
-import { showError } from "../../store/actions/alertActions";
+import { showError, showSuccess } from "../../store/actions/alertActions";
 import { useDispatch } from "react-redux";
 import { addCategory} from "../../store/actions/categoryActions";
 
@@ -24,8 +24,10 @@ const AddCategory = () => {
 
   const handleAddUser = async (data, form) => {
     try {
-      let result = await axios.post( "/category/add", data );
+      let result = await axios.post( "api/category/add", data );
       dispatch(addCategory(result.data.category));
+      if(result.statusCode === 200)
+      dispatch(showSuccess("Category added successfully"))
       const fields = form.getRegisteredFields(); // Get all the registered field names
       fields.forEach((field) => {
         form.resetFieldState(field); // Reset the touched state for each field
@@ -36,7 +38,6 @@ const AddCategory = () => {
       let message = err && err.response && err.response.data ? err.response.data.error : err.message;
       dispatch(showError(message))
     }
-
   };
 
 

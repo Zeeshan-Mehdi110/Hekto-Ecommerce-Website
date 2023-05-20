@@ -2,13 +2,15 @@ import React, { useMemo, useState } from 'react';
 import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import TableContainer from '@mui/material/TableContainer';
+import { loadUsers, userActionTypes } from '../../store/actions/userActions';
+
 import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit} from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
-import { loadUsers } from '../../store/actions/userActions';
 
 const columns = [
   { id: 'userName', label: 'Name', },
@@ -101,31 +103,31 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Users({ users, totalRecords, paginationArray, dispatch }) {
-  const [rowsPerPage, setRowsPerPage] = useState(parseInt(process.env.REACT_APP_RECORDS_PER_PAGE));
-  const [page, setPage] = useState(0);
-  const [rowsPerPageChanged, setRowsPerPageChanged] = useState(false);
+  const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
+
+  const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
+  const [rowsPerPage, setRowsPerPage] = useState(recordsPerPage ? parseInt(recordsPerPage) : parseInt(process.env.REACT_APP_RECORDS_PER_PAGE));
   const classes = useStyles();
 
+  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [users, rowsPerPage]);
 
   useEffect(() => {
-    dispatch(loadUsers(page, rowsPerPage))
+      if (!paginationArray[page]){
+        dispatch(loadUsers(page, rowsPerPage))
+      }
   }, [page, rowsPerPage])
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage - 1);
-    // listRef.current && listRef.current.scrollToItem(0);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
-    setRowsPerPageChanged(true)
     setPage(0);
-    dispatch({type: ''})
-    // listRef.current && listRef.current.scrollToItem(0);
+    dispatch({ type: userActionTypes.RESET_USER })
+    dispatch({ type: userActionTypes.UPDATE_ROWS_PREPARE, payload: event.target.value })
   };
 
-  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [users, rowsPerPage]);
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
@@ -151,8 +153,9 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {visibleRows.map((row) => (
-                <TableRow key={row._id} className={classes.headerRow}>
+              {visibleRows.map((row) => {
+                if(row.is_deleted) return;
+                return <TableRow key={row._id} className={classes.headerRow}>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.email}</TableCell>
                   <TableCell>{row.phone_number}</TableCell>
@@ -178,13 +181,16 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
                     }
                   </TableCell>
                   <TableCell sx={{ display: "flex" }}>
-                    <IconButton sx={{ color: "blue" }}>
-                      <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
-                    </IconButton>
-                    <DeletePopUp />
+                    <Link to={"/admin/users/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                      <IconButton sx={{ color: "blue" }}>
+                        <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
+                      </IconButton>
+                    </Link>
+                    <DeletePopUp id={row._id} page={page} actionType={"user"} />
                   </TableCell>
                 </TableRow>
-              ))}
+              }
+              )}
             </TableBody>
           </Table>
           <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -193,8 +199,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
               component="div"
               count={totalRecords}
               rowsPerPage={rowsPerPage}
-              page={page}
-              // page={users.length ? page - 1 : 0}
+              page={users.length ? page : 0}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
@@ -219,14 +224,11 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
 
 
 const mapStateToProps = state => {
-  // const users = state.users.forEach((record) => {
-  //   record.type = record.type == 1 ? 'Super' : 'Standard';
-  // })
   return {
     users: state.users.users,
     totalRecords: state.users.totalRecords,
     loadingRecords: state.progressBar.loading,
-    paginationArray: state.users.paginationArray
+    paginationArray: state.users.paginationArray,
   }
 }
 

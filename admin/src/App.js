@@ -1,16 +1,25 @@
+import { useEffect } from 'react';
 import './App.css';
 import AppRoutes from './AppRoutes';
-import { BrowserRouter } from 'react-router-dom';
+import { loadAuth } from './store/actions/authActions';
+import { connect } from 'react-redux';
 
 
-function App() {
+function App({ user, isAuthLoaded, loadAuth }) {
+  useEffect(() => {
+    loadAuth();
+  }, [])
   return (
     <div className="App">
-      <BrowserRouter >
         <AppRoutes />
-      </BrowserRouter>
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+    isAuthLoaded: state.auth.isLoaded,
+  };
+}
 
-export default App;
+export default connect(mapStateToProps, { loadAuth })(App);

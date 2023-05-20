@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -6,12 +5,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { IconButton } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useDispatch } from 'react-redux';
+import { deleteUser } from '../../store/actions/userActions';
+import { deleteCategory } from '../../store/actions/categoryActions';
+import { useState } from 'react';
 
-
-function DeletePopUp() {
-  const [open, setOpen] = React.useState(false);
+function DeletePopUp({ id, page,actionType }) {
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,10 +23,20 @@ function DeletePopUp() {
     setOpen(false);
   };
 
+  const handleDelete = () => {
+    if (actionType === 'user') {
+      dispatch(deleteUser(id, page));
+    } else if (actionType === 'category') {
+      dispatch(deleteCategory(id,page));
+    }
+    setOpen(false);
+  };
+  
+
   return (
     <div>
-      <IconButton onClick={handleClickOpen} sx={{ color: "red" }}>
-        <FontAwesomeIcon icon={faTrash} style={{ fontSize: "1rem" }} />
+      <IconButton variant="outlined" onClick={handleClickOpen}>
+        <DeleteIcon sx={{ color: 'red' }} />
       </IconButton>
       <Dialog
         open={open}
@@ -37,18 +49,18 @@ function DeletePopUp() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            If you rally want to delete the user click delete
+            If you really want to delete the user, click Delete.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleDelete} autoFocus>
             Delete
           </Button>
         </DialogActions>
       </Dialog>
     </div>
-  )
+  );
 }
 
-export default DeletePopUp
+export default DeletePopUp;

@@ -1,6 +1,6 @@
 import { Form, Field } from "react-final-form";
 import { TextField, Button,Box, Typography} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signin } from "../store/actions/authActions";
@@ -9,11 +9,13 @@ import { signin } from "../store/actions/authActions";
 
 const LoginForm = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
   const handleSubmit = (data, form) => {
-    axios.post("/users/login", data).then( ({data}) => {
+    axios.post("/api/users/login", data).then( ({data}) => {
         dispatch( signin(data.user, data.token) )
         localStorage.setItem("token", data.token)
+        navigate("/admin")
     } ).catch( err => {
         console.log(err)
     } )
