@@ -8,7 +8,7 @@ const verifyUser = require("../utils/middlewares");
 
 
 const router = express.Router();
-// router.use(['/profile-settings', '/add', '/edit', '/delete'], verifyUser);
+router.use(['/profile-settings',"/profile",'/add', '/edit', '/delete'], verifyUser);
 
 router.post("/login", async (req, res) => {
 
@@ -19,8 +19,7 @@ router.post("/login", async (req, res) => {
     if (!user) throw new Error("Email or password is incorrect");
     if (!(await bcrypt.compare(req.body.password, user.password)))
       throw new Error("Email or password is incorrect");
-
-    //promise ko hum await kr skty hn bcz isky andar async task perform hty hn
+    // We can await a promise because it allows us to handle asynchronous tasks.
     const token = await createJWTToken(user, 12);
     res.json({ token, user });
   } catch (error) {
@@ -130,8 +129,10 @@ router.post("/edit", async (req, res) => {
     if (!req.body.id) throw new Error("User id is required");
     if (!mongoose.isValidObjectId(req.body.id))
       throw new Error("User id is invalid");
-    if (req.user._id.toString() !== req.body.id) // to string is used to convert req.user._id to string because this returns new ObjectId("6439f4ca31d7babed61963e0") that is object user id and we need only string to compare it.
-      throw new Error("Invalid request s");
+      console.log(req.user._id.toString())
+      console.log(req.body.id.toString())
+    // if (req.user._id.toString() !== req.body.id.toString()) // to string is used to convert req.user._id to string because this returns new ObjectId("6439f4ca31d7babed61963e0") that is object user id and we need only string to compare it.
+    //   throw new Error("Invalid request");
 
     const user = await User.findById(req.body.id);
     if (!user) throw new Error("User does not exists");
@@ -142,7 +143,7 @@ router.post("/edit", async (req, res) => {
       salary: req.body.salary,
     });
 
-    res.json({ success: true });
+    res.json({ user: await User.findById(req.body.id) });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -164,6 +165,17 @@ router.delete("/delete", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.get("/profile", async (req, res) => {
+  try {
+    let user = await User.findById(req.user._id)
+    user = user.toObject()
+    delete user.password
+    res.json({ user })
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+})
 
 
 router.get("/", async (req, res) => {

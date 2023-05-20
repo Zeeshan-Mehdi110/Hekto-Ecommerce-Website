@@ -15,13 +15,16 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import logo from '../../static/logo.png'
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import ListIcon from "@mui/icons-material/List";
 import CategoryIcon from '@mui/icons-material/Category';
-import { AddCircleOutline, PeopleOutline } from "@mui/icons-material";
+import { AccountCircle, AddCircleOutline, PeopleOutline } from "@mui/icons-material";
 import SettingsIcon from '@mui/icons-material/Settings';
 import ListDropdown from '../common/ListDropdown';
 import GroupIcon from '@mui/icons-material/Group';
+import { authActionsType } from '../../store/actions/authActions';
+import { Avatar } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -90,7 +93,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const drodownsList = [
+const dropdownList = [
   {
     title: 'Products',
     icon: <PeopleOutline />,
@@ -109,8 +112,12 @@ const drodownsList = [
 ];
 
 export default function Sidebar() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const name = useSelector((state) => state?.auth?.user?.name)
+
 
   const handleDrawerOpen = () => {
     setOpen(!open);
@@ -122,6 +129,11 @@ export default function Sidebar() {
   const handleCollapse = () => {
     setCollapseOpen(!collapseOpen);
   };
+  const handleLogOut = () => {
+    dispatch({ type : authActionsType.SIGN_OUT })
+    localStorage.removeItem("token")
+    navigate("/admin")
+  }
 
 
   return (
@@ -143,6 +155,24 @@ export default function Sidebar() {
           <Typography variant="h6" noWrap component="div">
             Hekto Admin Panel
           </Typography>
+          <IconButton
+            onClick={handleLogOut}
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            sx={{ "marginLeft": "auto", "marginRight": "30px", "&:hover .sinupBox": { visibility: "visible" } }}
+            // onClick={handleMenu}
+            color="inherit"
+          >
+            <Box visibility={"hidden"} className="sinupBox" sx={{ "color": "white", "fontSize": '15px', "fontFamily": "var(--josefin)" }}>Logout</Box>
+            {
+              name ? <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
+                      {name.charAt(0).toUpperCase()}
+                    </Avatar> : 
+                    <Link   to='/' style={{ "textDecoration": "none", "color": "white" }} ><AccountCircle /></Link>
+            }
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -165,7 +195,7 @@ export default function Sidebar() {
           </ListItem>
         </Link>
         {
-          drodownsList.map((dropdown, index) => (
+          dropdownList.map((dropdown, index) => (
             <ListDropdown icon={dropdown.icon} title={dropdown.title} key={index} items={dropdown.items} />
           ))
         }
