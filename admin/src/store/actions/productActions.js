@@ -70,7 +70,7 @@ export const loadProducts = (
 export const deleteProduct = (id, page) => {
   return (dispatch) => {
     axios
-      .delete("users/delete", { data: { id } })
+      .delete("/products/delete", { data: { id } })
       .then(() => {
         dispatch({
           type: productActionTypes.DELETE_PRODUCT,

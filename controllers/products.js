@@ -98,7 +98,7 @@ router.delete("/delete", async (req, res) => {
     if (!product) throw new Error("Invalid Id 3");
 
     await Product.findByIdAndDelete(req.body.id);
-    res.json({ success: "Product is Deleted" });
+    res.json({ success: true });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
