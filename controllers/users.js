@@ -6,10 +6,12 @@ const { checkSchema, validationResult } = require("express-validator");
 const User = require("../models/Users");
 const verifyUser = require("../utils/middlewares");
 const { randomBytes } = require("crypto");
+const multer = require("multer");
+const fs = require("fs").promises;
 
 const router = express.Router();
 router.use(
-  ["/profile-settings", "/add", "/edit", "/delete", "/profile"],
+  ["/profile-update", "/add", "/edit", "/delete", "/profile"],
   verifyUser
 );
 
@@ -127,31 +129,64 @@ router.post("/reset-password", async (req, res) => {
   }
 });
 
-router.post("/profile-settings", async (req, res) => {
-  try {
-    if (!req.body.id) throw new Error("User id is required");
-
-    if (!mongoose.isValidObjectId(req.body.id))
-      throw new Error("User id is invalid");
-
-    let user = await User.findById(req.body.id);
-    if (!user) throw new Error("User does not exists");
-
-    await User.findByIdAndUpdate(req.body.id, {
-      name: req.body.name,
-      email: req.body.email,
-      phone_number: req.body.phone_number,
-      type: req.body.type,
-    });
-    let updatedUser = await User.findById(req.body.id);
-    updatedUser.toObject();
-    delete updatedUser.password;
-
-    res.json({ user: updatedUser });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+const storage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    try {
+      await fs.mkdir(`content/${req.user._id}`, { recursive: true });
+      cb(null, `content/${req.user._id}`);
+    } catch (error) {
+      cb(error, null);
+    }
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
 });
+
+const upload = multer({ storage });
+
+router.post(
+  "/profile-update",
+  upload.single("profilePicture"),
+  async (req, res) => {
+    try {
+      if (!req.body.name) throw new Error("Name is required");
+      const record = {
+        name: req.body.name,
+        phone_number: req.body.phoneNumber,
+        modifiedOn: new Date(),
+      };
+      if (req.file && req.file.filename)
+        record.profile_picture = req.file.filename;
+      if (req.body.newPassword) {
+        if (!req.body.currentPassword)
+          throw new Error("Current password is required");
+        if (
+          !(await bcrypt.compare(
+            req.body.currentPassword,
+            req.body.newPassword
+          ))
+        )
+          throw new Error("Current password is incorrect");
+        if (req.body.newPassword.length < 6)
+          throw new Error(
+            "New password is should be at least 6 characters long"
+          );
+        if (req.body.newPassword !== req.body.confirmPassword)
+          throw new Error("Passwords do not match");
+        record.password = await bcrypt.hash(req.body.newPassword, 10);
+      }
+
+      await User.findByIdAndUpdate(req.user._id, record);
+      let user = await User.findById(req.user._id);
+      user = user.toObject();
+      delete user.password;
+      res.json({ user });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+);
 
 const userSchema = checkSchema({
   name: {
