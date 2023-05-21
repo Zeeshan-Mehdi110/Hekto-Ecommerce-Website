@@ -183,9 +183,9 @@ function Products({
             </TableHead>
             <TableBody>
               {visibleRows.map((row) => {
-                if (row.is_deleted) return;
+                if (!row || row.is_deleted) return null;
                 return (
-                  <TableRow key={row._id} className={classes.headerRow}>
+                  <TableRow key={row?._id} className={classes.headerRow}>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.price}</TableCell>
                     <TableCell>{row.sale_price}</TableCell>
