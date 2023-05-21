@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
@@ -115,6 +115,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
       if (!paginationArray[page]){
         dispatch(loadUsers(page, rowsPerPage))
       }
+
   }, [page, rowsPerPage])
 
   const handleChangePage = (event, newPage) => {
@@ -125,7 +126,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
     setRowsPerPage(event.target.value);
     setPage(0);
     dispatch({ type: userActionTypes.RESET_USER })
-    dispatch({ type: userActionTypes.UPDATE_ROWS_PREPARE, payload: event.target.value })
+    dispatch({ type: userActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
   };
 
 
@@ -181,12 +182,12 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
                     }
                   </TableCell>
                   <TableCell sx={{ display: "flex" }}>
-                    <Link to={"/admin/users/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                    <Link to={"/admin/dashboard/users/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
                       <IconButton sx={{ color: "blue" }}>
                         <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
                       </IconButton>
                     </Link>
-                    <DeletePopUp id={row._id} page={page} actionType={"user"} />
+                    <DeletePopUp id={row._id} page={page}/>
                   </TableCell>
                 </TableRow>
               }

@@ -7,8 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { categoryActionTypes, loadCategories } from '../../store/actions/categoryActions';
-import { Link, useParams } from 'react-router-dom';
+import { format } from 'date-fns';
+import { loadCategories } from '../../store/actions/categoryActions';
+import { Link } from 'react-router-dom';
 
 const columns = [
   { id: 'categoryName', label: 'Name', },
@@ -71,14 +72,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Categories({ categories, totalRecords, paginationArray, dispatch }) {
-  const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
-
   const [rowsPerPage, setRowsPerPage] = useState(parseInt(process.env.REACT_APP_RECORDS_PER_PAGE));
   const [page, setPage] = useState(0);
   const [rowsPerPageChanged, setRowsPerPageChanged] = useState(false);
   const classes = useStyles();
 
-  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [categories, rowsPerPage]);
 
   useEffect(() => {
     dispatch(loadCategories(page, rowsPerPage))
@@ -92,11 +90,13 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
+    setRowsPerPageChanged(true)
     setPage(0);
-    dispatch({ type: categoryActionTypes.RESET_CATEGORY })
-    dispatch({ type: categoryActionTypes.UPDATE_ROWS_PREPARE, payload: event.target.value })
+    dispatch({ type: '' })
+    // listRef.current && listRef.current.scrollToItem(0);
   };
 
+  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [categories, rowsPerPage]);
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
@@ -105,7 +105,7 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
     else {
       return [];
     }
-  }, [categories, page, rowsPerPage])
+  }, [categories, page, rowsPerPage]);
 
   return (
     <Grid container>
@@ -122,26 +122,41 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {visibleRows.map((row) => {
-                const descriptionWords = row.description ? row.description.split(' ') : [];
-                const slicedDescription = descriptionWords.slice(0, 6).join(' ');
-                const displayDescription = descriptionWords.length > 1 ? `${slicedDescription}...` : slicedDescription;
-
-                return (
-                  <TableRow key={row._id} className={classes.headerRow}>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.description ? displayDescription : ''}</TableCell>
-                    <TableCell sx={{ display: "flex" }}>
-                      <Link to={"/admin/category/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
-                        <IconButton sx={{ color: "blue" }}>
-                          <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
-                        </IconButton>
-                      </Link>
-                      <DeletePopUp id={row._id} page={page} actionType={"category"} />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              {visibleRows.map((row) => (
+                <TableRow key={row._id} className={classes.headerRow}>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.description}</TableCell>
+                  <TableCell>
+                    {
+                      row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
+                        <Chip size='small' label="Super Admin" color="primary" /> :
+                        row.type == process.env.REACT_APP_USER_TYPE_ADMIN ?
+                          <Chip size='small' label="Admin" color="success" /> :
+                          <Chip size='small' label="Standard" color="info" />
+                    }
+                  </TableCell>
+                  <TableCell>
+                    {
+                      row.active == process.env.REACT_APP_STATUS_ACTIVE ?
+                        <Chip size='small' label="Active" color="success" /> :
+                        <Chip size='small' label="Not Active" color="primary" />
+                    }
+                  </TableCell>
+                  <TableCell>
+                    {
+                      format(new Date(row.created_on), 'dd MMMM, yyyy')
+                    }
+                  </TableCell>
+                  <TableCell sx={{ display: "flex" }}>
+                    <Link to={"/admin/dashboard/categories/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                      <IconButton sx={{ color: "blue" }}>
+                        <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
+                      </IconButton>
+                    </Link>
+                    <DeletePopUp />
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
           <Box display="flex" justifyContent="space-between" alignItems="center">

@@ -1,15 +1,16 @@
 import { Form, Field } from "react-final-form";
-import { Button, CircularProgress, Alert } from "@mui/material";
+import { TextField, Button, CircularProgress, Alert } from "@mui/material";
 import { Box } from "@mui/system";
 import { AddCircleOutline } from "@mui/icons-material";
 import axios from "axios";
 import { FORM_ERROR } from "final-form";
-import {  useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, redirect, useNavigate } from "react-router-dom";
+import TextInput from "../library/TextInput";
+import SelectInput from "../library/SelectInput";
 import { useDispatch } from "react-redux";
 import { showSuccess } from "../../store/actions/alertActions";
 import { userActionTypes } from "../../store/actions/userActions";
-import TextInput from "../library/TextInput";
-import SelectInput from "../library/SelectInput";
 
 function AddUser() {
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ function AddUser() {
     const handleAddUser = async (data, form) => {
         try {
             let result = await axios.post(
-                "/api/users/add",
+                "http://localhost:5000/api/users/add",
                 data
             );
             const fields = form.getRegisteredFields(); // Get all the registered field names
@@ -45,7 +46,7 @@ function AddUser() {
             });
             dispatch({ type: userActionTypes.ADD_USER, payload: result.data.user })
             dispatch(showSuccess("User added successfully"))
-            navigate("/admin/users");
+            navigate("/admin/dashboard/users");
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 return { [FORM_ERROR]: error.response.data.errors };

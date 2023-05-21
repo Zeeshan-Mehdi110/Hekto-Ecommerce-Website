@@ -109,7 +109,7 @@ function userReducer(state = initialState, action) {
             }
         case userActionTypes.RESET_USER:
             return initialState
-        case userActionTypes.UPDATE_ROWS_PREPARE:
+        case userActionTypes.UPDATE_ROWS_PERPAGE:
             return { ...state, rowsPerPage: action.payload }
         case userActionTypes.UPDATE_PAGINATION_CURRENT_PAGE:
             return {

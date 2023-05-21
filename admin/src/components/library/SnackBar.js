@@ -1,47 +1,32 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import { Snackbar, Alert as MuiAlert } from "@mui/material";
+import { connect } from "react-redux"
+import { clearAlert } from "../../store/actions/alertActions";
 
-export default function SimpleSnackbar({message}) {
-  const [open, setOpen] = React.useState(false);
+function Alert({ alert,clearAlert }) {
 
-  const handleClick = () => {
-    setOpen(true);
-  };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    let variant = null
 
-    setOpen(false);
-  };
+    for (let key in alert)
+        if (alert[key])
+            variant = key
 
-  const action = (
-    <React.Fragment>
-      
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
 
-  return (
-    <div>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={message}
-        action={action}
-      />
-    </div>
-  );
+    if (!variant) return null;
+
+    return (
+        <Snackbar open={true} anchorOrigin={{vertical: "top", horizontal: "center"}}  autoHideDuration={5000} onClose={clearAlert}>
+            <MuiAlert severity={variant}>{alert[variant]}</MuiAlert>
+        </Snackbar>
+    )
 }
+
+const mapStateToProps = (state) => {
+    return {
+        alert: state.alert
+    }
+}
+
+const Wrapper = connect(mapStateToProps, {clearAlert});
+
+export default Wrapper(Alert)
