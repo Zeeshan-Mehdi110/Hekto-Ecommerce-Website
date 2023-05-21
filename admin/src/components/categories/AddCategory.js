@@ -7,27 +7,26 @@ import { useNavigate } from "react-router-dom";
 import TextInput from "../library/TextInput";
 import { showError, showSuccess } from "../../store/actions/alertActions";
 import { useDispatch } from "react-redux";
-import { addCategory} from "../../store/actions/categoryActions";
+import { addCategory } from "../../store/actions/categoryActions";
 
 const AddCategory = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const validate = (data) => {
     const errors = {};
-    if (!data.name)
-      errors.name = "Category name is Required";
+    if (!data.name) errors.name = "Category name is Required";
     else if (data.name.length < 3)
       errors.name = "Category name Should be more then 3 Char";
-    return errors
+    return errors;
   };
 
   const handleAddUser = async (data, form) => {
     try {
-      let result = await axios.post( "api/category/add", data );
+      let result = await axios.post("/category/add", data);
       dispatch(addCategory(result.data.category));
-      if(result.statusCode === 200)
-      dispatch(showSuccess("Category added successfully"))
+      if (result.statusCode === 200)
+        dispatch(showSuccess("Category added successfully"));
       const fields = form.getRegisteredFields(); // Get all the registered field names
       fields.forEach((field) => {
         form.resetFieldState(field); // Reset the touched state for each field
@@ -35,11 +34,13 @@ const AddCategory = () => {
       });
       navigate("/admin/categories");
     } catch (err) {
-      let message = err && err.response && err.response.data ? err.response.data.error : err.message;
-      dispatch(showError(message))
+      let message =
+        err && err.response && err.response.data
+          ? err.response.data.error
+          : err.message;
+      dispatch(showError(message));
     }
   };
-
 
   return (
     <Box textAlign="center" maxWidth="500px" mx="auto">
@@ -54,14 +55,30 @@ const AddCategory = () => {
           submitSucceeded,
           invalid,
         }) => (
-          <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
-            <Field component={TextInput} type='text' name="name" placeholder="Enter Name" label="Name" />
-            <Field component={TextInput} type='' name="description" placeholder="Enter Description" label="Description" />
+          <form
+            onSubmit={handleSubmit}
+            method="post"
+            encType="multipart/form-data"
+          >
+            <Field
+              component={TextInput}
+              type="text"
+              name="name"
+              placeholder="Enter Name"
+              label="Name"
+            />
+            <Field
+              component={TextInput}
+              type=""
+              name="description"
+              placeholder="Enter Description"
+              label="Description"
+            />
             {submitting ? (
               <CircularProgress />
             ) : (
               <Button
-                sx={{ marginTop: '20px' }}
+                sx={{ marginTop: "20px" }}
                 variant="contained"
                 color="success"
                 startIcon={<AddCircleOutline />}
@@ -72,14 +89,18 @@ const AddCategory = () => {
                 Add Category
               </Button>
             )}
-            {submitError && typeof submitError === 'string' && (
-              <Box mt={2}><Alert severity="error">{submitError}</Alert></Box>
+            {submitError && typeof submitError === "string" && (
+              <Box mt={2}>
+                <Alert severity="error">{submitError}</Alert>
+              </Box>
             )}
 
             {submitError && Array.isArray(submitError) && (
               <Box mt={2}>
                 {submitError.map((error, index) => (
-                  <Alert key={index} severity="error">{error}</Alert>
+                  <Alert key={index} severity="error">
+                    {error}
+                  </Alert>
                 ))}
               </Box>
             )}
@@ -96,6 +117,6 @@ const AddCategory = () => {
       />
     </Box>
   );
-}
+};
 
-export default AddCategory
+export default AddCategory;
