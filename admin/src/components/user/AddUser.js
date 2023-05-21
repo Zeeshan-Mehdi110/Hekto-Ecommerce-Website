@@ -95,6 +95,7 @@ function AddUser() {
               name="type"
               label="Type"
               options={[
+                { label: "Select user type", value: " " },
                 {
                   label: "Super Admin",
                   value: process.env.REACT_APP_USER_TYPE_SUPERADMIN,
