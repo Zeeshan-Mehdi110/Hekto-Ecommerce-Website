@@ -54,7 +54,7 @@ router.post("/add", async (req, res) => {
 router.post("/edit", async (req, res) => {
   try {
     if (isSuperAdmin(req.user) && isAdmin(req.user))
-      throw new Error("Invalid Request");
+      throw new Error("Invalid Request 1");
 
     // if id is not available
     if (!req.body.id) throw new Error("Product id is required");
@@ -67,13 +67,13 @@ router.post("/edit", async (req, res) => {
 
     const { name, price, sale_price, description } = req.body;
 
-    const updatedProduct = await Product.findByIdAndUpdate(req.body.id, {
+    await Product.findByIdAndUpdate(req.body.id, {
       name,
       price,
       sale_price,
       description,
     });
-    res.json({ product: updatedProduct });
+    res.json({ product: await Product.findById(req.body.id) });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

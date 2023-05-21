@@ -1,14 +1,14 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useDispatch } from 'react-redux';
-import { deleteUser } from '../../store/actions/userActions';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch } from "react-redux";
+import { deleteUser } from "../../store/actions/userActions";
 
 function DeletePopUp({ id, page }) {
   const [open, setOpen] = React.useState(false);
@@ -25,7 +25,7 @@ function DeletePopUp({ id, page }) {
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
-        <DeleteIcon sx={{ color: 'red' }} />
+        <DeleteIcon sx={{ color: "red" }} />
       </IconButton>
       <Dialog
         open={open}
@@ -50,7 +50,7 @@ function DeletePopUp({ id, page }) {
         </DialogActions>
       </Dialog>
     </div>
-  )
+  );
 }
 
-export default DeletePopUp
+export default DeletePopUp;
