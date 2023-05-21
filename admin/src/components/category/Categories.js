@@ -1,34 +1,47 @@
-import React, { useMemo, useState } from 'react';
-import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
-import TableContainer from '@mui/material/TableContainer';
-import DeletePopUp from '../common/DeletePopUp'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { format } from 'date-fns';
-import { loadCategories } from '../../store/actions/categoryActions';
-import { Link } from 'react-router-dom';
+import React, { useMemo, useState } from "react";
+import {
+  Grid,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TablePagination,
+  IconButton,
+  Paper,
+  Pagination,
+  Chip,
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import TableContainer from "@mui/material/TableContainer";
+import DeletePopUp from "../common/DeletePopUp";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { format } from "date-fns";
+import { loadCategories } from "../../store/actions/categoryActions";
+import { Link } from "react-router-dom";
 
 const columns = [
-  { id: 'categoryName', label: 'Name', },
-  { id: 'categoryDescription', label: 'Description' },
+  { id: "categoryName", label: "Name" },
+  { id: "categoryDescription", label: "Description" },
 ];
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "block",
-    flex: 1
+    flex: 1,
   },
   table: {
     height: "100%",
-    width: "100%"
+    width: "100%",
   },
   list: {},
   thead: {},
   tbody: {
-    width: "100%"
+    width: "100%",
   },
   row: {
     display: "flex",
@@ -37,14 +50,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     boxSizing: "border-box",
     minWidth: "100%",
-    width: "100%"
+    width: "100%",
   },
   headerRow: {
-    '&:nth-of-type(odd)': {
+    "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
     },
     // hide last border
-    '&:last-child td, &:last-child th': {
+    "&:last-child td, &:last-child th": {
       border: 0,
     },
   },
@@ -53,35 +66,34 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     overflow: "hidden",
     flexGrow: 0,
-    flexShrink: 0
+    flexShrink: 0,
   },
   justifyCenter: {
-    justifyContent: "center"
+    justifyContent: "center",
   },
   expandingCell: {
-    flex: 1
+    flex: 1,
   },
   column: {},
   tableContainer: {
-    "maxWidth": "100vw",
+    maxWidth: "100vw",
     overFlow: "scroll",
-    WebkitOverflowScrolling: 'touch',
-    '-ms-overflow-style': '-ms-autohiding-scrollbar'
-  }
+    WebkitOverflowScrolling: "touch",
+    "-ms-overflow-style": "-ms-autohiding-scrollbar",
+  },
 }));
 
-
 function Categories({ categories, totalRecords, paginationArray, dispatch }) {
-  const [rowsPerPage, setRowsPerPage] = useState(parseInt(process.env.REACT_APP_RECORDS_PER_PAGE));
+  const [rowsPerPage, setRowsPerPage] = useState(
+    parseInt(process.env.REACT_APP_RECORDS_PER_PAGE)
+  );
   const [page, setPage] = useState(0);
   const [rowsPerPageChanged, setRowsPerPageChanged] = useState(false);
   const classes = useStyles();
 
-
   useEffect(() => {
-    dispatch(loadCategories(page, rowsPerPage))
-  }, [page, rowsPerPage])
-
+    dispatch(loadCategories(page, rowsPerPage));
+  }, [page, rowsPerPage]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage - 1);
@@ -90,19 +102,24 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
-    setRowsPerPageChanged(true)
+    setRowsPerPageChanged(true);
     setPage(0);
-    dispatch({ type: '' })
+    dispatch({ type: "" });
     // listRef.current && listRef.current.scrollToItem(0);
   };
 
-  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [categories, rowsPerPage]);
+  const totalPages = useMemo(
+    () => Math.ceil(totalRecords / rowsPerPage),
+    [categories, rowsPerPage]
+  );
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
-      return categories.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
-    }
-    else {
+      return categories.slice(
+        paginationArray[page].startIndex,
+        paginationArray[page].endIndex
+      );
+    } else {
       return [];
     }
   }, [categories, page, rowsPerPage]);
@@ -114,11 +131,9 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
-                {
-                  columns.map((column, index) => (
-                    <TableCell key={index}>{column.label}</TableCell>
-                  ))
-                }
+                {columns.map((column, index) => (
+                  <TableCell key={index}>{column.label}</TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -127,39 +142,57 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.description}</TableCell>
                   <TableCell>
-                    {
-                      row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
-                        <Chip size='small' label="Super Admin" color="primary" /> :
-                        row.type == process.env.REACT_APP_USER_TYPE_ADMIN ?
-                          <Chip size='small' label="Admin" color="success" /> :
-                          <Chip size='small' label="Standard" color="info" />
-                    }
+                    {row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ? (
+                      <Chip size="small" label="Super Admin" color="primary" />
+                    ) : row.type == process.env.REACT_APP_USER_TYPE_ADMIN ? (
+                      <Chip size="small" label="Admin" color="success" />
+                    ) : (
+                      <Chip size="small" label="Standard" color="info" />
+                    )}
                   </TableCell>
                   <TableCell>
-                    {
-                      row.active == process.env.REACT_APP_STATUS_ACTIVE ?
-                        <Chip size='small' label="Active" color="success" /> :
-                        <Chip size='small' label="Not Active" color="primary" />
-                    }
+                    {row.active == process.env.REACT_APP_STATUS_ACTIVE ? (
+                      <Chip size="small" label="Active" color="success" />
+                    ) : (
+                      <Chip size="small" label="Not Active" color="primary" />
+                    )}
                   </TableCell>
                   <TableCell>
-                    {
-                      format(new Date(row.created_on), 'dd MMMM, yyyy')
-                    }
+                    {format(new Date(row.created_on), "dd MMMM, yyyy")}
                   </TableCell>
                   <TableCell sx={{ display: "flex" }}>
-                    <Link to={"/admin/dashboard/categories/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                    <Link
+                      to={
+                        "/admin/dashboard/categories/edit/" +
+                        row._id +
+                        "/" +
+                        rowsPerPage +
+                        "/" +
+                        page
+                      }
+                    >
                       <IconButton sx={{ color: "blue" }}>
-                        <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
+                        <FontAwesomeIcon
+                          icon={faEdit}
+                          style={{ fontSize: "1rem" }}
+                        />
                       </IconButton>
                     </Link>
-                    <DeletePopUp />
+                    <DeletePopUp
+                      page={page}
+                      id={row._id}
+                      actionType={"category"}
+                    />
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
               component="div"
@@ -170,33 +203,37 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
-                style: { display: "none" }
+                style: { display: "none" },
               }}
               nextIconButtonProps={{
-                style: { display: "none" }
+                style: { display: "none" },
               }}
-
               style={{ height: "45px", overflow: "hidden" }}
             />
             <Box>
-              <Pagination count={totalPages} page={page + 1} onChange={handleChangePage} variant="outlined" color="primary" shape="rounded" />
+              <Pagination
+                count={totalPages}
+                page={page + 1}
+                onChange={handleChangePage}
+                variant="outlined"
+                color="primary"
+                shape="rounded"
+              />
             </Box>
           </Box>
         </TableContainer>
       </Grid>
     </Grid>
-
-  )
+  );
 }
 
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     categories: state.categories.categories,
     totalRecords: state.categories.totalRecords,
     loadingRecords: state.progressBar.loading,
-    paginationArray: state.categories.paginationArray
-  }
-}
+    paginationArray: state.categories.paginationArray,
+  };
+};
 
 export default connect(mapStateToProps)(Categories);

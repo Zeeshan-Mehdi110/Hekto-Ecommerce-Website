@@ -231,7 +231,11 @@ function Products({
                           />
                         </IconButton>
                       </Link>
-                      <DeletePopUp id={row._id} page={page} />
+                      <DeletePopUp
+                        id={row._id}
+                        page={page}
+                        actionType={"products"}
+                      />
                     </TableCell>
                   </TableRow>
                 );
