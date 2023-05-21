@@ -68,20 +68,19 @@ const columns = [
     }
   }
 ];
+ 
 export default function DataList({ rows }) {
+
   return (
     <div style={{ height: 400, width: '100%' }}>
-      {
-        rows.length > 0 &&
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-        />
-      }
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        checkboxSelection
+      
+      />
     </div>
   );
 }
- 

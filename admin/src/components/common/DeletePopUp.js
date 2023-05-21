@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -8,11 +9,9 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import { deleteUser } from '../../store/actions/userActions';
-import { deleteCategory } from '../../store/actions/categoryActions';
-import { useState } from 'react';
 
-function DeletePopUp({ id, page,actionType }) {
-  const [open, setOpen] = useState(false);
+function DeletePopUp({ id, page }) {
+  const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
@@ -23,16 +22,6 @@ function DeletePopUp({ id, page,actionType }) {
     setOpen(false);
   };
 
-  const handleDelete = () => {
-    if (actionType === 'user') {
-      dispatch(deleteUser(id, page));
-    } else if (actionType === 'category') {
-      dispatch(deleteCategory(id,page));
-    }
-    setOpen(false);
-  };
-  
-
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -40,6 +29,7 @@ function DeletePopUp({ id, page,actionType }) {
       </IconButton>
       <Dialog
         open={open}
+        position={{ top: "0", left: "50%" }}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -49,18 +39,18 @@ function DeletePopUp({ id, page,actionType }) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            If you really want to delete the user, click Delete.
+            If you really want to delete the user click delete
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleDelete} autoFocus>
+          <Button onClick={() => dispatch(deleteUser(id, page))} autoFocus>
             Delete
           </Button>
         </DialogActions>
       </Dialog>
     </div>
-  );
+  )
 }
 
-export default DeletePopUp;
+export default DeletePopUp

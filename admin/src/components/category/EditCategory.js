@@ -1,25 +1,24 @@
-import EditIcon from '@mui/icons-material/Edit';
-import { Alert, Button, CircularProgress } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit'; import { Alert, Button, CircularProgress } from '@mui/material';
 import { Box } from '@mui/system';
 import axios from 'axios';
 import { FORM_ERROR } from 'final-form';
 import React from 'react'
 import { Field, Form } from 'react-final-form';
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-import SelectInput from '../library/SelectInput';
-import TextInput from '../library/TextInput';
 import { useDispatch } from "react-redux";
 import { showSuccess } from "../../store/actions/alertActions";
-import { userActionTypes } from '../../store/actions/userActions';
+import SelectInput from '../library/SelectInput';
+import TextInput from '../library/TextInput';
+import { categoryActionTypes } from '../../store/actions/categoryActions';
 
 
 
-function EditUser({ users }) {
+function EditCategory({ categories }) {
     const { id, rows, page } = useParams();
-    const userIndex = users.findIndex(user => user._id === id);
+    const categoryIndex = categories.findIndex(category => category._id === id);
 
-    const user = users[userIndex];
+    const category = categories[categoryIndex];
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,24 +26,20 @@ function EditUser({ users }) {
 
     const validate = (data) => {
         const errors = {};
-
         if (!data.name)
-            errors.name = "name is Required";
+            errors.name = " Category name is Required";
         else if (data.name.length < 3)
             errors.name = "Name Should be more then 3 Char";
-        if (!data.email) errors.email = "Please Enter Email";
-        if (!data.phone_number) errors.phone_number = "Please Enter Phone Number";
-        if (!data.type || data.type == ' ') errors.type = "Please Select User Type";
         return errors
     };
 
 
 
-    const handleUpdateUser = async (data, form) => {
+    const handleUpdateCategory = async (data, form) => {
         try {
             data.id = id;
             let result = await axios.post(
-                `/users/edit`,
+                `/category/edit`,
                 data
             );
 
@@ -53,9 +48,9 @@ function EditUser({ users }) {
                 form.resetFieldState(field); // Reset the touched state for each field
                 form.change(field, null); // Reset the value of each field to null
             });
-            dispatch({ type: userActionTypes.EDIT_USER, payload: { user: result.data.user, userIndex } })
-            dispatch(showSuccess("User updated successfully"))
-            navigate(`/admin/dashboard/users/${rows}/${page}`);
+            dispatch({ type: categoryActionTypes.UPDATE_CATEGORY, payload: { category: result.data.category, categoryIndex } })
+            dispatch(showSuccess("Category updated successfully"))
+            navigate(`/admin/dashboard/categories/${rows}/${page}`);
             // Navigation will be added there
         } catch (error) {
             if (error.response && error.response.status === 400) {
@@ -70,14 +65,12 @@ function EditUser({ users }) {
     return (
         <Box textAlign="center" maxWidth="500px" mx="auto">
             <Form
-                onSubmit={handleUpdateUser}
+                onSubmit={handleUpdateCategory}
                 validate={validate}
                 initialValues={
                     {
-                        name: user && user.name,
-                        email: user && user.email,
-                        phone_number: user && user.phone_number,
-                        type: user && user.type,
+                        name: category && category.name,
+                        description: category && category.description
                     }
                 }
                 render={({
@@ -89,10 +82,7 @@ function EditUser({ users }) {
                 }) => (
                     <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
                         <Field component={TextInput} type='text' name="name" placeholder="Enter Name" label="Name" />
-                        <Field component={TextInput} type='email' name="email" placeholder="User Email" label="Email" />
-                        <Field component={TextInput} type='number' name="phone_number" placeholder="Phone Number" label="Phone Number" />
-                        <Field component={SelectInput} name="type" label="Type" options={[{ label: "Select user type", value: ' ' }, { label: "Super Admin", value: process.env.REACT_APP_USER_TYPE_SUPERADMIN }, { label: "Admin", value: process.env.REACT_APP_USER_TYPE_ADMIN }, { label: "Standard", value: process.env.REACT_APP_USER_TYPE_STANDARD }]} />
-
+                        <Field component={TextInput} name="description" placeholder="Description" label="Description" />
                         {submitting ? (
                             <CircularProgress />
                         ) : (
@@ -103,9 +93,9 @@ function EditUser({ users }) {
                                 startIcon={<EditIcon />}
                                 type="submit"
                                 fullWidth
-                                disabled={submitting || submitting}
+                                disabled={submitting || invalid}
                             >
-                                Update User
+                                Update Category
                             </Button>
                         )}
                         {submitError && typeof submitError === 'string' && (
@@ -124,7 +114,7 @@ function EditUser({ users }) {
                         </Box>
                         <Box mt={2}>
                             {submitSucceeded && !submitting && (
-                                <Alert color="success">User Added Successfully</Alert>
+                                <Alert color="success">Category Added Successfully</Alert>
                             )}
                         </Box>
                     </form>
@@ -134,11 +124,11 @@ function EditUser({ users }) {
     )
 }
 
-const mapStatetoProps = (state) => {
+const mapStateToProps = (state) => {
     return {
-        users: state.users.users
+        categories: state.categories.categories
     }
 }
-const Wrapper = connect(mapStatetoProps)
+const Wrapper = connect(mapStateToProps)
 
-export default Wrapper(EditUser);
+export default Wrapper(EditCategory);
