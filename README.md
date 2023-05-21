@@ -1,5 +1,3 @@
-Certainly! Here's an example of a README file for your MERN e-commerce project:
-
 # Hekto - E-commerce Website
 
 Hekto is a responsive e-commerce website built using the MERN (MongoDB, Express.js, React.js, Node.js) technology stack. It includes an admin dashboard, JWT authentication, Redux for state management, Material-UI for styling, React Router for routing, React Final Form for form handling, and integrates with a MongoDB database.
