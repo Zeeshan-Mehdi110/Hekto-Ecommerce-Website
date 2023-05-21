@@ -105,7 +105,16 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
     setRowsPerPageChanged(true);
     setPage(0);
     dispatch({ type: "" });
-    // listRef.current && listRef.current.scrollToItem(0);
+  };
+
+  const truncateDescription = (description) => {
+    const words = description.split(" ");
+    if (words.length <= 8) {
+      return description;
+    } else {
+      const truncatedWords = words.slice(0, 8);
+      return truncatedWords.join(" ") + "...";
+    }
   };
 
   const totalPages = useMemo(
@@ -140,7 +149,7 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
               {visibleRows.map((row) => (
                 <TableRow key={row._id} className={classes.headerRow}>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.description}</TableCell>
+                  <TableCell>{truncateDescription(row.description)}</TableCell>
                   <TableCell>
                     {row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ? (
                       <Chip size="small" label="Super Admin" color="primary" />
