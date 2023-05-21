@@ -137,6 +137,11 @@ function Products({
     [products, rowsPerPage]
   );
 
+  const getCategoryName = (categoryId) => {
+    const category = categories.find((category) => category._id === categoryId);
+    return category ? category.name : "";
+  };
+
   useEffect(() => {
     if (!paginationArray[page]) {
       dispatch(loadProducts(page, rowsPerPage));
@@ -192,14 +197,7 @@ function Products({
                     <TableCell>
                       <Chip
                         size="small"
-                        label={
-                          categories &&
-                          categories.map((category) => {
-                            if (category._id === row.categoryId) {
-                              return category.name;
-                            }
-                          })
-                        }
+                        label={getCategoryName(row.categoryId)}
                         color="primary"
                       />
                     </TableCell>
