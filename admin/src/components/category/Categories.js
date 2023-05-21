@@ -151,22 +151,6 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{truncateDescription(row.description)}</TableCell>
                   <TableCell>
-                    {row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ? (
-                      <Chip size="small" label="Super Admin" color="primary" />
-                    ) : row.type == process.env.REACT_APP_USER_TYPE_ADMIN ? (
-                      <Chip size="small" label="Admin" color="success" />
-                    ) : (
-                      <Chip size="small" label="Standard" color="info" />
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {row.active == process.env.REACT_APP_STATUS_ACTIVE ? (
-                      <Chip size="small" label="Active" color="success" />
-                    ) : (
-                      <Chip size="small" label="Not Active" color="primary" />
-                    )}
-                  </TableCell>
-                  <TableCell>
                     {format(new Date(row.created_on), "dd MMMM, yyyy")}
                   </TableCell>
                   <TableCell sx={{ display: "flex" }}>
