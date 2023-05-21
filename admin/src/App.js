@@ -1,25 +1,49 @@
-import { useEffect } from 'react';
-import './App.css';
-import AppRoutes from './AppRoutes';
-import { loadAuth } from './store/actions/authActions';
-import { connect } from 'react-redux';
+import "./App.css";
+import AppRoutes from "./AppRoutes";
+import { loadAuth, signOut } from "./store/actions/authActions";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
+import AppPreLoader from "./components/library/AppPreLoader";
+import AppPublic from "./AppPublic";
 
+const publicRoutes = [
+  "/admin/signin",
+  "/admin/forgot-password",
+  "/admin/reset-password",
+];
+function App({ user, isAuthLoaded, loadAuth, signOut }) {
+  const { pathname } = useLocation();
 
-function App({ user, isAuthLoaded, loadAuth }) {
   useEffect(() => {
     loadAuth();
-  }, [])
+  }, []);
+
+  if (!isAuthLoaded) return <AppPreLoader message="Loading..." />;
+
+  if (user && publicRoutes.find((url) => pathname.startsWith(url)))
+    return <Navigate to="/admin/dashboard/" />;
+
+  if (!user && !publicRoutes.find((url) => pathname.startsWith(url)))
+    return <Navigate to="/admin/signin" />;
+
+  if (pathname === "/" || pathname === "/admin")
+    return <Navigate to="/admin/signin" />;
+
+  if (!user) return <AppPublic />;
+
   return (
     <div className="App">
-        <AppRoutes />
+      <AppRoutes />
     </div>
   );
 }
+
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     isAuthLoaded: state.auth.isLoaded,
   };
-}
+};
 
-export default connect(mapStateToProps, { loadAuth })(App);
+export default connect(mapStateToProps, { loadAuth, signOut })(App);

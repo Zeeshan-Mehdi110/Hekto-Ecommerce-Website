@@ -14,7 +14,6 @@ import EditProduct from "./components/product/EditProduct";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/admin/signin" element={<LoginForm />} />
       <Route path="/admin/" element={<Template />}>
         <Route path="users/add" element={<AddUser />} />
         <Route path="users" element={<Users />} />
@@ -30,15 +29,17 @@ function AppRoutes() {
           element={<Categories />}
         />
         <Route path="category/add" element={<AddCategory />} />
+
         {/* Products Routes */}
-        <Route path="/admin/dashboard/products" element={<Products />} />
-        <Route path="/admin/dashboard/products/add" element={<AddProduct />} />
+
+        <Route path="dashboard/products" element={<Products />} />
+        <Route path="dashboard/products/add" element={<AddProduct />} />
         <Route
-          path="/admin/dashboard/products/edit/:id/:rows/:page/"
+          path="dashboard/products/edit/:id/:rows/:page/"
           element={<EditProduct />}
         />
         <Route
-          path="/admin/dashboard/products/:recordsPerPage/:pageNumber/"
+          path="dashboard/products/:recordsPerPage/:pageNumber/"
           element={<Products />}
         />
       </Route>
