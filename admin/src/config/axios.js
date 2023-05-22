@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { authActionsType } from '../store/actions/authActions'
 
 export default function configureAxios(store) {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
@@ -21,7 +22,7 @@ export default function configureAxios(store) {
     (err) => {
       if (err.response && err.response.status === 401) {
         store.dispatch({
-          type: authAction.AUTH_FAILED
+          type: authActionsType.AUTH_FAILED
         })
         localStorage.removeItem('token')
         return Promise.reject(new Error('Authentication failed'))
