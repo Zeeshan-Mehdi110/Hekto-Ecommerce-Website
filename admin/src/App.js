@@ -1,57 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
-import AddUser from './components/user/AddUser';
-import Template from './components/layout/Template';
-import AppRoutes from './AppRoutes';
-import { loadAuth, loadToken, signOut } from './store/actions/authActions';
-import { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Navigate, useLocation } from 'react-router-dom';
-import AppPreLoader from './components/library/AppPreLoader';
-import { Button } from '@mui/material';
-import AppPublic from './AppPublic';
+import './App.css'
+import AppRoutes from './AppRoutes'
+import { loadAuth } from './store/actions/authActions'
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { Navigate, useLocation } from 'react-router-dom'
+import AppPreLoader from './components/library/AppPreLoader'
+import AppPublic from './AppPublic'
 
+const publicRoutes = [
+  '/admin/signin',
+  '/admin/forgot-password',
+  '/admin/reset-password'
+]
+function App({ user, isAuthLoaded, loadAuth }) {
+  const { pathname } = useLocation()
 
-const publicRoutes = ['/admin/signin', '/admin/forgot-password', '/admin/reset-password']
-function App({ user, isAuthLoaded, loadAuth, signOut }) {
-
-  const { pathname } = useLocation();
-
-  useEffect( () => {
+  useEffect(() => {
     loadAuth()
-  },[])
-  
-  if(!isAuthLoaded)
-  return <AppPreLoader message="Loading..." />
+  }, [])
 
-  if (user && publicRoutes.find(url => pathname.startsWith(url)))
-    return <Navigate to='/admin/dashboard/' />
+  if (!isAuthLoaded) return <AppPreLoader message="Loading..." />
 
-    if (!user && !publicRoutes.find(url => pathname.startsWith(url)))
-    return <Navigate to='/admin/signin' />
+  if (user && publicRoutes.find((url) => pathname.startsWith(url)))
+    return <Navigate to="/admin/" />
 
+  if (!user && !publicRoutes.find((url) => pathname.startsWith(url)))
+    return <Navigate to="/admin/signin" />
 
   if (pathname === '/' || pathname === '/admin')
-  return <Navigate to='/admin/signin' />
+    return <Navigate to="/admin/signin" />
 
-  if(!user)
-    return <AppPublic />
+  if (!user) return <AppPublic />
 
   return (
     <div className="App">
-        <AppRoutes />
+      <AppRoutes />
     </div>
-  );
-}
-
-const mapStateToProps = (state) => {
-  
-  return(
-    {
-      user: state.auth.user,
-      isAuthLoaded: state.auth.isLogined
-    }
   )
 }
 
-export default connect(mapStateToProps, { loadAuth, signOut })(App);
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+    isAuthLoaded: state.auth.isLogined
+  }
+}
+
+export default connect(mapStateToProps, { loadAuth })(App)

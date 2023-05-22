@@ -156,7 +156,7 @@ function Categories({ categories, totalRecords, paginationArray, dispatch }) {
                   <TableCell sx={{ display: "flex" }}>
                     <Link
                       to={
-                        "/admin/dashboard/categories/edit/" +
+                        "/admin/categories/edit/" +
                         row._id +
                         "/" +
                         rowsPerPage +

@@ -1,54 +1,51 @@
-import { Form, Field } from "react-final-form";
-import { TextField, Button, CircularProgress, Alert } from "@mui/material";
-import { Box } from "@mui/system";
-import { AddCircleOutline } from "@mui/icons-material";
-import axios from "axios";
-import { FORM_ERROR } from "final-form";
-import { useEffect, useState } from "react";
-import { useParams, redirect, useNavigate } from "react-router-dom";
-import TextInput from "../library/TextInput";
-import SelectInput from "../library/SelectInput";
-import { useDispatch } from "react-redux";
-import { showSuccess } from "../../store/actions/alertActions";
-import { userActionTypes } from "../../store/actions/userActions";
+import { Form, Field } from 'react-final-form'
+import { TextField, Button, CircularProgress, Alert } from '@mui/material'
+import { Box } from '@mui/system'
+import { AddCircleOutline } from '@mui/icons-material'
+import axios from 'axios'
+import { FORM_ERROR } from 'final-form'
+import { useEffect, useState } from 'react'
+import { useParams, redirect, useNavigate } from 'react-router-dom'
+import TextInput from '../library/TextInput'
+import SelectInput from '../library/SelectInput'
+import { useDispatch } from 'react-redux'
+import { showSuccess } from '../../store/actions/alertActions'
+import { userActionTypes } from '../../store/actions/userActions'
 
 function AddUser() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const validate = (data) => {
-    const errors = {};
+    const errors = {}
 
-    if (!data.name) errors.name = "name is Required";
+    if (!data.name) errors.name = 'name is Required'
     else if (data.name.length < 3)
-      errors.name = "Name Should be more then 3 Char";
-    if (!data.email) errors.email = "Please Enter Email";
-    if (!data.password) errors.password = "Please Enter Password";
-    if (!data.phone_number) errors.phone_number = "Please Enter Phone Number";
-    if (!data.type || data.type == " ") errors.type = "Please Select User Type";
-    return errors;
-  };
+      errors.name = 'Name Should be more then 3 Char'
+    if (!data.email) errors.email = 'Please Enter Email'
+    if (!data.password) errors.password = 'Please Enter Password'
+    if (!data.phone_number) errors.phone_number = 'Please Enter Phone Number'
+    if (!data.type || data.type == ' ') errors.type = 'Please Select User Type'
+    return errors
+  }
 
   const handleAddUser = async (data, form) => {
     try {
-      let result = await axios.post(
-        "http://localhost:5000/api/users/add",
-        data
-      );
-      const fields = form.getRegisteredFields(); // Get all the registered field names
+      let result = await axios.post('http://localhost:5000/api/users/add', data)
+      const fields = form.getRegisteredFields() // Get all the registered field names
       fields.forEach((field) => {
-        form.resetFieldState(field); // Reset the touched state for each field
-        form.change(field, null); // Reset the value of each field to null
-      });
-      dispatch({ type: userActionTypes.ADD_USER, payload: result.data.user });
-      dispatch(showSuccess("User added successfully"));
-      navigate("/admin/dashboard/users");
+        form.resetFieldState(field) // Reset the touched state for each field
+        form.change(field, null) // Reset the value of each field to null
+      })
+      dispatch({ type: userActionTypes.ADD_USER, payload: result.data.user })
+      dispatch(showSuccess('User added successfully'))
+      navigate('/admin/users')
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        return { [FORM_ERROR]: error.response.data.errors };
-      } else return { [FORM_ERROR]: error.message };
+        return { [FORM_ERROR]: error.response.data.errors }
+      } else return { [FORM_ERROR]: error.message }
     }
-  };
+  }
 
   return (
     <Box textAlign="center" maxWidth="500px" mx="auto">
@@ -95,19 +92,19 @@ function AddUser() {
               name="type"
               label="Type"
               options={[
-                { label: "Select user type", value: " " },
+                { label: 'Select user type', value: ' ' },
                 {
-                  label: "Super Admin",
-                  value: process.env.REACT_APP_USER_TYPE_SUPERADMIN,
+                  label: 'Super Admin',
+                  value: process.env.REACT_APP_USER_TYPE_SUPERADMIN
                 },
                 {
-                  label: "Admin",
-                  value: process.env.REACT_APP_USER_TYPE_ADMIN,
+                  label: 'Admin',
+                  value: process.env.REACT_APP_USER_TYPE_ADMIN
                 },
                 {
-                  label: "Standard",
-                  value: process.env.REACT_APP_USER_TYPE_STANDARD,
-                },
+                  label: 'Standard',
+                  value: process.env.REACT_APP_USER_TYPE_STANDARD
+                }
               ]}
             />
 
@@ -115,7 +112,7 @@ function AddUser() {
               <CircularProgress />
             ) : (
               <Button
-                sx={{ marginTop: "20px" }}
+                sx={{ marginTop: '20px' }}
                 variant="contained"
                 color="success"
                 startIcon={<AddCircleOutline />}
@@ -126,7 +123,7 @@ function AddUser() {
                 Add User
               </Button>
             )}
-            {submitError && typeof submitError === "string" && (
+            {submitError && typeof submitError === 'string' && (
               <Box mt={2}>
                 <Alert severity="error">{submitError}</Alert>
               </Box>
@@ -148,7 +145,7 @@ function AddUser() {
         )}
       />
     </Box>
-  );
+  )
 }
 
-export default AddUser;
+export default AddUser

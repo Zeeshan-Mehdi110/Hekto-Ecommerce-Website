@@ -1,64 +1,64 @@
-import EditIcon from "@mui/icons-material/Edit";
-import { Alert, Button, CircularProgress } from "@mui/material";
-import { Box } from "@mui/system";
-import axios from "axios";
-import { FORM_ERROR } from "final-form";
-import React from "react";
-import { Field, Form } from "react-final-form";
-import { connect, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
-import SelectInput from "../library/SelectInput";
-import TextInput from "../library/TextInput";
-import { useDispatch } from "react-redux";
-import { showSuccess } from "../../store/actions/alertActions";
-import { userActionTypes } from "../../store/actions/userActions";
-import { productActionTypes } from "../../store/actions/productActions";
-import TextAreaInput from "../library/TextAreaInput";
+import EditIcon from '@mui/icons-material/Edit'
+import { Alert, Button, CircularProgress } from '@mui/material'
+import { Box } from '@mui/system'
+import axios from 'axios'
+import { FORM_ERROR } from 'final-form'
+import React from 'react'
+import { Field, Form } from 'react-final-form'
+import { connect, useSelector } from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
+import SelectInput from '../library/SelectInput'
+import TextInput from '../library/TextInput'
+import { useDispatch } from 'react-redux'
+import { showSuccess } from '../../store/actions/alertActions'
+import { userActionTypes } from '../../store/actions/userActions'
+import { productActionTypes } from '../../store/actions/productActions'
+import TextAreaInput from '../library/TextAreaInput'
 
 function EditProduct({ products, categories }) {
-  const { id, rows, page } = useParams();
-  const productIndex = products.findIndex((product) => product._id === id);
+  const { id, rows, page } = useParams()
+  const productIndex = products.findIndex((product) => product._id === id)
 
-  const product = products[productIndex];
+  const product = products[productIndex]
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const validate = (data) => {
-    const errors = {};
+    const errors = {}
 
-    if (!data.name) errors.name = "Product Name is Required";
+    if (!data.name) errors.name = 'Product Name is Required'
     else if (data.name.length < 3)
-      errors.name = "Name Should be more then 3 Char";
-    if (!data.price) errors.price = "Please Enter Price";
-    if (!data.category || data.category == " ")
-      errors.category = "Please Select Category";
-    return errors;
-  };
+      errors.name = 'Name Should be more then 3 Char'
+    if (!data.price) errors.price = 'Please Enter Price'
+    if (!data.category || data.category == ' ')
+      errors.category = 'Please Select Category'
+    return errors
+  }
 
   const handleUpdateUser = async (data, form) => {
     try {
-      data.id = id;
-      let result = await axios.post(`/products/edit`, data);
+      data.id = id
+      let result = await axios.post(`/products/edit`, data)
 
-      const fields = form.getRegisteredFields(); // Get all the registered field names
+      const fields = form.getRegisteredFields() // Get all the registered field names
       fields.forEach((field) => {
-        form.resetFieldState(field); // Reset the touched state for each field
-        form.change(field, null); // Reset the value of each field to null
-      });
+        form.resetFieldState(field) // Reset the touched state for each field
+        form.change(field, null) // Reset the value of each field to null
+      })
       dispatch({
         type: productActionTypes.EDIT_PRODUCT,
-        payload: { product: result.data.product, productIndex },
-      });
-      dispatch(showSuccess("Product updated successfully"));
-      navigate(`/admin/dashboard/products/${rows}/${page}`);
+        payload: { product: result.data.product, productIndex }
+      })
+      dispatch(showSuccess('Product updated successfully'))
+      navigate(`/admin/products/${rows}/${page}`)
       // Navigation will be added there
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        return { [FORM_ERROR]: error.response.data.errors };
-      } else return { [FORM_ERROR]: error.message };
+        return { [FORM_ERROR]: error.response.data.errors }
+      } else return { [FORM_ERROR]: error.message }
     }
-  };
+  }
 
   return (
     <Box textAlign="center" maxWidth="500px" mx="auto">
@@ -70,14 +70,14 @@ function EditProduct({ products, categories }) {
           description: product && product.description,
           price: product && product.price,
           sale_price: product && product.sale_price,
-          category: product && product.category,
+          category: product && product.category
         }}
         render={({
           handleSubmit,
           submitting,
           submitError,
           submitSucceeded,
-          invalid,
+          invalid
         }) => (
           <form
             onSubmit={handleSubmit}
@@ -120,7 +120,7 @@ function EditProduct({ products, categories }) {
                 categories &&
                 categories.map((category) => ({
                   label: category.name,
-                  value: category._id,
+                  value: category._id
                 }))
               }
             />
@@ -128,7 +128,7 @@ function EditProduct({ products, categories }) {
               <CircularProgress />
             ) : (
               <Button
-                sx={{ marginTop: "20px" }}
+                sx={{ marginTop: '20px' }}
                 variant="contained"
                 color="success"
                 startIcon={<EditIcon />}
@@ -139,7 +139,7 @@ function EditProduct({ products, categories }) {
                 Update Product
               </Button>
             )}
-            {submitError && typeof submitError === "string" && (
+            {submitError && typeof submitError === 'string' && (
               <Box mt={2}>
                 <Alert severity="error">{submitError}</Alert>
               </Box>
@@ -166,15 +166,15 @@ function EditProduct({ products, categories }) {
         )}
       />
     </Box>
-  );
+  )
 }
 
 const mapStateToProps = (state) => {
   return {
     products: state.products.products,
-    categories: state.categories.categories,
-  };
-};
-const Wrapper = connect(mapStateToProps);
+    categories: state.categories.categories
+  }
+}
+const Wrapper = connect(mapStateToProps)
 
-export default Wrapper(EditProduct);
+export default Wrapper(EditProduct)

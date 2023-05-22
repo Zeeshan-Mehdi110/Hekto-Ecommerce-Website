@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { connect, useDispatch } from "react-redux";
 import { showError, showSuccess } from "../../store/actions/alertActions";
@@ -6,7 +5,7 @@ import { Avatar, Box, Button, Typography } from "@mui/material";
 import { Field, Form } from "react-final-form";
 import TextInput from "../library/TextInput";
 import FileInput from "../library/FileInput";
-import { deepOrange, deepPurple } from "@mui/material/colors";
+import { deepOrange } from "@mui/material/colors";
 import {
   hideProgressBar,
   showProgressBar,
