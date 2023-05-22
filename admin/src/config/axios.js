@@ -1,25 +1,33 @@
-import axios from "axios"
+import axios from 'axios'
 
 export default function configureAxios(store) {
-  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-  axios.interceptors.request.use( config => {
-    if (!config.headers.Authorization) {
-      const state = store.getState();
-      if (state.auth.token)
-        config.headers.Authorization = 'Bearer ' + state.auth.token;
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
+  // request middleware
+  axios.interceptors.request.use(
+    (config) => {
+      if (!config.headers.Authorization) {
+        const state = store.getState()
+        if (state.auth.token)
+          config.headers.Authorization = 'Bearer ' + state.auth.token
+      }
+      return config
+    },
+    (error) => Promise.reject(error)
+  )
+
+  // response middleware
+  axios.interceptors.response.use(
+    (response) => response,
+    (err) => {
+      if (err.response && err.response.status === 401) {
+        store.dispatch({
+          type: authAction.AUTH_FAILED
+        })
+        localStorage.removeItem('token')
+        return Promise.reject(new Error('Authentication failed'))
+      } else {
+        return Promise.reject(err)
+      }
     }
-    return config;
-  }, error => Promise.reject(error));
-
-  //handle response after sending auth header
-  // axios.interceptors.response.use(response => response, error => {
-  //   if (error.response && error.response.status === 401) {
-  //     store.dispatch({ type: authActionsType.AUTH_FAILED });
-  //     localStorage.removeItem('token');
-  //     return Promise.reject(new Error("Authentication Failed"));
-  //   }
-  //   else
-  //     return Promise.reject(error);
-  // })
-
+  )
 }
