@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from 'react'
 import {
   Grid,
   Box,
@@ -11,168 +11,167 @@ import {
   IconButton,
   Paper,
   Pagination,
-  Chip,
-} from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { connect } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import TableContainer from "@mui/material/TableContainer";
-import { loadUsers, userActionTypes } from "../../store/actions/userActions";
+  Chip
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { connect } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import TableContainer from '@mui/material/TableContainer'
 
-import DeletePopUp from "../common/DeletePopUp";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { format } from "date-fns";
+import DeletePopUp from '../common/DeletePopUp'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { format } from 'date-fns'
 import {
   loadProducts,
-  productActionTypes,
-} from "../../store/actions/productActions";
-import { loadCategories } from "../../store/actions/categoryActions";
+  productActionTypes
+} from '../../store/actions/productActions'
+import { loadCategories } from '../../store/actions/categoryActions'
 
 const columns = [
-  { id: "productName", label: "Name" },
-  { id: "productEmail", label: "Price" },
+  { id: 'productName', label: 'Name' },
+  { id: 'productEmail', label: 'Price' },
   {
-    id: "sale-price",
-    label: "Sale Price",
-    align: "left",
+    id: 'sale-price',
+    label: 'Sale Price',
+    align: 'left'
   },
   {
-    id: "category",
-    label: "Category",
-    align: "center",
+    id: 'category',
+    label: 'Category',
+    align: 'center'
   },
   {
-    id: "productStatus",
-    label: "Status",
-    align: "center",
+    id: 'productStatus',
+    label: 'Status',
+    align: 'center'
   },
   {
-    id: "created_on",
-    label: "Created On",
-    align: "center",
+    id: 'created_on',
+    label: 'Created On',
+    align: 'center'
   },
   {
-    id: "actions",
-    label: "Actions",
+    id: 'actions',
+    label: 'Actions',
     width: 170,
-    align: "right",
-  },
-];
+    align: 'right'
+  }
+]
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "block",
-    flex: 1,
+    display: 'block',
+    flex: 1
   },
   table: {
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%'
   },
   list: {},
   thead: {},
   tbody: {
-    width: "100%",
+    width: '100%'
   },
   row: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    alignItems: "center",
-    boxSizing: "border-box",
-    minWidth: "100%",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    minWidth: '100%',
+    width: '100%'
   },
   headerRow: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover
     },
     // hide last border
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
+    '&:last-child td, &:last-child th': {
+      border: 0
+    }
   },
   cell: {
-    display: "inline-flex",
-    alignItems: "center",
-    overflow: "hidden",
+    display: 'inline-flex',
+    alignItems: 'center',
+    overflow: 'hidden',
     flexGrow: 0,
-    flexShrink: 0,
+    flexShrink: 0
   },
   justifyCenter: {
-    justifyContent: "center",
+    justifyContent: 'center'
   },
   expandingCell: {
-    flex: 1,
+    flex: 1
   },
   column: {},
   tableContainer: {
-    maxWidth: "100vw",
-    overFlow: "scroll",
-    WebkitOverflowScrolling: "touch",
-    "-ms-overflow-style": "-ms-autohiding-scrollbar",
-  },
-}));
+    maxWidth: '100vw',
+    overFlow: 'scroll',
+    WebkitOverflowScrolling: 'touch',
+    '-ms-overflow-style': '-ms-autohiding-scrollbar'
+  }
+}))
 
 function Products({
   products,
   totalRecords,
   paginationArray,
   dispatch,
-  categories,
+  categories
 }) {
-  const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
+  const { recordsPerPage, pageNumber } = useParams() // while coming back from Edit item
 
-  const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
+  const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0)
   const [rowsPerPage, setRowsPerPage] = useState(
     recordsPerPage
       ? parseInt(recordsPerPage)
       : parseInt(process.env.REACT_APP_RECORDS_PER_PAGE)
-  );
-  const classes = useStyles();
+  )
+  const classes = useStyles()
 
   const totalPages = useMemo(
     () => Math.ceil(totalRecords / rowsPerPage),
     [products, rowsPerPage]
-  );
+  )
 
   const getCategoryName = (categoryId) => {
-    const category = categories.find((category) => category._id === categoryId);
-    return category ? category.name : "";
-  };
+    const category = categories.find((category) => category._id === categoryId)
+    return category ? category.name : ''
+  }
 
   useEffect(() => {
     if (!paginationArray[page]) {
-      dispatch(loadProducts(page, rowsPerPage));
-      dispatch(loadCategories());
+      dispatch(loadProducts(page, rowsPerPage))
+      dispatch(loadCategories())
     }
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage])
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage - 1);
-  };
+    setPage(newPage - 1)
+  }
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(event.target.value);
-    setPage(0);
-    dispatch({ type: productActionTypes.RESET_PRODUCT });
+    setRowsPerPage(event.target.value)
+    setPage(0)
+    dispatch({ type: productActionTypes.RESET_PRODUCT })
     dispatch({
       type: productActionTypes.UPDATE_ROWS_PERPAGE,
-      payload: event.target.value,
-    });
-  };
+      payload: event.target.value
+    })
+  }
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
       return products.slice(
         paginationArray[page].startIndex,
         paginationArray[page].endIndex
-      );
+      )
     } else {
-      return [];
+      return []
     }
-  }, [products, page, rowsPerPage]);
+  }, [products, page, rowsPerPage])
 
   return (
     <Grid container>
@@ -188,7 +187,7 @@ function Products({
             </TableHead>
             <TableBody>
               {visibleRows.map((row) => {
-                if (!row || row.is_deleted) return null;
+                if (!row || row.is_deleted) return null
                 return (
                   <TableRow key={row?._id} className={classes.headerRow}>
                     <TableCell>{row.name}</TableCell>
@@ -209,34 +208,34 @@ function Products({
                       )}
                     </TableCell>
                     <TableCell>
-                      {format(new Date(row.created_on), "dd MMMM, yyyy")}
+                      {format(new Date(row.created_on), 'dd MMMM, yyyy')}
                     </TableCell>
-                    <TableCell sx={{ display: "flex" }}>
+                    <TableCell sx={{ display: 'flex' }}>
                       <Link
                         to={
-                          "/admin/dashboard/products/edit/" +
+                          '/admin/products/edit/' +
                           row._id +
-                          "/" +
+                          '/' +
                           rowsPerPage +
-                          "/" +
+                          '/' +
                           page
                         }
                       >
-                        <IconButton sx={{ color: "blue" }}>
+                        <IconButton sx={{ color: 'blue' }}>
                           <FontAwesomeIcon
                             icon={faEdit}
-                            style={{ fontSize: "1rem" }}
+                            style={{ fontSize: '1rem' }}
                           />
                         </IconButton>
                       </Link>
                       <DeletePopUp
                         id={row._id}
                         page={page}
-                        actionType={"products"}
+                        actionType={'products'}
                       />
                     </TableCell>
                   </TableRow>
-                );
+                )
               })}
             </TableBody>
           </Table>
@@ -254,12 +253,12 @@ function Products({
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
-                style: { display: "none" },
+                style: { display: 'none' }
               }}
               nextIconButtonProps={{
-                style: { display: "none" },
+                style: { display: 'none' }
               }}
-              style={{ height: "45px", overflow: "hidden" }}
+              style={{ height: '45px', overflow: 'hidden' }}
             />
             <Box>
               <Pagination
@@ -275,7 +274,7 @@ function Products({
         </TableContainer>
       </Grid>
     </Grid>
-  );
+  )
 }
 
 const mapStateToProps = (state) => {
@@ -284,8 +283,8 @@ const mapStateToProps = (state) => {
     totalRecords: state.products.totalRecords,
     loadingRecords: state.progressBar.loading,
     paginationArray: state.products.paginationArray,
-    categories: state.categories.categories,
-  };
-};
+    categories: state.categories.categories
+  }
+}
 
-export default connect(mapStateToProps)(Products);
+export default connect(mapStateToProps)(Products)

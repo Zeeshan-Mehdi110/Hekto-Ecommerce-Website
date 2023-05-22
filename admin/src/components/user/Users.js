@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from 'react'
 import {
   Grid,
   Box,
@@ -11,154 +11,154 @@ import {
   IconButton,
   Paper,
   Pagination,
-  Chip,
-} from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { connect } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import TableContainer from "@mui/material/TableContainer";
-import { loadUsers, userActionTypes } from "../../store/actions/userActions";
+  Chip
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { connect } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import TableContainer from '@mui/material/TableContainer'
+import { loadUsers, userActionTypes } from '../../store/actions/userActions'
 
-import DeletePopUp from "../common/DeletePopUp";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { format } from "date-fns";
+import DeletePopUp from '../common/DeletePopUp'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { format } from 'date-fns'
 
 const columns = [
-  { id: "userName", label: "Name" },
-  { id: "userEmail", label: "Email" },
+  { id: 'userName', label: 'Name' },
+  { id: 'userEmail', label: 'Email' },
   {
-    id: "phone_number",
-    label: "Phone Number",
-    align: "left",
+    id: 'phone_number',
+    label: 'Phone Number',
+    align: 'left'
   },
   {
-    id: "userType",
-    label: "Type",
+    id: 'userType',
+    label: 'Type',
 
-    align: "center",
+    align: 'center'
   },
   {
-    id: "userStatus",
-    label: "Status",
+    id: 'userStatus',
+    label: 'Status',
 
-    align: "center",
+    align: 'center'
   },
   {
-    id: "created_on",
-    label: "Created On",
+    id: 'created_on',
+    label: 'Created On',
 
-    align: "center",
+    align: 'center'
   },
   {
-    id: "actions",
-    label: "Actions",
+    id: 'actions',
+    label: 'Actions',
     width: 170,
-    align: "right",
-  },
-];
+    align: 'right'
+  }
+]
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "block",
-    flex: 1,
+    display: 'block',
+    flex: 1
   },
   table: {
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%'
   },
   list: {},
   thead: {},
   tbody: {
-    width: "100%",
+    width: '100%'
   },
   row: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    alignItems: "center",
-    boxSizing: "border-box",
-    minWidth: "100%",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    minWidth: '100%',
+    width: '100%'
   },
   headerRow: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover
     },
     // hide last border
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
+    '&:last-child td, &:last-child th': {
+      border: 0
+    }
   },
   cell: {
-    display: "inline-flex",
-    alignItems: "center",
-    overflow: "hidden",
+    display: 'inline-flex',
+    alignItems: 'center',
+    overflow: 'hidden',
     flexGrow: 0,
-    flexShrink: 0,
+    flexShrink: 0
   },
   justifyCenter: {
-    justifyContent: "center",
+    justifyContent: 'center'
   },
   expandingCell: {
-    flex: 1,
+    flex: 1
   },
   column: {},
   tableContainer: {
-    maxWidth: "100vw",
-    overFlow: "scroll",
-    WebkitOverflowScrolling: "touch",
-    "-ms-overflow-style": "-ms-autohiding-scrollbar",
-  },
-}));
+    maxWidth: '100vw',
+    overFlow: 'scroll',
+    WebkitOverflowScrolling: 'touch',
+    '-ms-overflow-style': '-ms-autohiding-scrollbar'
+  }
+}))
 
 function Users({ users, totalRecords, paginationArray, dispatch }) {
-  const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
+  const { recordsPerPage, pageNumber } = useParams() // while coming back from Edit item
 
-  const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
+  const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0)
   const [rowsPerPage, setRowsPerPage] = useState(
     recordsPerPage
       ? parseInt(recordsPerPage)
       : parseInt(process.env.REACT_APP_RECORDS_PER_PAGE)
-  );
-  const classes = useStyles();
+  )
+  const classes = useStyles()
 
   const totalPages = useMemo(
     () => Math.ceil(totalRecords / rowsPerPage),
     [users, rowsPerPage]
-  );
+  )
 
   useEffect(() => {
     if (!paginationArray[page]) {
-      dispatch(loadUsers(page, rowsPerPage));
+      dispatch(loadUsers(page, rowsPerPage))
     }
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage])
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage - 1);
-  };
+    setPage(newPage - 1)
+  }
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(event.target.value);
-    setPage(0);
-    dispatch({ type: userActionTypes.RESET_USER });
+    setRowsPerPage(event.target.value)
+    setPage(0)
+    dispatch({ type: userActionTypes.RESET_USER })
     dispatch({
       type: userActionTypes.UPDATE_ROWS_PERPAGE,
-      payload: event.target.value,
-    });
-  };
+      payload: event.target.value
+    })
+  }
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
       return users.slice(
         paginationArray[page].startIndex,
         paginationArray[page].endIndex
-      );
+      )
     } else {
-      return [];
+      return []
     }
-  }, [users, page, rowsPerPage]);
+  }, [users, page, rowsPerPage])
 
   return (
     <Grid container>
@@ -174,7 +174,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
             </TableHead>
             <TableBody>
               {visibleRows.map((row) => {
-                if (row.is_deleted) return;
+                if (row.is_deleted) return
                 return (
                   <TableRow key={row._id} className={classes.headerRow}>
                     <TableCell>{row.name}</TableCell>
@@ -202,34 +202,34 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
                       )}
                     </TableCell>
                     <TableCell>
-                      {format(new Date(row.created_on), "dd MMMM, yyyy")}
+                      {format(new Date(row.created_on), 'dd MMMM, yyyy')}
                     </TableCell>
-                    <TableCell sx={{ display: "flex" }}>
+                    <TableCell sx={{ display: 'flex' }}>
                       <Link
                         to={
-                          "/admin/dashboard/users/edit/" +
+                          '/admin/users/edit/' +
                           row._id +
-                          "/" +
+                          '/' +
                           rowsPerPage +
-                          "/" +
+                          '/' +
                           page
                         }
                       >
-                        <IconButton sx={{ color: "blue" }}>
+                        <IconButton sx={{ color: 'blue' }}>
                           <FontAwesomeIcon
                             icon={faEdit}
-                            style={{ fontSize: "1rem" }}
+                            style={{ fontSize: '1rem' }}
                           />
                         </IconButton>
                       </Link>
                       <DeletePopUp
                         id={row._id}
                         page={page}
-                        actionType={"user"}
+                        actionType={'user'}
                       />
                     </TableCell>
                   </TableRow>
-                );
+                )
               })}
             </TableBody>
           </Table>
@@ -247,12 +247,12 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
-                style: { display: "none" },
+                style: { display: 'none' }
               }}
               nextIconButtonProps={{
-                style: { display: "none" },
+                style: { display: 'none' }
               }}
-              style={{ height: "45px", overflow: "hidden" }}
+              style={{ height: '45px', overflow: 'hidden' }}
             />
             <Box>
               <Pagination
@@ -268,7 +268,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
         </TableContainer>
       </Grid>
     </Grid>
-  );
+  )
 }
 
 const mapStateToProps = (state) => {
@@ -276,8 +276,8 @@ const mapStateToProps = (state) => {
     users: state.users.users,
     totalRecords: state.users.totalRecords,
     loadingRecords: state.progressBar.loading,
-    paginationArray: state.users.paginationArray,
-  };
-};
+    paginationArray: state.users.paginationArray
+  }
+}
 
-export default connect(mapStateToProps)(Users);
+export default connect(mapStateToProps)(Users)
