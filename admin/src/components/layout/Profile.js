@@ -77,7 +77,7 @@ const Profile = ({ user, loading }) => {
                   "New password must be at least 6 characters long";
               if (!data.confirmPassword)
                 errors.confirmPassword = "Confirm password is required";
-              else if (!data.newPassword !== data.confirmPassword) {
+              else if (data.newPassword !== data.confirmPassword) {
                 errors.confirmPassword = "Password are not same";
               }
             }

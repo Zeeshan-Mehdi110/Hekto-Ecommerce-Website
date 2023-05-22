@@ -1,13 +1,15 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
-const { createJWTToken, isSuperAdmin } = require("../utils/utils");
+const { createJWTToken } = require("../utils/utils");
 const { checkSchema, validationResult } = require("express-validator");
 const User = require("../models/Users");
 const verifyUser = require("../utils/middlewares");
 const { randomBytes } = require("crypto");
 const multer = require("multer");
 const fs = require("fs").promises;
+const ejs = require("ejs");
+const { default: axios } = require("axios");
 
 const router = express.Router();
 router.use(
@@ -17,7 +19,6 @@ router.use(
 
 router.post("/login", async (req, res) => {
   try {
-    console.log(req.body);
     if (!req.body.email) throw new Error("Email is required");
     if (!req.body.password) throw new Error("Password is required");
     let user = await User.findOne({ email: req.body.email });
@@ -28,13 +29,10 @@ router.post("/login", async (req, res) => {
 
     user = user.toObject();
     delete user.password;
-
-    //promise ko hum await kr skty hn bcz isky andar async task perform hty hn
+    // we can await Promise here because we need to perform async task validation
     const token = await createJWTToken(user, 5000);
     res.json({ user, token });
   } catch (error) {
-    console.log(req.body);
-
     if (error.name === "ValidationError") {
       let errors = {};
 
@@ -58,31 +56,41 @@ router.post("/forgot-password", async (req, res) => {
         .toString("hex")
         .slice(0, 25);
     await User.findByIdAndUpdate(user._id, { password_reset_code });
-    const resetPasswordUrl =
+    const resetPasswordURL =
       process.env.BASE_URL + "admin/reset-password/" + password_reset_code;
 
-    // const data = {
-    //   Recipients: {
-    //     To: [user.email]
-    //   },
-    //   Content: {
-    //     Body: [{
-    //       ContentType: 'HTML',
-    //       Content: await ejs.renderFile('./emails/resetPassword.ejs', { name: user.name, resetPasswordUrl } ),
-    //       Charset: "utf8"
-    //     }],
-    //     subject: "Reset Password",
-    //     from: process.env.EMAIL_FROM
-    //   }
-    // }
+    const data = {
+      Recipients: {
+        To: [user.email],
+      },
+      Content: {
+        Body: [
+          {
+            ContentType: "HTML",
+            Content: await ejs.renderFile("./emails/resetPassword.ejs", {
+              name: user.name,
+              resetPasswordURL: resetPasswordURL, // Check variable name and assignment
+            }),
+            Charset: "utf8",
+          },
+        ],
+        subject: "Reset Password",
+        from: process.env.EMAIL_FROM,
+      },
+    };
 
-    // const response = await axios.post('https://api.elasticemail.com/v4/emails/transactional', data, {
-    //   headers: { 'X-ElasticEmail-ApiKey': process.env.EMAIL_API_KEY }
-    // })
-    // console.log(response)
+    const response = await axios.post(
+      "https://api.elasticemail.com/v4/emails/transactional",
+      data,
+      {
+        headers: { "X-ElasticEmail-ApiKey": process.env.EMAIL_API_KEY },
+      }
+    );
+    // console.log(response);
 
     res.json({ success: true });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 });
