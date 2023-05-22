@@ -1,34 +1,19 @@
 import { Form, Field } from 'react-final-form'
 import { TextField, Button, Box, Typography } from '@mui/material'
-import { useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
-import { showError, showSuccess } from '../store/actions/alertActions'
+import { showError, showSuccess } from '../../store/actions/alertActions'
 
-const ResetPassword = () => {
+function ForgotPassword() {
   const dispatch = useDispatch()
-  const { resetCode } = useParams()
   const navigate = useNavigate()
 
-  console.log(resetCode)
-
-  useEffect(() => {
-    axios
-      .post('/users/verify-reset-code', { code: resetCode })
-      .then((result) => {})
-      .catch((error) => {
-        console.log(error)
-        dispatch(showError(error.message))
-        navigate('/admin/signin')
-      })
-  }, [])
-
   const handleSubmit = (data, form) => {
-    return axios
-      .post('/users/reset-password', { ...data, code: resetCode })
+    axios
+      .post('/users/forgot-password', data)
       .then(({ data }) => {
-        if (data.success) dispatch(showSuccess('Password changed Successfully'))
+        if (data.success) dispatch(showSuccess('We have sent an Email'))
         navigate('/admin/signin')
       })
       .catch((err) => {
@@ -38,30 +23,28 @@ const ResetPassword = () => {
             : err.message
         dispatch(showError(message))
       })
+    const fields = form.getRegisteredFields() // Get all the registered field names
+    fields.forEach((field) => {
+      form.resetFieldState(field) // Reset the touched state for each field
+      form.change(field, null) // Reset the value of each field to null
+    })
   }
 
-  const handleValidation = (data, form) => {
+  const handleValidation = (data) => {
     const errors = {}
 
-    if (!data.newPassword) errors.newPassword = 'Password is required'
-    else if (data.newPassword.length < 6)
-      errors.newPassword = 'Password should have at least 6 characters'
-
-    if (!data.confirmPassword)
-      errors.confirmPassword = 'Please confirm password'
-
-    if (data.confirmPassword && data.newPassword !== data.confirmPassword)
-      errors.confirmPassword = 'Passwords are not same'
+    if (!data.email) errors.email = 'Email is required'
+    else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email))
+      errors.email = 'Invalid Email'
     return errors
   }
-
   return (
     <div>
       <Box textAlign="center" maxWidth="500px" margin="auto">
         <Form
           onSubmit={handleSubmit}
-          validate={handleValidation}
           initialValues={{}}
+          validate={handleValidation}
           render={({
             handleSubmit,
             submitting,
@@ -78,7 +61,7 @@ const ResetPassword = () => {
                     fontSize={'32px'}
                     fontWeight={700}
                   >
-                    Reset Password
+                    Forgot Password
                   </Typography>
                 </Box>
                 <Box>
@@ -88,11 +71,11 @@ const ResetPassword = () => {
                     fontWeight={'400'}
                     color={'#9096B2'}
                   >
-                    Enter new password and confirm new password
+                    Please enter your email to reset the password.
                   </Typography>
                 </Box>
                 <Box my={3}>
-                  <Field name="newPassword">
+                  <Field name="email">
                     {({ input, meta }) => (
                       <TextField
                         InputLabelProps={{
@@ -104,37 +87,26 @@ const ResetPassword = () => {
                           }
                         }}
                         {...input}
-                        label="New Password"
+                        label="Email Address"
                         fullWidth
-                        type="password"
+                        type="email"
                         error={!!(meta.touched && meta.error)}
                         helperText={meta.touched && meta.error}
                       />
                     )}
                   </Field>
                 </Box>
-                <Box mb={2}>
-                  <Field name="confirmPassword">
-                    {({ input, meta }) => (
-                      <TextField
-                        InputLabelProps={{
-                          sx: {
-                            color: '#9096B2',
-                            fontFamily: 'var(--lato)',
-                            fontWeight: '400',
-                            fontSize: '16px'
-                          }
-                        }}
-                        {...input}
-                        type="password"
-                        label="Confirm Password"
-                        fullWidth
-                        mb={2}
-                        error={!!(meta.touched && meta.error)}
-                        helperText={meta.touched && meta.error}
-                      />
-                    )}
-                  </Field>
+
+                <Box display={'flex'} mb={2} justifyContent={'flex-start'}>
+                  <Typography
+                    color="#9096B2"
+                    fontFamily={'var(--lato)'}
+                    fontSize={'17px'}
+                    fontWeight={400}
+                  >
+                    {' '}
+                    <NavLink to={'/admin/'}>Sign in</NavLink>{' '}
+                  </Typography>
                 </Box>
                 <Box>
                   <Button
@@ -149,7 +121,7 @@ const ResetPassword = () => {
                     type="submit"
                     fullWidth
                   >
-                    Reset Password
+                    recover password
                   </Button>
                 </Box>
               </Box>
@@ -161,4 +133,4 @@ const ResetPassword = () => {
   )
 }
 
-export default ResetPassword
+export default ForgotPassword

@@ -1,20 +1,20 @@
 import { Form, Field } from 'react-final-form'
 import { TextField, Button, Box, Typography } from '@mui/material'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { showError, showSuccess } from '../store/actions/alertActions'
+import { signin } from '../../store/actions/authActions'
+import { showError } from '../../store/actions/alertActions'
 
-function ForgotPassword() {
+const LoginForm = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const handleSubmit = (data, form) => {
     axios
-      .post('/users/forgot-password', data)
+      .post('/users/login', data)
       .then(({ data }) => {
-        if (data.success) dispatch(showSuccess('We have sent an Email'))
-        navigate('/admin/signin')
+        dispatch(signin(data.user, data.token))
+        localStorage.setItem('token', data.token)
       })
       .catch((err) => {
         let message =
@@ -29,15 +29,16 @@ function ForgotPassword() {
       form.change(field, null) // Reset the value of each field to null
     })
   }
-
   const handleValidation = (data) => {
     const errors = {}
 
     if (!data.email) errors.email = 'Email is required'
     else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email))
       errors.email = 'Invalid Email'
+    if (!data.password) errors.password = 'Password is required'
     return errors
   }
+
   return (
     <div>
       <Box textAlign="center" maxWidth="500px" margin="auto">
@@ -53,7 +54,7 @@ function ForgotPassword() {
             invalid
           }) => (
             <form onSubmit={handleSubmit}>
-              <Box boxShadow="0px 0px 25px 10px #F8F8FB" p={5}>
+              <Box boxShadow="0px 0px 25px 10px #F8F8FB" p={5} width="350px">
                 <Box>
                   <Typography
                     color={'#000000'}
@@ -61,17 +62,7 @@ function ForgotPassword() {
                     fontSize={'32px'}
                     fontWeight={700}
                   >
-                    Forgot Password
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography
-                    fontSize={'17px'}
-                    fontFamily={'var(--lato)'}
-                    fontWeight={'400'}
-                    color={'#9096B2'}
-                  >
-                    Please enter your email to reset the password.
+                    Login
                   </Typography>
                 </Box>
                 <Box my={3}>
@@ -90,13 +81,37 @@ function ForgotPassword() {
                         label="Email Address"
                         fullWidth
                         type="email"
+                        name="email"
                         error={!!(meta.touched && meta.error)}
                         helperText={meta.touched && meta.error}
                       />
                     )}
                   </Field>
                 </Box>
-
+                <Box mb={2}>
+                  <Field name="password">
+                    {({ input, meta }) => (
+                      <TextField
+                        InputLabelProps={{
+                          sx: {
+                            color: '#9096B2',
+                            fontFamily: 'var(--lato)',
+                            fontWeight: '400',
+                            fontSize: '16px'
+                          }
+                        }}
+                        {...input}
+                        type="password"
+                        label="Password"
+                        name="password"
+                        fullWidth
+                        mb={2}
+                        error={!!(meta.touched && meta.error)}
+                        helperText={meta.touched && meta.error}
+                      />
+                    )}
+                  </Field>
+                </Box>
                 <Box display={'flex'} mb={2} justifyContent={'flex-start'}>
                   <Typography
                     color="#9096B2"
@@ -105,7 +120,9 @@ function ForgotPassword() {
                     fontWeight={400}
                   >
                     {' '}
-                    <NavLink to={'/admin/'}>Sign in</NavLink>{' '}
+                    <NavLink to={'/admin/forgot-password'}>
+                      Forgot your password?
+                    </NavLink>{' '}
                   </Typography>
                 </Box>
                 <Box>
@@ -121,7 +138,7 @@ function ForgotPassword() {
                     type="submit"
                     fullWidth
                   >
-                    recover password
+                    Sign In
                   </Button>
                 </Box>
               </Box>
@@ -133,4 +150,4 @@ function ForgotPassword() {
   )
 }
 
-export default ForgotPassword
+export default LoginForm
