@@ -96,7 +96,7 @@ const Drawer = styled(MuiDrawer, {
   })
 }))
 
-const drodownsList = [
+const dropdownList = [
   {
     title: 'Products',
     icon: <ListIcon />,
@@ -230,7 +230,7 @@ function Sidebar({ progressBar }) {
               </ListItemButton>
             </ListItem>
           </Link>
-          {drodownsList.map((dropdown, index) => (
+          {dropdownList.map((dropdown, index) => (
             <ListDropdown
               icon={dropdown.icon}
               title={dropdown.title}

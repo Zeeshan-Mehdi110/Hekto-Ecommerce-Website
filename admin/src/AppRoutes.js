@@ -10,6 +10,7 @@ import Products from './components/product/Products'
 import AddUser from './components/user/AddUser'
 import EditUser from './components/user/EditUser'
 import Users from './components/user/Users'
+import Configurations from './components/configuration/Configurations'
 
 function AppRoutes() {
   return (
@@ -42,6 +43,7 @@ function AppRoutes() {
           path="categories/:recordsPerPage/:pageNumber"
           element={<Categories />}
         />
+        <Route path="/admin/settings" element={<Configurations />} />
       </Route>
     </Routes>
   )
