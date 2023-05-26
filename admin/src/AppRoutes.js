@@ -11,6 +11,9 @@ import AddUser from './components/user/AddUser'
 import EditUser from './components/user/EditUser'
 import Users from './components/user/Users'
 import Configurations from './components/configuration/Configurations'
+import Brands from './components/brands/Brands'
+import AddBrand from './components/brands/AddBrand'
+import EditBrand from './components/brands/EditBrand'
 
 function AppRoutes() {
   return (
@@ -44,6 +47,14 @@ function AppRoutes() {
           element={<Categories />}
         />
         <Route path="/admin/settings" element={<Configurations />} />
+        {/* Brands Routes */}
+        <Route path="brands" element={<Brands />} />
+        <Route path="brands/add" element={<AddBrand />} />
+        <Route path="brands/edit/:id/:rows/:page/" element={<EditBrand />} />
+        <Route
+          path="brands/:recordsPerPage/:pageNumber/"
+          element={<Brands />}
+        />
       </Route>
     </Routes>
   )

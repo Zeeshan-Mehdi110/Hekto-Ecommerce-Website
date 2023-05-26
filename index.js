@@ -10,6 +10,7 @@ const categoryController = require('./controllers/category')
 const productController = require('./controllers/products')
 const reviewController = require('./controllers/reviews')
 const storeController = require('./controllers/store')
+const brandsController = require('./controllers/brands')
 
 //app.use
 app.use(express.json())
@@ -19,6 +20,7 @@ app.use('/api/category', categoryController)
 app.use('/api/products', productController)
 app.use('/api/reviews', reviewController)
 app.use('/api/store', storeController)
+app.use('/api/brands', brandsController)
 
 // mongodb connection
 mongoose

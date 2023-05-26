@@ -36,7 +36,6 @@ const upload = multer({
 
 // Adding Categories
 router.post('/add', async (req, res) => {
-  console.log(req.body)
   const {
     storeName,
     tagline,
@@ -75,9 +74,7 @@ router.post(
   async (req, res) => {
     try {
       const store = await Store.findById(req.body.id)
-      console.log(req.body)
       if (!store) throw new Error('Invalid Id')
-      console.log(store)
 
       const {
         storeName,
@@ -104,7 +101,6 @@ router.post(
       })
       res.json({ store: await Store.findById(req.body.id) })
     } catch (err) {
-      console.log('ahsdhjsagj')
       res.status(400).json({ error: err.message })
     }
   }

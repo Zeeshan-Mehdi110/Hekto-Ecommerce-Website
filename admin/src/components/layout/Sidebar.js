@@ -114,6 +114,18 @@ const dropdownList = [
     ]
   },
   {
+    title: 'Brands',
+    icon: <CategoryIcon />,
+    items: [
+      {
+        to: '/admin/brands/add',
+        text: 'Add Brand',
+        icon: <AddCircleOutline />
+      },
+      { to: '/admin/brands/', text: 'Brands', icon: <Inventory2Icon /> }
+    ]
+  },
+  {
     title: 'Categories',
     icon: <CategoryIcon />,
     items: [
