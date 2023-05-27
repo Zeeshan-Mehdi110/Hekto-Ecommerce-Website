@@ -36,6 +36,11 @@ app.all('*', (req, res) => {
   res.send('Page Not Found')
 })
 
+app.use((err, req, res, next) => {
+  if (err) res.status(400).json({ error: err.message })
+  else next()
+})
+
 app.listen(5000, function () {
   console.log('server is listening at 5000')
 })

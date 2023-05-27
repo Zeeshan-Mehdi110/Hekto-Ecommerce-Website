@@ -1,127 +1,210 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const Product = require("../models/Product");
-const verifyUser = require("../utils/middlewares");
-const { isSuperAdmin, isAdmin } = require("../utils/utils");
+const express = require('express')
+const mongoose = require('mongoose')
+const Product = require('../models/Product')
+const { isSuperAdmin, isAdmin } = require('../utils/utils')
+const verifyUser = require('../utils/middlewares')
+const multer = require('multer')
+const fs = require('fs').promises
+const fse = require('fs-extra')
+const path = require('path')
 
-const router = express.Router();
-router.use(verifyUser);
+const router = express.Router()
+router.use(verifyUser)
+
+const storage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    try {
+      cb(null, `content/products/`)
+    } catch (err) {
+      cb(err, null)
+    }
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({
+  storage
+})
 
 // Adding product
-router.post("/add", async (req, res) => {
-  const {
-    name,
-    description,
-    product_picture,
-    price,
-    sale_price,
-    brand,
-    category,
-    active,
-  } = req.body;
-  console.log(
-    name,
-    description,
-    product_picture,
-    price,
-    sale_price,
-    brand,
-    category,
-    active
-  );
+router.post('/add', upload.array('productPictures[]'), async (req, res) => {
+  const record = {
+    name: req.body.name,
+    shortDescription: req.body.shortDescription,
+    price: req.body.price,
+    sale_price: req.body.sale_price,
+    discountPrice: req.body.discountPrice,
+    categoryId: req.body.categoryId,
+    brandId: req.body.brandId,
+    color: req.body.color,
+    isFeatured: req.body.isFeatured,
+    isTrending: req.body.isTrending,
+    isTop: req.body.isTop,
+    tags: req.body.tags,
+    longDescription: req.body.longDescription,
+    additionalInformation: req.body.additionalInformation
+  }
+
   try {
     // if(isSuperAdmin(req.user) || isAdmin(req.user))
     //     throw new Error("Invalid Request")
 
-    const product = await new Product({
-      name,
-      description,
-      product_picture,
-      price,
-      sale_price,
-      brand,
-      categoryId: category,
-      active,
-    });
-    await product.save();
-    res.status(200).json({ product });
+    const product = new Product(record)
+
+    await product.save()
+
+    let productPicturesArr = []
+    if (req.files && req.files.length > 0) {
+      // Move the uploaded files to the product folder
+      await fs.mkdir(`content/products/${product._id}/`, { recursive: true })
+      const movePromises = req.files.map((file) => {
+        productPicturesArr.push(file.filename)
+
+        const sourcePath = file.path
+        const targetPath = path.join(
+          `content/products/${product._id}`,
+          file.originalname
+        )
+
+        // Delete the existing file if it already exists
+        if (fse.existsSync(targetPath)) {
+          fse.removeSync(targetPath)
+        }
+        return fse.move(sourcePath, targetPath)
+      })
+      await Promise.all(movePromises)
+
+      await Product.findByIdAndUpdate(req.body.id, {
+        productPictures: productPicturesArr
+      })
+    }
+
+    res.status(200).json({ product })
   } catch (error) {
-    res.status(400).json([error.message]);
+    res.status(400).json([error.message])
   }
-});
+})
 
 // Editing Products
-router.post("/edit", async (req, res) => {
+router.post('/edit', upload.array('productPictures[]'), async (req, res) => {
   try {
     if (isSuperAdmin(req.user) && isAdmin(req.user))
-      throw new Error("Invalid Request 1");
+      throw new Error('Invalid Request')
 
     // if id is not available
-    if (!req.body.id) throw new Error("Product id is required");
+    if (!req.body.id) throw new Error('Product id is requird')
 
     // check for valid object Id using mongoose this will check the id is this id is according to formula of #
-    if (!mongoose.isValidObjectId(req.body.id)) throw new Error("Invalid Id");
+    if (!mongoose.isValidObjectId(req.body.id)) throw new Error('Invalid Id')
 
-    const product = await Product.findById(req.body.id);
-    if (!product) throw new Error("Invalid Id");
+    let oldProductRecord = await Product.findById(req.body.id)
 
-    const { name, price, sale_price, description } = req.body;
+    const record = {
+      name: req.body.name,
+      shortDescription: req.body.shortDescription,
+      price: req.body.price,
+      sale_price: req.body.sale_price,
+      discountPrice: req.body.discountPrice,
+      categoryId: req.body.categoryId,
+      brandId: req.body.brandId,
+      color: req.body.color,
+      isFeatured: req.body.isFeatured,
+      isTrending: req.body.isTrending,
+      isTop: req.body.isTop,
+      tags: req.body.tags,
+      longDescription: req.body.longDescription,
+      additionalInformation: req.body.additionalInformation
+    }
 
-    await Product.findByIdAndUpdate(req.body.id, {
-      name,
-      price,
-      sale_price,
-      description,
-    });
-    res.json({ product: await Product.findById(req.body.id) });
+    let productPicturesArr = []
+    if (req.files && req.files.length > 0) {
+      // Move the uploaded files to the product folder
+      await fs.mkdir(`content/products/${req.body.id}/`, { recursive: true })
+      const movePromises = req.files.map((file) => {
+        productPicturesArr.push(file.filename)
+
+        const sourcePath = file.path
+        const targetPath = path.join(
+          `content/products/${req.body.id}`,
+          file.originalname
+        )
+
+        // Delete the existing file if it already exists
+        if (fse.existsSync(targetPath)) {
+          fse.removeSync(targetPath)
+        }
+        return fse.move(sourcePath, targetPath)
+      })
+      await Promise.all(movePromises)
+
+      record.productPictures = productPicturesArr
+      for (
+        let index = 0;
+        index < oldProductRecord.productPictures.length;
+        index++
+      ) {
+        if (
+          fse.existsSync(
+            `content/products/${req.body.id}/${oldProductRecord.productPictures[index]}`
+          )
+        )
+          fse.removeSync(
+            `content/products/${req.body.id}/${oldProductRecord.productPictures[index]}`
+          )
+      }
+    }
+
+    await Product.findByIdAndUpdate(req.body.id, record)
+
+    res.json({ product: await Product.findById(req.body.id) })
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ error: err.message })
   }
-});
+})
 
 // Deleting Products
-router.delete("/delete", async (req, res) => {
+router.delete('/delete', async (req, res) => {
   try {
     if (isSuperAdmin(req.user) && isAdmin(req.user))
-      throw new Error("Invalid Request 1");
-    console.log(isSuperAdmin(req.user));
-    console.log(isAdmin(req.user));
+      throw new Error('Invalid Request 1')
 
     //  if id is not available
-    if (!req.body.id) throw new Error("Category id is required");
+    if (!req.body.id) throw new Error('Category id is requird')
 
     // check for valid object Id using mongoose this will check the id is this id is according to formula of #
-    if (!mongoose.isValidObjectId(req.body.id)) throw new Error("Invalid Id 2");
+    if (!mongoose.isValidObjectId(req.body.id)) throw new Error('Invalid Id 2')
 
     // check for the valid id
-    const product = await Product.findById(req.body.id);
-    if (!product) throw new Error("Invalid Id 3");
+    const product = await Product.findById(req.body.id)
+    if (!product) throw new Error('Invalid Id 3')
 
-    await Product.findByIdAndDelete(req.body.id);
-    res.json({ success: true });
+    await Product.findByIdAndDelete(req.body.id)
+    res.json({ success: 'Product is Deleted' })
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ error: err.message })
   }
-});
+})
 
 //Getting Products
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const skip = parseInt(req.query.skip ? req.query.skip : 0);
+    const skip = parseInt(req.query.skip ? req.query.skip : 0)
     const recordsPerPage = req.query.limit
       ? req.query.limit
-      : process.env.RECORDS_PER_PAGE;
-    const totalRecords = await Product.countDocuments();
+      : process.env.RECORDS_PER_PAGE
+    const totalRecords = await Product.countDocuments()
     // const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage), sort: { created_on: -1 } });
     const products = await Product.find({}, null, {
       skip,
-      limit: parseInt(recordsPerPage),
-    });
+      limit: parseInt(recordsPerPage)
+    })
 
-    res.status(200).json({ products, totalRecords });
+    res.status(200).json({ products, totalRecords })
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.message })
   }
-});
+})
 
-module.exports = router;
+module.exports = router

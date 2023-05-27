@@ -8,14 +8,40 @@ const verifyUser = require('../utils/middlewares')
 const { randomBytes } = require('crypto')
 const multer = require('multer')
 const fs = require('fs').promises
-const ejs = require('ejs')
-const { default: axios } = require('axios')
+const path = require('path')
+const axios = require('axios')
 
 const router = express.Router()
 router.use(
   ['/profile-update', '/add', '/edit', '/delete', '/profile'],
   verifyUser
 )
+
+const storage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    try {
+      await fs.mkdir(`content/${req.user._id}/`, { recursive: true })
+      cb(null, `content/${req.user._id}/`)
+    } catch (err) {
+      cb(err, null)
+    }
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['jpg', 'png', 'gif', 'bmp', 'jpeg']
+    const ext = path.extname(file.originalname).replace('.', '')
+    if (allowedTypes.includes(ext)) cb(null, true)
+    else {
+      cb(new Error('File type is not allowed'), false)
+    }
+  }
+})
 
 router.post('/login', async (req, res) => {
   try {
@@ -29,7 +55,8 @@ router.post('/login', async (req, res) => {
 
     user = user.toObject()
     delete user.password
-    // we can await Promise here because we need to perform async task validation
+
+    //promise ko hum await kr skty hn bcz isky andar async task perform hty hn
     const token = await createJWTToken(user, 5000)
     res.json({ user, token })
   } catch (error) {
@@ -56,7 +83,7 @@ router.post('/forgot-password', async (req, res) => {
         .toString('hex')
         .slice(0, 25)
     await User.findByIdAndUpdate(user._id, { password_reset_code })
-    const resetPasswordURL =
+    const resetPasswordUrl =
       process.env.BASE_URL + 'admin/reset-password/' + password_reset_code
 
     const data = {
@@ -69,7 +96,7 @@ router.post('/forgot-password', async (req, res) => {
             ContentType: 'HTML',
             Content: await ejs.renderFile('./emails/resetPassword.ejs', {
               name: user.name,
-              resetPasswordURL: resetPasswordURL // Check variable name and assignment
+              resetPasswordUrl
             }),
             Charset: 'utf8'
           }
@@ -79,18 +106,12 @@ router.post('/forgot-password', async (req, res) => {
       }
     }
 
-    const response = await axios.post(
-      'https://api.elasticemail.com/v4/emails/transactional',
-      data,
-      {
-        headers: { 'X-ElasticEmail-ApiKey': process.env.EMAIL_API_KEY }
-      }
-    )
-    // console.log(response);
+    // const response = await axios.post('https://api.elasticemail.com/v4/emails/transactional', data, {
+    //   headers: { 'X-ElasticEmail-ApiKey': process.env.EMAIL_API_KEY }
+    // })
 
     res.json({ success: true })
   } catch (error) {
-    console.log(error)
     res.status(400).json({ error: error.message })
   }
 })
@@ -137,59 +158,51 @@ router.post('/reset-password', async (req, res) => {
   }
 })
 
-const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    try {
-      await fs.mkdir(`content/${req.user._id}`, { recursive: true })
-      cb(null, `content/${req.user._id}`)
-    } catch (error) {
-      cb(error, null)
-    }
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname)
-  }
-})
-
-const upload = multer({ storage })
-
 router.post(
   '/profile-update',
-  upload.single('profilePicture'),
+  upload.single('profile_picture'),
   async (req, res) => {
     try {
-      if (!req.body.name) throw new Error('Name is required')
       const record = {
         name: req.body.name,
-        phone_number: req.body.phoneNumber,
-        modifiedOn: new Date()
+        phone_number: req.body.phone_number
       }
-      if (req.file && req.file.filename)
+      if (req.file && req.file.filename) {
         record.profile_picture = req.file.filename
+        if (
+          req.user.profile_picture &&
+          req.user.profile_picture !== req.file.filename
+        ) {
+          const oldPicPath = `content/${req.user._id}/${req.user.profile_picture}`
+          await fs.unlink(oldPicPath)
+        }
+      }
+      if (!req.body.name) throw new Error('Name is required')
+
       if (req.body.newPassword) {
         if (!req.body.currentPassword)
           throw new Error('Current password is required')
+
         if (
-          !(await bcrypt.compare(
-            req.body.currentPassword,
-            req.body.newPassword
-          ))
+          !(await bcrypt.compare(req.body.currentPassword, req.user.password))
         )
           throw new Error('Current password is incorrect')
-        if (req.body.newPassword.length < 6)
-          throw new Error(
-            'New password is should be at least 6 characters long'
-          )
+
+        if (!req.body.newPassword.length < 6)
+          throw new Error('New password should have atleast 6 characters')
+
         if (req.body.newPassword !== req.body.confirmPassword)
-          throw new Error('Passwords do not match')
+          throw new Error('Passwords are not same')
         record.password = await bcrypt.hash(req.body.newPassword, 10)
       }
 
       await User.findByIdAndUpdate(req.user._id, record)
-      let user = await User.findById(req.user._id)
-      user = user.toObject()
-      delete user.password
-      res.json({ user })
+
+      let updatedUser = await User.findById(req.user._id)
+
+      updatedUser = updatedUser.toObject()
+      delete updatedUser.password
+      res.json({ user: updatedUser })
     } catch (error) {
       res.status(400).json({ error: error.message })
     }
