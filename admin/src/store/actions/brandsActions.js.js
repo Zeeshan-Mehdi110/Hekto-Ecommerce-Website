@@ -38,7 +38,7 @@ export const loadBrands = (
     } else skipRecords = currentPage * recordsPerPage
 
     axios
-      .get('/brands', { params: { skip: skipRecords, limit: recordsPerPage } })
+      .get('api/brands', { params: { skip: skipRecords, limit: recordsPerPage } })
       .then(({ data }) => {
         const state = getState()
         if (state.brands.brands.length === 0) dispatch(hideProgressBar())
@@ -71,7 +71,7 @@ export const loadBrands = (
 export const deleteBrand = (id, page) => {
   return (dispatch) => {
     axios
-      .delete('brands/delete', { data: { id } })
+      .delete('api/brands/delete', { data: { id } })
       .then(() => {
         dispatch({ type: brandActionTypes.DELETE_BRAND, payload: { id, page } })
         dispatch(showSuccess('Brand deleted successfully'))
@@ -91,7 +91,7 @@ export const loadAllBrands = () => {
 
     dispatch(showProgressBar())
     axios
-      .get('/brands/all')
+      .get('api/brands/all')
       .then(({ data }) => {
         dispatch(hideProgressBar())
 

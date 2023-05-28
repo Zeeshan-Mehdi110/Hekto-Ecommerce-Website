@@ -33,7 +33,7 @@ function EditCategory({ categories }) {
   const handleUpdateCategory = async (data, form) => {
     try {
       data.id = id;
-      let result = await axios.post(`api/category/edit`, data);
+      let result = await axios.post(`api/categories/edit`, data);
 
       const fields = form.getRegisteredFields(); // Get all the registered field names
       fields.forEach((field) => {
@@ -41,7 +41,7 @@ function EditCategory({ categories }) {
         form.change(field, null); // Reset the value of each field to null
       });
       dispatch({
-        type: categoryActionTypes.UPDATE_CATEGORY,
+        type: categoryActionTypes.EDIT_CATEGORY,
         payload: { category: result.data.category, categoryIndex },
       });
       dispatch(showSuccess("Category updated successfully"));

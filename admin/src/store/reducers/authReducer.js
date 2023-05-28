@@ -35,7 +35,7 @@ const authReducer = (state = initState, action) => {
         ...state,
         user: null,
         token: null,
-        isLogined: true,
+        isLogined: false,
         userType: null
       }
     case authActionsType.AUTH_UPDATED:

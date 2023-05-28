@@ -30,7 +30,7 @@ export const loadProducts = (
     skipRecords = parseInt(currentPage) * parseInt(recordsPerPage);
 
     axios
-      .get("/products", {
+      .get("api/products", {
         params: { skip: skipRecords, limit: recordsPerPage },
       })
       .then(({ data }) => {
@@ -70,7 +70,7 @@ export const loadProducts = (
 export const deleteProduct = (id, page) => {
   return (dispatch) => {
     axios
-      .delete("/products/delete", { data: { id } })
+      .delete("api/products/delete", { data: { id } })
       .then(() => {
         dispatch({
           type: productActionTypes.DELETE_PRODUCT,

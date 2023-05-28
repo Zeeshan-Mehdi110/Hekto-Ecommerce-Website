@@ -38,7 +38,7 @@ export const loadCategories = (
     } else skipRecords = currentPage * recordsPerPage
 
     axios
-      .get('/categories', {
+      .get('api/categories', {
         params: { skip: skipRecords, limit: recordsPerPage }
       })
       .then(({ data }) => {
@@ -75,7 +75,7 @@ export const loadCategories = (
 export const deleteCategory = (id, page) => {
   return (dispatch) => {
     axios
-      .delete('categories/delete', { data: { id } })
+      .delete('api/categories/delete', { data: { id } })
       .then(() => {
         dispatch({
           type: categoryActionTypes.DELETE_CATEGORY,
@@ -98,7 +98,7 @@ export const loadAllCategories = () => {
 
     dispatch(showProgressBar())
     axios
-      .get('/categories/all')
+      .get('api/categories/all')
       .then(({ data }) => {
         dispatch(hideProgressBar())
         dispatch({
