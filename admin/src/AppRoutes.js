@@ -14,48 +14,49 @@ import Configurations from './components/configuration/Configurations'
 import Brands from './components/brands/Brands'
 import AddBrand from './components/brands/AddBrand'
 import EditBrand from './components/brands/EditBrand'
+import DashBoard from './components/user/DashBoard'
 
 function AppRoutes() {
 
   const routes = [
-      {
-          path: '/admin',
-          element: Template,
-      },
+    {
+      path: '/admin',
+      element: Template,
+    },
 
   ];
 
   return (
-      <Routes>
-          <Route path="/admin/" element={<Template />}>
-              {/* <Route path="dashboard" element={<Dashboard />} /> */}
-              <Route path="profile" element={<Profile />} />
-              <Route path="settings" element={<Configurations />} />
-              <Route path="users/add" element={<AddUser />} />
-              <Route path="users" element={<Users />} />
-              <Route path="users/edit/:id/:rows/:page/" element={<EditUser />} />
-              <Route path="users/:recordsPerPage/:pageNumber/" element={<Users />} />
+    <Routes>
+      <Route path="/admin/" element={<Template />}>
+        <Route path="dashboard" element={<DashBoard />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="settings" element={<Configurations />} />
+        <Route path="users/add" element={<AddUser />} />
+        <Route path="users" element={<Users />} />
+        <Route path="users/edit/:id/:rows/:page/" element={<EditUser />} />
+        <Route path="users/:recordsPerPage/:pageNumber/" element={<Users />} />
 
 
-              {/* Products Routes */}
-              <Route path="products" element={<Products />} />
-              <Route path="products/add" element={<AddProduct />} />
-              <Route path="products/edit/:id/:rows/:page/" element={<EditProduct />} />
-              <Route path="products/:recordsPerPage/:pageNumber/" element={<Products />} />
+        {/* Products Routes */}
+        <Route path="products" element={<Products />} />
+        <Route path="products/add" element={<AddProduct />} />
+        <Route path="products/edit/:id/:rows/:page/" element={<EditProduct />} />
+        <Route path="products/:recordsPerPage/:pageNumber/" element={<Products />} />
 
-              {/* Categories Routes */}
-              <Route path="categories" element={<Categories />} />
-              <Route path="categories/add" element={<AddCategory />} />
-              <Route path="categories/edit/:id/:rows/:page/" element={<EditCategory />} />
-              <Route path="categories/:recordsPerPage/:pageNumber/" element={<Categories />} />
+        {/* Categories Routes */}
+        <Route path="categories" element={<Categories />} />
+        <Route path="categories/add" element={<AddCategory />} />
+        <Route path="categories/edit/:id/:rows/:page/" element={<EditCategory />} />
+        <Route path="categories/:recordsPerPage/:pageNumber/" element={<Categories />} />
 
-              {/* Brands Routes */}
-              <Route path="brands" element={<Brands />} />
-              <Route path="brands/add" element={<AddBrand />} />
-              <Route path="brands/edit/:id/:rows/:page/" element={<EditBrand />} />
-              <Route path="brands/:recordsPerPage/:pageNumber/" element={<Brands />} />
-          </Route>
-      </Routes >
+        {/* Brands Routes */}
+        <Route path="brands" element={<Brands />} />
+        <Route path="brands/add" element={<AddBrand />} />
+        <Route path="brands/edit/:id/:rows/:page/" element={<EditBrand />} />
+        <Route path="brands/:recordsPerPage/:pageNumber/" element={<Brands />} />
+      </Route>
+    </Routes >
   );
 }
 

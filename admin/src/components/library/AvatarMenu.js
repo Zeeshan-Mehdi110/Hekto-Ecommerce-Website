@@ -26,10 +26,9 @@ function AvatarMenu() {
       <Tooltip title="Open Settings">
         <IconButton onClick={openMenu}>
           <Avatar
-            alt={user.name}
+            alt="Profile Picture"
             src={
-              process.env.REACT_APP_URL +
-              `content/${user._id}/${user.profile_picture}`
+              process.env.REACT_APP_BASE_URL + `content/${user._id}/${user.profile_picture}`
             }
           />
         </IconButton>
