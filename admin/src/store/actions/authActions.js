@@ -40,7 +40,7 @@ export const loadAuth = () => {
     })
 
     axios
-      .get('/users/profile')
+      .get('api/users/profile')
       .then((result) => {
         dispatch({
           type: authActionsType.AUTH_LOADED,
