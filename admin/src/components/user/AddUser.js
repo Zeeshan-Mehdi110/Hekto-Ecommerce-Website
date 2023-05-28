@@ -31,7 +31,7 @@ function AddUser() {
 
   const handleAddUser = async (data, form) => {
     try {
-      let result = await axios.post('http://localhost:5000/api/users/add', data)
+      let result = await axios.post('api/users/add', data)
       const fields = form.getRegisteredFields() // Get all the registered field names
       fields.forEach((field) => {
         form.resetFieldState(field) // Reset the touched state for each field

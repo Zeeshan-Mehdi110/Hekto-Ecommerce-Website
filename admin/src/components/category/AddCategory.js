@@ -26,7 +26,7 @@ const AddCategory = () => {
 
   const handleAddCategory = async (data, form) => {
     try {
-      let result = await axios.post("/category/add", data);
+      let result = await axios.post("api/categories/add", data);
       dispatch(addCategory(result.data.category));
       const fields = form.getRegisteredFields(); // Get all the registered field names
       fields.forEach((field) => {

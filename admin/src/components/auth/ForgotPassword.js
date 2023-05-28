@@ -11,7 +11,7 @@ function ForgotPassword() {
 
   const handleSubmit = (data, form) => {
     axios
-      .post('/users/forgot-password', data)
+      .post('api/users/forgot-password', data)
       .then(({ data }) => {
         if (data.success) dispatch(showSuccess('We have sent an Email'))
         navigate('/admin/signin')

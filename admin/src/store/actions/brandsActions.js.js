@@ -9,7 +9,9 @@ export const brandActionTypes = {
   BRANDS_LOADED: 'BRANDS_LOADED',
   RESET_BRAND: 'RESET_BRAND',
   UPDATE_ROWS_PERPAGE: 'UPDATE_ROWS_PERPAGE',
-  UPDATE_PAGINATION_CURRENT_PAGE: 'UPDATE_PAGINATION_CURRENT_PAGE'
+
+  UPDATE_PAGINATION_CURRENT_PAGE: 'UPDATE_PAGINATION_CURRENT_PAGE',
+  ALL_BRANDS_LOADED: 'ALL_BRANDS_LOADED'
 }
 
 export const addBrand = (brand) => {
@@ -54,7 +56,6 @@ export const loadBrands = (
         })
       })
       .catch((err) => {
-        console.log(err)
         dispatch(hideProgressBar())
         dispatch(
           showError(
@@ -77,6 +78,37 @@ export const deleteBrand = (id, page) => {
       })
       .catch((error) => {
         dispatch(showError(error.message))
+      })
+  }
+}
+
+export const loadAllBrands = () => {
+  return (dispatch, getState) => {
+    const state = getState()
+    if (state.brands.allBrandsLoaded)
+      // don't send request again and again if all records have loaded
+      return
+
+    dispatch(showProgressBar())
+    axios
+      .get('/brands/all')
+      .then(({ data }) => {
+        dispatch(hideProgressBar())
+
+        dispatch({
+          type: brandActionTypes.ALL_BRANDS_LOADED,
+          payload: data.brands
+        })
+      })
+      .catch((err) => {
+        dispatch(hideProgressBar())
+        dispatch(
+          showError(
+            err.response && err.response.data.message
+              ? err.response.data.message
+              : err.message
+          )
+        )
       })
   }
 }

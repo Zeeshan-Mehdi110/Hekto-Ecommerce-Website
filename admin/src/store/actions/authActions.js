@@ -1,50 +1,59 @@
-import axios from "axios";
+import axios from 'axios'
+import { showError } from './alertActions'
 
 export const authActionsType = {
-    SIGN_IN: "signIn",
-    SIGN_OUT: "signOut",
-    AUTH_LOADED: "authLoaded",
-    AUTH_FAILED: "authFailed",
-    LOAD_TOKEN: "loadToken",
-    AUTH_UPDATED: "authUpdated"
+  SIGN_IN: 'signIn',
+  SIGN_OUT: 'signOut',
+  AUTH_LOADED: 'authLoaded',
+  AUTH_FAILED: 'authFailed',
+  LOAD_TOKEN: 'loadToken',
+  AUTH_UPDATED: 'authUpdated',
+  UPDATE_USER: 'UPDATE_USER'
 }
 
+export const updateUser = (user) => ({
+  type: authActionsType.UPDATE_USER,
+  payload: user
+})
+
 export const signin = (user, token) => {
-    localStorage.setItem("token", token)
-    return (
-        {
-            type: authActionsType.SIGN_IN,
-            user,
-            token
-        }
-    )
+  localStorage.setItem('token', token)
+  return {
+    type: authActionsType.SIGN_IN,
+    user,
+    token
+  }
 }
 
 export const signOut = () => {
-    localStorage.removeItem("token")
-    return{
-        type: authActionsType.SIGN_OUT
-    }
+  localStorage.removeItem('token')
+  return {
+    type: authActionsType.SIGN_OUT
+  }
 }
-
 export const loadAuth = () => {
-    return (dispatch, getState) => {
+  return (dispatch, getState) => {
+    const token = localStorage.getItem('token')
+    dispatch({
+      type: authActionsType.LOAD_TOKEN,
+      token: token ? token : null
+    })
 
-        const token = localStorage.getItem("token");
-        if (!token) return dispatch({ type: authActionsType.AUTH_FAILED })
+    axios
+      .get('api/users/profile')
+      .then((result) => {
         dispatch({
-            type: authActionsType.LOAD_TOKEN,
-            token: token ? token : null
+          type: authActionsType.AUTH_LOADED,
+          payload: result.data.user
         })
-
-
-        axios.get("/users/profile").then(({ data }) => {
-            dispatch({
-                type: authActionsType.AUTH_LOADED,
-                user: data.user
-            })
-        }).catch(err => console.log(err))
-    }
+      })
+      .catch((error) => {
+        if (token) dispatch(showError(error.message))
+      })
+  }
 }
 
-export const authUpdate = (user) => ({type: authActionsType.AUTH_UPDATED, user})
+export const authUpdate = (user) => ({
+  type: authActionsType.AUTH_UPDATED,
+  user
+})

@@ -11,7 +11,7 @@ const LoginForm = () => {
 
   const handleSubmit = (data, form) => {
     axios
-      .post('/users/login', data)
+      .post('api/users/login', data)
       .then(({ data }) => {
         dispatch(signin(data.user, data.token))
         localStorage.setItem('token', data.token)

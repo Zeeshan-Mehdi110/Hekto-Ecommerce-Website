@@ -37,7 +37,7 @@ function EditUser({ users }) {
   const handleUpdateUser = async (data, form) => {
     try {
       data.id = id
-      let result = await axios.post(`/users/edit`, data)
+      let result = await axios.post(`api/users/edit`, data)
 
       const fields = form.getRegisteredFields() // Get all the registered field names
       fields.forEach((field) => {
