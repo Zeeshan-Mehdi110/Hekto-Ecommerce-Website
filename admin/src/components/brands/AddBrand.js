@@ -23,7 +23,7 @@ const AddBrand = () => {
 
   const handleAddBrand = async (data, form) => {
     try {
-      let result = await axios.post('/brands/add', data)
+      let result = await axios.post('api/brands/add', data)
       dispatch(addBrand(result.data.brand))
       const fields = form.getRegisteredFields() // Get all the registered field names
       fields.forEach((field) => {

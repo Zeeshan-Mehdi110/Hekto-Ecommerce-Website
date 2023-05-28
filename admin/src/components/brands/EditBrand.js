@@ -32,7 +32,7 @@ function EditBrand({ brands }) {
   const handleUpdateBrand = async (data, form) => {
     try {
       data.id = id
-      let result = await axios.post(`/brands/edit`, data)
+      let result = await axios.post(`api/brands/edit`, data)
 
       dispatch({
         type: brandActionTypes.EDIT_BRAND,

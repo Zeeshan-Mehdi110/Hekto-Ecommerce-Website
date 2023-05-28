@@ -1,22 +1,31 @@
-import { FormHelperText, TextField } from '@mui/material'
+import { Box, FormHelperText, TextField } from '@mui/material'
 
 function FileInput(props) {
-  const { input, meta, ...rest } = props
-  const { touched, error } = meta
+  const {
+    input,
+    meta: { error, touched },
+    ...rest
+  } = props
   return (
-    <>
+    <Box width="100%">
       <TextField
+        type="file"
+        onChange={(event) =>
+          input.onChange(
+            rest.inputProps.multiple
+              ? event.target.files
+              : event.target.files[0]
+          )
+        }
         fullWidth
-        onChange={(event) => input.onChange(event.target.files[0])}
         {...rest}
         size="small"
         error={touched && error ? true : false}
-        type="file"
       />
-      <FormHelperText error>
+      <FormHelperText error={true}>
         {touched && error ? error : <span>&nbsp;</span>}
       </FormHelperText>
-    </>
+    </Box>
   )
 }
 

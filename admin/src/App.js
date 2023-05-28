@@ -19,7 +19,7 @@ function App({ user, isAuthLoaded, loadAuth }) {
     loadAuth()
   }, [])
 
-  if (!isAuthLoaded) return <AppPreLoader message="Loading..." />
+  // if (!isAuthLoaded) return <AppPreLoader message="Loading..." />
 
   if (user && publicRoutes.find((url) => pathname.startsWith(url)))
     return <Navigate to="/admin/" />

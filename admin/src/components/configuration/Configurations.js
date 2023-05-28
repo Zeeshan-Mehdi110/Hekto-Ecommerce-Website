@@ -31,7 +31,7 @@ function Configurations() {
 
   const handleUpdateStore = async (data, form) => {
     try {
-      let result = await axios.post(`store/edit`, {
+      let result = await axios.post(`api/store/edit`, {
         ...data,
         id: '647080b38c271fb6bfd9263d'
       })

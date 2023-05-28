@@ -43,8 +43,7 @@ const Profile = ({ user, loading }) => {
         <Form
           onSubmit={(data) => {
             dispatch(showProgressBar());
-            return axios
-              .postForm("/users/profile-update", data)
+            return axios.postForm("api/users/profile-update", data)
               .then(({ data }) => {
                 if (data.user) {
                   dispatch(

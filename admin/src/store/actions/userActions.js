@@ -28,7 +28,7 @@ export const loadUsers = (currentPage = 1, recordsPerPage = process.env.REACT_AP
 
     skipRecords = (parseInt(currentPage)) * parseInt(recordsPerPage);
 
-    axios.get('/users', { params: { skip: skipRecords, limit: recordsPerPage } }).then(({ data }) => {
+    axios.get('api/users', { params: { skip: skipRecords, limit: recordsPerPage } }).then(({ data }) => {
       const state = getState();
       if (state.users.users.length === 0)
         dispatch(hideProgressBar());
@@ -45,7 +45,7 @@ export const loadUsers = (currentPage = 1, recordsPerPage = process.env.REACT_AP
 
 export const deleteUser = (id, page) => {
   return (dispatch) => {
-    axios.delete('http://localhost:5000/api/users/delete', { data: {id} }).then(() => {
+    axios.delete('api/users/delete', { data: {id} }).then(() => {
       dispatch({ type: userActionTypes.DELETE_USER, payload: {id, page} })
       dispatch(showSuccess('User deleted successfully'))
     }).catch(error => {

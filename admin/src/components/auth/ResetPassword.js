@@ -15,7 +15,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     axios
-      .post('/users/verify-reset-code', { code: resetCode })
+      .post('api/users/verify-reset-code', { code: resetCode })
       .then((result) => {})
       .catch((error) => {
         console.log(error)
