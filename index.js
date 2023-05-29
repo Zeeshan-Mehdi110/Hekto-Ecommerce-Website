@@ -29,7 +29,7 @@ app.use('/api/brands', brandController)
 
 
 mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
-  console.log("database is connected")
+  console.log("database is connected successfully")
 }).catch(err => {
   console.log(`Error`, err)
 })
