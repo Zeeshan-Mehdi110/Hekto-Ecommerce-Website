@@ -211,9 +211,9 @@ function Products({ products, totalRecords, paginationArray, categories, dispatc
                       </IconButton>
                     </Link>
                     <DeletePopUp
-                    id={row._id}
-                    page={page}
-                    actionToDispatch={deleteProduct}
+                      id={row._id}
+                      page={page}
+                      actionToDispatch={deleteProduct}
                     />
                     <IconButton sx={{ color: "#FF9529" }} onClick={() => handleReviewsPage("/admin/products/reviews/" + row._id)}>
                       <FontAwesomeIcon icon={faStar} style={{ fontSize: "1rem" }} />
