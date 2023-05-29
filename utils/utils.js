@@ -23,10 +23,10 @@ const createJWTToken = (user, expTimeInHours = 6) => {
 
 
 const isSuperAdmin = (user) => {
-  return(!(user.type == process.env.USER_TYPE_SUPERADMIN))
+  return((user.type == process.env.USER_TYPE_SUPERADMIN))
 }
 const isAdmin = (user) => {
-  return(!(user.type == process.env.USER_TYPE_ADMIN))
+  return((user.type == process.env.USER_TYPE_ADMIN))
 }
 
 module.exports = {

@@ -1,13 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Brand = require("../models/Brand")
+const Category = require("../models/Category")
+const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const { verifyuser } = require("../utils/middlewares");
+
 
 const router = express.Router();
 router.use(verifyuser)
 
 
-// Adding Brands
+
+
+// Adding Categories
 router.post("/add", async (req, res) => {
   const {
       name,
@@ -15,26 +19,26 @@ router.post("/add", async (req, res) => {
   } = req.body;
 try {
 
-  const brand = new Brand({
+  const category = new Category({
       name,
       description
   })
-  await brand.save()
-  res.status(200).json({brand})
+  await category.save()
+  res.status(200).json({category})
 } catch (error) {
   res.status(400).json([error.message]);
 }
 });
 
 
-// Editing Brands
+// Editing Categories
 router.post("/edit", async (req, res) => {
 
   try {
 
       // if id is not available
       if (!req.body.id)
-          throw new Error("Brand id is required")
+          throw new Error("Category id is required")
 
 
       // check for valid object Id using mongoose this will check the id is this id is according to formula of #
@@ -42,8 +46,8 @@ router.post("/edit", async (req, res) => {
       throw new Error("Invalid Id");
 
 
-      const brand = await Brand.findById(req.body.id)
-      if (!Brand)
+      const category = await Category.findById(req.body.id)
+      if (!Category)
           throw new Error("Invalid Id");
 
           const {
@@ -51,36 +55,36 @@ router.post("/edit", async (req, res) => {
               description
           } = req.body;
 
-      const updatedBrand = await Brand.findByIdAndUpdate(req.body.id, {
+      const updatedCategory = await Category.findByIdAndUpdate(req.body.id, {
           name,
           description
       });
-      res.json({ brand: await Brand.findById(req.body.id)  })
+      res.json({ category: await Category.findById(req.body.id)  })
 
   } catch (err) {
       res.status(400).json({ error: err.message })
   }
 })
 
-// Deleting Brands
+// Deleting Categories
 router.delete('/delete', async (req, res) => {
 try {
   //  if id is not available
   if (!req.body.id)
-    throw new Error("Brand id is required")
+    throw new Error("Category id is required")
 
 
   // check for valid object Id using mongoose this will check the id is this id is according to formula of #
   if (!mongoose.isValidObjectId(req.body.id))
-    throw new Error("Invalid Id");
+    throw new Error("Invalid Id 1");
 
 
   // check for the valid id
-  const brand = await Brand.findById(req.body.id)
-  if (!brand)
-    throw new Error("Invalid Id");
+  const category = await Category.findById(req.body.id)
+  if (!category)
+    throw new Error("Invalid Id 2");
 
-  await Brand.findByIdAndDelete(req.body.id)
+  await Category.findByIdAndDelete(req.body.id)
   res.json({ success: true })
 } catch (err) {
   res.status(400).json({ error: err.message })
@@ -90,9 +94,9 @@ try {
 
 // router.get("/", async(req, res) =>{
 //   try{
-//     let brands = await Brand.find();
+//     let categories = await Category.find();
 
-//     res.status(200).json(brands);
+//     res.status(200).json(categories);
 //   }catch(err){
 //     res.status(400).json({ error: err.message })
 //   }
@@ -102,11 +106,11 @@ router.get("/", async (req, res) => {
 try {
   const skip = parseInt(req.query.skip ? req.query.skip : 0);
   const recordsPerPage = req.query.limit ? req.query.limit : process.env.RECORDS_PER_PAGE;
-  const totalRecords = await Brand.countDocuments();
+  const totalRecords = await Category.countDocuments();
   // const users = await User.find({}, null, { skip, limit: parseInt(recordsPerPage), sort: { created_on: -1 } });
-  const brands = await Brand.find({}, null, { skip, limit: parseInt(recordsPerPage) });
+  const categories = await Category.find({}, null, { skip, limit: parseInt(recordsPerPage) });
 
-  res.status(200).json({brands, totalRecords});
+  res.status(200).json({categories, totalRecords});
 } catch (error) {
   res.status(400).json({ error: error.message });
 }
@@ -114,9 +118,9 @@ try {
 
 router.get("/all", async (req, res) => {
   try {
-    const brands = await Brand.find({});
+    const categories = await Category.find({});
   
-    res.status(200).json({brands});
+    res.status(200).json({categories});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
