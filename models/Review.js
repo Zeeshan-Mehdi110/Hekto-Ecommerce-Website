@@ -1,7 +1,7 @@
 const moment = require("moment/moment");
 const mongoose = require("mongoose");
 
-mongoose.model("Review", {});
+mongoose.model('Review', {});
 
 const reviewSchema = new mongoose.Schema({
   rating: {
@@ -17,17 +17,17 @@ const reviewSchema = new mongoose.Schema({
   },
   created_on: {
     type: Date,
-    default: moment().format("YYYY-MM-DD"),
-  },
+    default: moment().format('YYYY-MM-DD')
+  }
 });
 
-reviewSchema.set("toJSON", {
+reviewSchema.set('toJSON', {
   getters: true,
   transform: (doc, ret, options) => {
-    ret.created_on = moment(ret.created_on).format("YYYY-MM-DD");
-    ret.modified_on = moment(ret.modified_on).format("YYYY-MM-DD");
+    ret.created_on = moment(ret.created_on).format('YYYY-MM-DD');
+    ret.modified_on = moment(ret.modified_on).format('YYYY-MM-DD');
     return ret;
-  },
+  }
 });
 
 const Review = mongoose.model("reviews", reviewSchema);
