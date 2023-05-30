@@ -24,7 +24,7 @@ app.use('/api/users', userController)
 app.use('/api/categories', categoryController)
 app.use('/api/products', productController)
 app.use('/api/reviews', reviewController)
-app.use('/api/store', siteController)
+app.use('/api/site', siteController)
 app.use('/api/brands', brandController)
 
 

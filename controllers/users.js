@@ -7,6 +7,7 @@ const User = require("../models/User")
 const { verifyuser } = require("../utils/middlewares")
 const { randomBytes } = require('crypto');
 const { default: axios } = require('axios');
+const ejs = require("ejs")
 
 
 const router = express.Router();
@@ -66,7 +67,7 @@ router.post("/forgot-password", async (req, res) => {
     //   Content: {
     //     Body: [{
     //       ContentType: 'HTML',
-    //       Content: await ejs.renderFile('./emails/resetPassword.ejs', { name: user.name, resetPasswordUrl } ),
+    //       Content: await ejs.renderFile('./emails/resetPassword.ejs', { name: user.name, resetPasswordUrl }),
     //       Charset: "utf8"
     //     }],
     //     subject: "Reset Password",

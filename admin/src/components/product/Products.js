@@ -104,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Products({ products, totalRecords, paginationArray, categories, dispatch }) {
+  console.log(categories)
   const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
 
   const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
