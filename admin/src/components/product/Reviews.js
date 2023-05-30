@@ -1,42 +1,23 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip } from '@mui/material';
+import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip, Rating } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import TableContainer from '@mui/material/TableContainer';
-import { deleteUser, loadUsers, userActionTypes } from '../../store/actions/userActions';
 
-import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+import { deleteReview, loadReviews, reviewActionTypes } from '../../store/actions/reviewActions';
+import DeletePopUp from '../common/DeletePopUp';
 
 const columns = [
-  { id: 'userName', label: 'Name', },
-  { id: 'userEmail', label: 'Email' },
-  {
-    id: 'phone_number',
-    label: 'Phone Number',
-    align: 'left',
-
-  },
-  {
-    id: 'userType',
-    label: 'Type',
-
-    align: 'center',
-  },
-  {
-    id: 'userStatus',
-    label: 'Status',
-
-    align: 'center',
-  },
+  { id: 'reviewRating', label: 'Rating', },
+  { id: 'reviewText', label: 'Review Text' },
   {
     id: 'created_on',
     label: 'Created On',
-
     align: 'center',
   },
   {
@@ -102,18 +83,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Users({ users, totalRecords, paginationArray, dispatch }) {
-  const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
+function Reviews({ reviews, totalRecords, paginationArray, categories, dispatch }) {
+  const { recordsPerPage, pageNumber, productId } = useParams(); // while coming back from Edit item
 
   const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
   const [rowsPerPage, setRowsPerPage] = useState(recordsPerPage ? parseInt(recordsPerPage) : parseInt(process.env.REACT_APP_RECORDS_PER_PAGE));
   const classes = useStyles();
 
-  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [users, rowsPerPage]);
+  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [reviews, rowsPerPage]);
 
   useEffect(() => {
     if (!paginationArray[page]) {
-      dispatch(loadUsers(page, rowsPerPage))
+      dispatch(loadReviews(page, rowsPerPage, productId))
     }
 
   }, [page, rowsPerPage])
@@ -125,19 +106,19 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
-    dispatch({ type: userActionTypes.RESET_USER })
-    dispatch({ type: userActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
+    dispatch({ type: reviewActionTypes.RESET_REVIEW })
+    dispatch({ type: reviewActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
   };
 
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
-      return users.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
+      return reviews.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
     }
     else {
       return [];
     }
-  }, [users, page, rowsPerPage]);
+  }, [reviews, page, rowsPerPage]);
 
   return (
     <Grid container>
@@ -157,37 +138,20 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
               {visibleRows.map((row) => {
                 if (row.is_deleted) return;
                 return <TableRow key={row._id} className={classes.headerRow}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.phone_number}</TableCell>
-                  <TableCell>
-                    {
-                      row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
-                        <Chip size='small' label="Super Admin" color="primary" /> :
-                        row.type == process.env.REACT_APP_USER_TYPE_ADMIN ?
-                          <Chip size='small' label="Admin" color="primary" /> :
-                          <Chip size='small' label="Standard" color="primary" />
-                    }
-                  </TableCell>
-                  <TableCell>
-                    {
-                      row.active == process.env.REACT_APP_STATUS_ACTIVE ?
-                        <Chip size='small' label="Active" color="success" /> :
-                        <Chip size='small' label="Not Active" color="primary" />
-                    }
-                  </TableCell>
+                  <TableCell><Rating value={row.rating} precision={0.5} readOnly /></TableCell>
+                  <TableCell>{row.reviewText}</TableCell>
                   <TableCell>
                     {
                       format(new Date(row.created_on), 'dd MMMM, yyyy')
                     }
                   </TableCell>
-                  <TableCell sx={{ display: "flex" }}>
-                    <Link to={"/admin/users/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                  <TableCell sx={{ display: "flex", alignItems: "center" }}>
+                    <Link to={"/admin/reviews/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
                       <IconButton sx={{ color: "blue" }}>
                         <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
                       </IconButton>
                     </Link>
-                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteUser} />
+                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteReview} />
                   </TableCell>
                 </TableRow>
               }
@@ -200,7 +164,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
               component="div"
               count={totalRecords}
               rowsPerPage={rowsPerPage}
-              page={users.length ? page : 0}
+              page={reviews.length ? page : 0}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
@@ -226,11 +190,11 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
 
 const mapStateToProps = state => {
   return {
-    users: state.users.users,
-    totalRecords: state.users.totalRecords,
+    reviews: state.reviews.reviews,
+    totalRecords: state.reviews.totalRecords,
     loadingRecords: state.progressBar.loading,
-    paginationArray: state.users.paginationArray,
+    paginationArray: state.reviews.paginationArray,
   }
 }
 
-export default connect(mapStateToProps)(Users);
+export default connect(mapStateToProps)(Reviews);

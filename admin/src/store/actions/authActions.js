@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showSuccess } from "./alertActions";
 
 export const authActionsType = {
     SIGN_IN: "signIn",
@@ -22,7 +23,7 @@ export const signin = (user, token) => {
 
 export const signOut = () => {
     localStorage.removeItem("token")
-    return{
+    return {
         type: authActionsType.SIGN_OUT
     }
 }
@@ -47,4 +48,4 @@ export const loadAuth = () => {
     }
 }
 
-export const authUpdate = (user) => ({type: authActionsType.AUTH_UPDATED, user})
+export const authUpdate = (user) => ({ type: authActionsType.AUTH_UPDATED, user })
