@@ -32,7 +32,6 @@ router.post("/login", async (req, res) => {
     user = user.toObject()
     delete user.password
 
-    //promise ko hum await kr skty hn bcz isky andar async task perform hty hn
     const token = await createJWTToken(user, 5000);
     res.json({ user, token });
   } catch (error) {

@@ -45,7 +45,7 @@ router.delete('/delete', async (req, res) => {
 
         //  if id is not available
         if (!req.body.id)
-            throw new Error("Review id is requird")
+            throw new Error("Review id is required")
 
 
         // check for valid object Id using mongoose this will check the id is this id is according to formula of #

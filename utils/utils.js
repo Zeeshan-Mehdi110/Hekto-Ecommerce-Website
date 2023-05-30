@@ -9,7 +9,7 @@ const createJWTToken = (user, expTimeInHours = 6) => {
     iat: moment().unix(),
     exp: moment().add(expTimeInHours, "hours").unix(),
     claims: {
-      // addional informations can be added here
+      // additional information's can be added here
       email: user.email
     }
   }
