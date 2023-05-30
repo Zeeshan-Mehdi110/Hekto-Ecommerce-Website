@@ -112,9 +112,9 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
   const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [users, rowsPerPage]);
 
   useEffect(() => {
-    if (!paginationArray[page]) {
-      dispatch(loadUsers(page, rowsPerPage))
-    }
+      if (!paginationArray[page]){
+        dispatch(loadUsers(page, rowsPerPage))
+      }
 
   }, [page, rowsPerPage])
 
@@ -155,7 +155,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
             </TableHead>
             <TableBody>
               {visibleRows.map((row) => {
-                if (row.is_deleted) return;
+                if(row.is_deleted) return;
                 return <TableRow key={row._id} className={classes.headerRow}>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.email}</TableCell>
@@ -187,7 +187,7 @@ function Users({ users, totalRecords, paginationArray, dispatch }) {
                         <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
                       </IconButton>
                     </Link>
-                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteUser} />
+                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteUser}/>
                   </TableCell>
                 </TableRow>
               }

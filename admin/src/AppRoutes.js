@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import {  Route, Routes } from 'react-router-dom';
 import AddCategory from './components/category/AddCategory';
 import Categories from './components/category/Categories';
 import EditCategory from './components/category/EditCategory';
@@ -16,6 +16,8 @@ import Brands from './components/brands/Brands';
 import AddBrand from './components/brands/AddBrand';
 import EditBrand from './components/brands/EditBrand';
 import Reviews from './components/product/Reviews';
+import Dashboard from './components/Dashboard';
+
 function AppRoutes() {
 
     const routes = [
@@ -23,13 +25,13 @@ function AppRoutes() {
             path: '/admin',
             element: Template,
         },
-
+        
     ];
 
     return (
         <Routes>
-            <Route path="/admin/" element={<Template />}>
-
+                <Route path="/admin/" element={<Template />}>
+                <Route index element={<Dashboard />} />
 
                 {/* Users Routes */}
                 <Route path="users/add" element={<AddUser />} />
@@ -37,14 +39,15 @@ function AppRoutes() {
                 <Route path="users/profile" element={<Profile />} />
                 <Route path="users/edit/:id/:rows/:page/" element={<EditUser />} />
                 <Route path="users/:recordsPerPage/:pageNumber/" element={<Users />} />
-
-
+                
+                
                 {/* Products Routes */}
                 <Route path="products" element={<Products />} />
                 <Route path="products/add" element={<AddProduct />} />
                 <Route path="products/edit/:id/:rows/:page/" element={<EditProduct />} />
                 <Route path="products/:recordsPerPage/:pageNumber/" element={<Products />} />
                 <Route path="products/reviews/:productId/" element={<Reviews />} />
+
 
                 {/* Categories Routes */}
                 <Route path="categories" element={<Categories />} />

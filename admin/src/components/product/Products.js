@@ -104,7 +104,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Products({ products, totalRecords, paginationArray, categories, dispatch }) {
-  console.log(categories)
   const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
 
   const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
@@ -212,9 +211,9 @@ function Products({ products, totalRecords, paginationArray, categories, dispatc
                       </IconButton>
                     </Link>
                     <DeletePopUp
-                      id={row._id}
-                      page={page}
-                      actionToDispatch={deleteProduct}
+                    id={row._id}
+                    page={page}
+                    actionToDispatch={deleteProduct}
                     />
                     <IconButton sx={{ color: "#FF9529" }} onClick={() => handleReviewsPage("/admin/products/reviews/" + row._id)}>
                       <FontAwesomeIcon icon={faStar} style={{ fontSize: "1rem" }} />

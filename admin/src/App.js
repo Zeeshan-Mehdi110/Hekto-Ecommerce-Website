@@ -17,11 +17,10 @@ function App({ user, isAuthLoaded, loadAuth, signOut }) {
 
   const { pathname } = useLocation();
 
-  useEffect( () => {
+  useEffect(() => {
     loadAuth()
+  }, [])
 
-  },[])
-  
   if (!isAuthLoaded)
     return <AppPreLoader message="Loading..." />
 
@@ -40,14 +39,14 @@ function App({ user, isAuthLoaded, loadAuth, signOut }) {
 
   return (
     <div className="App">
-        <AppRoutes />
+      <AppRoutes />
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
-  
-  return(
+
+  return (
     {
       user: state.auth.user,
       isAuthLoaded: state.auth.isLogined

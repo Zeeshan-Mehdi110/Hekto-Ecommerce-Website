@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Site = require("../models/Site");
-const { verifyuser } = require("../utils/middlewares");
+const {verifyuser} = require("../utils/middlewares");
 const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const multer = require("multer")
 const fs = require('fs').promises;
@@ -13,10 +13,10 @@ router.use(verifyuser)
 
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
-    try {
-      await fs.mkdir(`content/site`, { recursive: true });
-      cb(null, `content/site/`)
-    } catch (err) {
+    try{
+      await fs.mkdir(`content/site`, {recursive: true});
+      cb(null, `content/site/` )
+    }catch(err){
       cb(err, null)
     }
   },
@@ -30,48 +30,47 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     const allowedTypes = ['jpg', "gif", "png", "bmp", 'jpeg']
     const ext = path.extname(file.originalname).replace(".", "")
-    if (allowedTypes.includes(ext)) {
+    if(allowedTypes.includes(ext)){
       cb(null, true)
     }
-    else {
-      cb((new Error("File is Not Allowed")), false)
-    }
+    else{
+      cb((new Error("File is Not Allowed")), false)      
+    }      
   }
 })
 
 
-// Adding Site
+// Adding Categories
 router.post("/add", async (req, res) => {
-  console.log(req.body)
   const {
-    siteName,
-    siteTagline,
-    // siteLogo,
-    siteAddress,
-    siteEmail,
-    sitePhoneNumber,
-    facebookLink,
-    twitterLink,
-    instagramLink
-
-  } = req.body;
-  try {
-
-    const site = new Site({
-      siteName, siteTagline,
-      // siteLogo,
+      siteName,
+      siteTagline,
+      siteLogo,
       siteAddress,
       siteEmail,
       sitePhoneNumber,
       facebookLink,
       twitterLink,
       instagramLink
-    })
-    await site.save()
-    res.status(200).json({ site })
-  } catch (error) {
-    res.status(400).json([error.message]);
-  }
+
+  } = req.body;
+try {
+
+  const site = new Site({
+    siteName,siteTagline,
+    siteLogo,
+    siteAddress,
+    siteEmail,
+    sitePhoneNumber,
+    facebookLink,
+    twitterLink,
+    instagramLink
+  })
+  await site.save()
+  res.status(200).json({site})
+} catch (error) {
+  res.status(400).json([error.message]);
+}
 });
 
 
@@ -80,48 +79,48 @@ router.post(
   "/edit",
   upload.single("siteLogo"),
   async (req, res
-  ) => {
-    try {
+    ) => {
+      try {
       const [site] = await Site.find();
       if (!site)
-        throw new Error("Invalid Id");
+          throw new Error("Invalid Id");
 
-      const record = {
-        siteName: req.body.siteName,
-        siteTagline: req.body.siteTagline,
-        siteAddress: req.body.siteAddress,
-        siteEmail: req.body.siteEmail,
-        sitePhoneNumber: req.body.sitePhoneNumber,
-        facebookLink: req.body.facebookLink,
-        twitterLink: req.body.twitterLink,
-        instagramLink: req.body.instagramLink
-      }
-      if (req.file && req.file.filename) {
-        record.siteLogo = req.file.filename
+          const record = {
+            siteName: req.body.siteName,
+            siteTagline: req.body.siteTagline,
+            siteAddress: req.body.siteAddress,
+            siteEmail: req.body.siteEmail,
+            sitePhoneNumber: req.body.sitePhoneNumber,
+            facebookLink: req.body.facebookLink,
+            twitterLink: req.body.twitterLink,
+            instagramLink: req.body.instagramLink
+          }
+          if(req.file && req.file.filename){
+            record.siteLogo = req.file.filename
 
-        if (site.siteLogo && site.siteLogo !== req.file.filename) {
-          const oldPicPath = `content/site/${site.siteLogo}`
-          await fs.unlink(oldPicPath)
-        }
-      }
+          if(site.siteLogo && site.siteLogo !== req.file.filename){
+            const oldPicPath = `content/site/${site.siteLogo}`
+            await fs.unlink(oldPicPath)
+          }
+          }
 
-      await Site.findOneAndUpdate(site._id, record)
-      res.json({ site: await Site.findById(site._id) })
+          let updatedSite = await Site.findOneAndUpdate(site._id, record)
+      res.json({ site: updatedSite })
 
-    } catch (err) {
+  } catch (err) {
       res.status(400).json({ error: err.message })
-    }
-  })
+  }
+})
 
 
 
 router.get("/", async (req, res) => {
-  try {
-    const sites = await Site.find()
-    res.status(200).json(sites);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+try {
+  const [site] = await Site.find()
+  res.status(200).json(site);
+} catch (error) {
+  res.status(400).json({ error: error.message });
+}
 });
 
 module.exports = router;
