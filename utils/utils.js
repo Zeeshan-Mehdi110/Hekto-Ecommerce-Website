@@ -4,31 +4,31 @@ const Product = require("../models/Product");
 const Review = require("../models/Review");
 
 const createJWTToken = (user, expTimeInHours = 6) => {
-  const payload = {
-    uID: user._id,
-    iat: moment().unix(),
-    exp: moment().add(expTimeInHours, "hours").unix(),
-    claims: {
-      // additional information's can be added here
-      email: user.email
-    }
-  }
-  const myPromise = new Promise((resolve, reject) => {
-    jwt.sign(payload, process.env.JWT_ENCRYPTION_KEY, (err, token) => {
-      if (err)
-        reject(err)
-      resolve(token)
-    })
-  })
-  return myPromise
+    const payload = {
+        uID: user._id,
+        iat: moment().unix(),
+        exp: moment().add( expTimeInHours, "hours").unix(),
+        claims: {
+          // addional informations can be added here
+          email: user.email
+        }
+      }
+      const myPromise = new Promise((resolve, reject) => {
+          jwt.sign(payload, process.env.JWT_ENCRYPTION_KEY, (err, token) => {
+            if(err)  
+                reject(err)
+            resolve(token)
+          })
+      })
+      return myPromise
 }
 
 
 const isSuperAdmin = (user) => {
-  return ((user.type == process.env.USER_TYPE_SUPERADMIN))
+  return((user.type == process.env.USER_TYPE_SUPERADMIN))
 }
 const isAdmin = (user) => {
-  return ((user.type == process.env.USER_TYPE_ADMIN))
+  return((user.type == process.env.USER_TYPE_ADMIN))
 }
 
 
@@ -44,8 +44,8 @@ const calculateAverageRating = async (productId) => {
 
 
 module.exports = {
-  createJWTToken,
-  isSuperAdmin,
-  isAdmin,
-  calculateAverageRating
+    createJWTToken,
+    isSuperAdmin,
+    isAdmin,
+    calculateAverageRating
 }

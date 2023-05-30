@@ -9,14 +9,14 @@ import brandReducer from "./brandReducer";
 import reviewReducer from "./reviewReducer";
 
 const allReducers = {
-  users: userReducer,
-  progressBar: progressReducer,
-  alert: alertReducer,
-  auth: authReducer,
-  products: productReducer,
-  categories: categoryReducer,
-  brands: brandReducer,
-  reviews: reviewReducer,
+    users: userReducer,
+    progressBar: progressReducer,
+    alert: alertReducer,
+    auth: authReducer,
+    products: productReducer,
+    categories: categoryReducer,
+    brands: brandReducer,
+    reviews: reviewReducer,
 
 }
 

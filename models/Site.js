@@ -5,15 +5,15 @@ mongoose.model('Site', {});
 const siteSchema = new mongoose.Schema({
   siteName: {
     type: String,
-    required: [false, "SIte Name is required"],
+    required: [true, "SIte Name is required"],
     maxlength: 250
   },
   siteEmail: {
     type: String,
-    required: [false, "Email is required"],
+    required: [true, "Email is required"],
     maxlength: 250,
     validate: {
-      validator: async function (value) {
+      validator: async function(value) {
         const count = await mongoose.model('User').countDocuments({ email: value });
         return count === 0;
       },
@@ -28,11 +28,10 @@ const siteSchema = new mongoose.Schema({
   siteAddress: {
     type: String,
   },
-  // siteLogo: {
-  //   type: String,
-  //   maxlength: 100,
-  //   default: '' // Set a default empty string value if siteLogo is not provided
-  // },
+  siteLogo: {
+    type: String,
+    maxlength: 100
+  },
   siteTagline: {
     type: String,
     maxlength: 300
@@ -49,7 +48,7 @@ const siteSchema = new mongoose.Schema({
     type: String,
     maxlength: 300
   }
-
+  
 
 });
 

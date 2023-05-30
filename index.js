@@ -24,12 +24,12 @@ app.use('/api/users', userController)
 app.use('/api/categories', categoryController)
 app.use('/api/products', productController)
 app.use('/api/reviews', reviewController)
-app.use('/api/site', siteController)
+app.use('/api/store', siteController)
 app.use('/api/brands', brandController)
 
 
 mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
-  console.log("database is connected successfully")
+  console.log("database is connected Successfully!")
 }).catch(err => {
   console.log(`Error`, err)
 })
@@ -43,5 +43,5 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(5000, () => {
-  console.log(`App is  Listing at Port 5000`)
+  console.log(`App is Listing at Port 5000`)
 })

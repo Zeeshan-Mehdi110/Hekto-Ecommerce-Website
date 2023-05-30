@@ -43,8 +43,8 @@ export const loadUsers = (currentPage = 1, recordsPerPage = process.env.REACT_AP
 
 export const deleteUser = (id, page) => {
   return (dispatch) => {
-    axios.delete('/api/users/delete', { data: { id } }).then(() => {
-      dispatch({ type: userActionTypes.DELETE_USER, payload: { id, page } })
+    axios.delete('/api/users/delete', { data: {id} }).then(() => {
+      dispatch({ type: userActionTypes.DELETE_USER, payload: {id, page} })
       dispatch(showSuccess('User deleted successfully'))
     }).catch(error => {
       dispatch(showError(error.message))
