@@ -9,9 +9,11 @@ import { showError, showSuccess } from '../../store/actions/alertActions';
 import TextInput from '../library/TextInput';
 import EditIcon from '@mui/icons-material/Edit';
 import FileInput from '../library/FileInput';
+import { hideProgressBar, showProgressBar } from '../../store/actions/progressActions';
+import { updateConfiguration } from '../../store/actions/authActions';
 
 
-function Configurations({configuration}) {
+function Configurations({ configuration }) {
 
     const [store, setStore] = useState({});
     const navigate = useNavigate();
@@ -29,9 +31,14 @@ function Configurations({configuration}) {
 
     const handleUpdateSite = async (data, form) => {
         try {
-            axios.postForm(`/api/store/edit`, data).then(result => {
+            dispatch(showProgressBar())
+            axios.postForm(`api/store/edit`, data).then(result => {
+                if (result.data.site) {
+                    dispatch(updateConfiguration(result.data.site))
+                    dispatch(showSuccess("Store updated successfully"))
+                }
             });
-            dispatch(showSuccess("Store updated successfully"))
+            dispatch(hideProgressBar())
             // Navigation will be added there
         } catch (error) {
             if (error.response && error.response.status === 400) {
@@ -119,8 +126,8 @@ function Configurations({configuration}) {
 
 const mapStateToProps = state => {
     return {
-      configuration: state.auth.configuration,
-      
+        configuration: state.auth.configuration,
+
     }
-  }
-  export default connect(mapStateToProps)(Configurations);
+}
+export default connect(mapStateToProps)(Configurations);

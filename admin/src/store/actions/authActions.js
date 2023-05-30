@@ -14,12 +14,14 @@ export const authActionsType = {
 }
 
 export const updateUser = (user) => ({ type: authActionsType.UPDATE_USER, payload: user });
+export const authUpdate = (user) => ({ type: authActionsType.AUTH_UPDATED, user })
+export const updateConfiguration = (configuration) => ({ type: authActionsType.UPDATE_CONFIGURATION, payload: configuration })
 
 export const signin = (user, token) => {
   return (dispatch, getState) => {
     localStorage.setItem("token", token)
 
-    axios.get("/api/configuration").then(({ data }) => {
+    axios.get("api/store").then(({ data }) => {
       dispatch({ type: authActionsType.UPDATE_CONFIGURATION, payload: data.configuration });
       dispatch({ type: authActionsType.DASHBAORD_DATA_LOADED, payload: { totalUsers: data.totalUsers, totalCategories: data.totalCategories, totalBrands: data.totalBrands, totalProducts: data.totalProducts } })
       dispatch({ type: authActionsType.SIGN_IN, user, token })
@@ -57,5 +59,3 @@ export const loadAuth = () => {
     })
   }
 }
-
-export const authUpdate = (user) => ({ type: authActionsType.AUTH_UPDATED, user })
