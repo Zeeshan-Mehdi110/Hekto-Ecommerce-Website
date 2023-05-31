@@ -19,16 +19,19 @@ export const updateConfiguration = (configuration) => ({ type: authActionsType.U
 
 export const signin = (user, token) => {
   return (dispatch, getState) => {
-    localStorage.setItem("token", token)
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     axios.get("api/store").then(({ data }) => {
-      dispatch({ type: authActionsType.UPDATE_CONFIGURATION, payload: data.configuration });
+      console.log(data)
+      dispatch({ type: authActionsType.UPDATE_CONFIGURATION, payload: data });
       dispatch({ type: authActionsType.DASHBAORD_DATA_LOADED, payload: { totalUsers: data.totalUsers, totalCategories: data.totalCategories, totalBrands: data.totalBrands, totalProducts: data.totalProducts } })
-      dispatch({ type: authActionsType.SIGN_IN, user, token })
-    })
 
-  }
-}
+      dispatch({ type: authActionsType.SIGN_IN, user, token });
+    });
+  };
+};
+
 
 export const signOut = () => {
   localStorage.removeItem("token")
@@ -48,7 +51,7 @@ export const loadAuth = () => {
 
     axios.get('/api/users/profile').then(result => {
       axios.get("/api/store").then(({ data }) => {
-        console.log("Configurations", data)
+        // console.log("Configurations", data)
         dispatch({ type: authActionsType.AUTH_LOADED, payload: { user: result.data.user, configuration: data } });
         dispatch({ type: authActionsType.DASHBAORD_DATA_LOADED, payload: { totalUsers: data.totalUsers, totalCategories: data.totalCategories, totalBrands: data.totalBrands, totalProducts: data.totalProducts } })
       })

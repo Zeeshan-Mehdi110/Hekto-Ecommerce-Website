@@ -23,7 +23,10 @@ const productSchema = new mongoose.Schema({
   sale_price: {
     type: Number,
   },
-  discountPrice : {
+  discountPrice: {
+    type: Number
+  },
+  discountPercentage: {
     type: Number
   },
   categoryId: {
