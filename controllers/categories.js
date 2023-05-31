@@ -1,14 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Category = require("../models/Category")
-const { isSuperAdmin, isAdmin } = require("../utils/utils");
-const { verifyuser } = require("../utils/middlewares");
+const { verifyUser } = require("../milddlewares/auth");
+const { isSuperAdmin, isAdmin } = require("../utils/util");
 
 
 const router = express.Router();
-router.use(verifyuser)
-
-
+router.use(verifyUser)
 
 
 // Adding Categories
@@ -76,13 +74,13 @@ try {
 
   // check for valid object Id using mongoose this will check the id is this id is according to formula of #
   if (!mongoose.isValidObjectId(req.body.id))
-    throw new Error("Invalid Id 1");
+    throw new Error("Invalid Id");
 
 
   // check for the valid id
   const category = await Category.findById(req.body.id)
   if (!category)
-    throw new Error("Invalid Id 2");
+    throw new Error("Invalid Id");
 
   await Category.findByIdAndDelete(req.body.id)
   res.json({ success: true })

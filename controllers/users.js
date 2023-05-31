@@ -1,10 +1,10 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
-const { createJWTToken } = require('../utils/utils');
+const { createJWTToken } = require('../utils/util');
 const { checkSchema, validationResult } = require('express-validator');
 const User = require("../models/User")
-const { verifyuser } = require("../utils/middlewares")
+const { verifyUser } = require("../milddlewares/auth")
 const { randomBytes } = require('crypto');
 const multer = require('multer');
 const fs = require('fs').promises;
@@ -12,7 +12,7 @@ const path = require('path');
 const fse = require('fs-extra');
 
 const router = express.Router();
-router.use(['/profile-update', '/add', '/edit', '/delete', "/profile"], verifyuser);
+router.use(['/profile-update', '/add', '/edit', '/delete', "/profile"], verifyUser);
 
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {

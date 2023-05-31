@@ -1,5 +1,6 @@
 const moment = require("moment/moment");
 const mongoose = require("mongoose");
+const { userTypes, statusTypes } = require("../utils/constants");
 
 mongoose.model('User', {});
 
@@ -13,18 +14,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Email is required"],
     maxlength: 250,
-    validate: {
-      validator: async function(value) {
-        const count = await mongoose.model('User').countDocuments({ email: value });
-        return count === 0;
-      },
-      message: 'Email must be unique',
-      type: 'unique'
-    }
   },
   phone_number: {
     type: String,
-    maxlength: 20
+    maxlength: 20,
+    validate: {
+      validator: function (v) {
+        return v.length <= 20;
+      },
+      message: 'The phone number can not be more than 20 characters'
+    }
   },
   profile_picture: {
     type: String,
@@ -45,12 +44,12 @@ const userSchema = new mongoose.Schema({
   },
   type: {
     type: Number,
-    default: process.env.USER_TYPE_SUPERADMIN,
+    default: userTypes.USER_TYPE_SUPERADMIN,
     required: [true, "User type is required"],
   },
   active: {
     type: Number,
-    default: process.env.ACTIVE_STATUS
+    default: statusTypes.ACTIVE_STATUS
   },
   created_on: {
     type: Date,
