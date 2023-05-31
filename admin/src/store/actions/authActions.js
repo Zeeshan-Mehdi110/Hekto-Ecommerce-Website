@@ -14,14 +14,14 @@ export const authActionsType = {
 }
 
 export const updateUser = (user) => ({ type: authActionsType.UPDATE_USER, payload: user });
-export const authUpdate = (user) => ({ type: authActionsType.AUTH_UPDATED, user })
 export const updateConfiguration = (configuration) => ({ type: authActionsType.UPDATE_CONFIGURATION, payload: configuration })
+export const authUpdate = (user) => ({ type: authActionsType.AUTH_UPDATED, user })
 
 export const signin = (user, token) => {
   return (dispatch, getState) => {
     localStorage.setItem("token", token)
 
-    axios.get("api/store").then(({ data }) => {
+    axios.get("/api/store").then(({ data }) => {
       dispatch({ type: authActionsType.UPDATE_CONFIGURATION, payload: data.configuration });
       dispatch({ type: authActionsType.DASHBAORD_DATA_LOADED, payload: { totalUsers: data.totalUsers, totalCategories: data.totalCategories, totalBrands: data.totalBrands, totalProducts: data.totalProducts } })
       dispatch({ type: authActionsType.SIGN_IN, user, token })
@@ -40,7 +40,6 @@ export const loadAuth = () => {
   return (dispatch, getState) => {
 
     const token = localStorage.getItem('token');
-    if (!token) return dispatch({ type: authActionsType.AUTH_FAILED })
     dispatch({
       type: authActionsType.LOAD_TOKEN,
       token: token ? token : null
@@ -48,7 +47,6 @@ export const loadAuth = () => {
 
     axios.get('/api/users/profile').then(result => {
       axios.get("/api/store").then(({ data }) => {
-        console.log("Configurations", data)
         dispatch({ type: authActionsType.AUTH_LOADED, payload: { user: result.data.user, configuration: data } });
         dispatch({ type: authActionsType.DASHBAORD_DATA_LOADED, payload: { totalUsers: data.totalUsers, totalCategories: data.totalCategories, totalBrands: data.totalBrands, totalProducts: data.totalProducts } })
       })

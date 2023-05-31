@@ -6,6 +6,10 @@ const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const multer = require("multer")
 const fs = require('fs').promises;
 const path = require("path")
+const User = require("../models/User");
+const Category = require("../models/Category");
+const Brand = require("../models/Brand");
+const Product = require("../models/Product");
 
 
 const router = express.Router();
@@ -67,7 +71,7 @@ router.post("/add", async (req, res) => {
       instagramLink
     })
     await site.save()
-    res.status(200).json({ site })
+    res.status(200).json({ site: await Site.findById(site.id) })
   } catch (error) {
     res.status(400).json([error.message]);
   }
@@ -116,8 +120,14 @@ router.post(
 
 router.get("/", async (req, res) => {
   try {
-    const [site] = await Site.find()
-    res.status(200).json(site);
+    const site = await Site.findOne();
+    const totalUsers = await User.countDocuments();
+    const totalCategories = await Category.countDocuments();
+    const totalBrands = await Brand.countDocuments();
+    const totalProducts = await Product.countDocuments();
+    console.log(totalUsers, totalCategories, totalBrands, totalProducts, site)
+
+    res.status(200).json({ site, totalUsers, totalCategories, totalBrands, totalProducts });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

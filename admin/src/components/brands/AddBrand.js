@@ -24,7 +24,7 @@ const AddBrand = () => {
 
   const handleAddBrand = async (data, form) => {
     try {
-      let result = await axios.post( "/api/brands/add", data );
+      let result = await axios.post("/api/brands/add", data);
       dispatch(addBrand(result.data.brand));
       const fields = form.getRegisteredFields(); // Get all the registered field names
       fields.forEach((field) => {
@@ -83,14 +83,6 @@ const AddBrand = () => {
                 ))}
               </Box>
             )}
-            <Box mt={2}>
-              {/* {error && <Alert severity="error">{error}</Alert>} */}
-            </Box>
-            <Box mt={2}>
-              {submitSucceeded && !submitting && (
-                <Alert color="success">Brand Added Successfully</Alert>
-              )}
-            </Box>
           </form>
         )}
       />
