@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { signOut } from '../../store/actions/authActions';
 import { connect, useDispatch } from 'react-redux';
 
-function AvatarMenu({user}) {
+function AvatarMenu({ user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch()
@@ -27,9 +27,7 @@ function AvatarMenu({user}) {
   return (
     <div>
       <Avatar
-        sx={{
-          bgcolor: deepOrange[500]
-        }}
+        src={process.env.REACT_APP_BASE_URL + `content/${user._id}/${user.profile_picture}`}
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -40,7 +38,6 @@ function AvatarMenu({user}) {
           user.name.slice(0, 1)
         }
       </Avatar>
-      
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -76,7 +73,7 @@ function AvatarMenu({user}) {
 
 const mapStatetoProps = (state) => {
   return {
-      user: state.auth.user
+    user: state.auth.user
   }
 }
 
