@@ -125,7 +125,6 @@ router.get("/", async (req, res) => {
     const totalCategories = await Category.countDocuments();
     const totalBrands = await Brand.countDocuments();
     const totalProducts = await Product.countDocuments();
-    console.log(totalUsers, totalCategories, totalBrands, totalProducts, site)
 
     res.status(200).json({ site, totalUsers, totalCategories, totalBrands, totalProducts });
   } catch (error) {
