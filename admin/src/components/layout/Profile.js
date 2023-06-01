@@ -3,12 +3,12 @@ import { Box } from '@mui/system'
 import axios from 'axios'
 import { Field, Form } from 'react-final-form'
 import { connect, useDispatch } from 'react-redux'
-import TextInput from '../library/form/TextInput'
 import EditIcon from '@mui/icons-material/Edit';
 import { authUpdate, updateUser } from '../../store/actions/authActions'
-import FileInput from "../library/form/FileInput";
 import { showError, showSuccess } from '../../store/actions/alertActions'
 import { hideProgressBar, showProgressBar } from '../../store/actions/progressActions'
+import TextInput from '../library/TextInput'
+import FileInput from '../library/FileInput'
 
 function Profile({ user, authUpdate }) {
   const id = user._id;
@@ -41,10 +41,9 @@ function Profile({ user, authUpdate }) {
   const handleUpdateUser = async (data, form) => {
     try {
       dispatch(showProgressBar())
-      let result = await axios.postForm("/users/profile-update", data);
+      let result = await axios.postForm("/api/users/profile-update", data);
       if (result.data.user) {
-
-        dispatch( updateUser(result.data.user) );
+        dispatch(updateUser(result.data.user));
         dispatch(showSuccess('Profile updated successfully'))
       }
       dispatch(hideProgressBar())
@@ -71,7 +70,7 @@ function Profile({ user, authUpdate }) {
           <Box display={"flex"} pt={5} flexDirection="column" alignItems={"center"} textAlign={"center"} justifyContent={"center"}>
             <Avatar
               sx={{ height: "100px", width: "100px" }}
-              src={ process.env.REACT_APP_URL + `content/${user._id}/${user.profile_picture}` }
+              src={process.env.REACT_APP_BASE_URL + `content/${id}/${user.profile_picture}`}
             >
               {
                 user.name.slice(0, 1)

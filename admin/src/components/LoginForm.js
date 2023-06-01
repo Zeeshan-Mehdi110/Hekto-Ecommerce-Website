@@ -1,58 +1,40 @@
 import { Form, Field } from "react-final-form";
 import { TextField, Button, Box, Typography } from "@mui/material";
-import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { showError, showSuccess } from "../../store/actions/alertActions";
+import { signin } from "../store/actions/authActions";
+import { showError, showSuccess } from "../store/actions/alertActions";
 
 
 
-const ResetPassword = () => {
+const LoginForm = () => {
   const dispatch = useDispatch()
-  const { resetCode } = useParams();
-  const navigate = useNavigate();
-
-
-console.log(resetCode)
-
-  useEffect( () => {
-    axios.post('/users/verify-reset-code', { code: resetCode }).then( result => {
-
-    }).catch(error => {
-      console.log(error);
-      dispatch(showError(error.message));
-      navigate('/admin/signin')
-    })
-  }, [])
-
 
   const handleSubmit = (data, form) => {
-    return (
-      axios.post('/users/reset-password', { ...data, code: resetCode }).then( ({data}) => {
-        if(data.success)
-          dispatch(showSuccess("Password changed Successfully"))
-          navigate('/admin/signin')
-      }).catch( err => {
+    axios.post("api/users/login", data).then(({ data }) => {
+      dispatch(signin(data.user, data.token))
+      localStorage.setItem("token", data.token)
+      dispatch(showSuccess("Signed in successfully"))
+    }).catch(err => {
       let message = err && err.response && err.response.data ? err.response.data.error : err.message
       dispatch(showError(message))
     })
-    )
+    const fields = form.getRegisteredFields(); // Get all the registered field names
+    fields.forEach((field) => {
+      form.resetFieldState(field); // Reset the touched state for each field
+      form.change(field, null); // Reset the value of each field to null
+    });
   };
+  const handleValidation = (data) => {
+    const errors = {}
 
-  const handleValidation = (data, form) => {
-    const errors = {};
-
-    if (!data.newPassword)
-      errors.newPassword = "Password is required";
-    else if (data.newPassword.length < 6)
-      errors.newPassword = "Password should have at least 6 characters";
-
-    if (!data.confirmPassword)
-      errors.confirmPassword = "Please confirm password";
-
-    if (data.confirmPassword && data.newPassword !== data.confirmPassword)
-      errors.confirmPassword = "Passwords are not same";
+    if (!data.email)
+      errors.email = "Email is required"
+    else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email))
+      errors.email = "Invalid Email"
+    if (!data.password)
+      errors.password = "Password is required"
     return errors
   }
 
@@ -62,8 +44,8 @@ console.log(resetCode)
       <Box textAlign="center" maxWidth="500px" margin="auto">
         <Form
           onSubmit={handleSubmit}
-          validate={handleValidation}
           initialValues={{}}
+          validate={handleValidation}
           render={({
             handleSubmit,
             submitting,
@@ -72,22 +54,20 @@ console.log(resetCode)
             invalid,
           }) => (
             <form onSubmit={handleSubmit}>
-              <Box boxShadow='0px 0px 25px 10px #F8F8FB' p={5} >
+              <Box boxShadow='0px 0px 25px 10px #F8F8FB' p={5} width="350px" >
                 <Box>
-                  <Typography color={"#000000"} fontFamily={"var(--josefin)"} fontSize={"32px"} fontWeight={700} >Reset Password</Typography>
-                </Box>
-                <Box>
-                  <Typography fontSize={"17px"} fontFamily={"var(--lato)"} fontWeight={"400"} color={"#9096B2"} >Enter new password and confirm new password</Typography>
+                  <Typography color={"#000000"} fontFamily={"var(--josefin)"} fontSize={"32px"} fontWeight={700} >Login</Typography>
                 </Box>
                 <Box my={3}>
-                  <Field name="newPassword">
+                  <Field name="email">
                     {({ input, meta }) => (
                       <TextField
                         InputLabelProps={{ sx: { "color": "#9096B2", "fontFamily": "var(--lato)", "fontWeight": "400", "fontSize": "16px" } }}
                         {...input}
-                        label="New Password"
+                        label="Email Address"
                         fullWidth
-                        type="password"
+                        type="email"
+                        name="email"
                         error={!!(meta.touched && meta.error)}
                         helperText={meta.touched && meta.error}
                       />
@@ -95,13 +75,14 @@ console.log(resetCode)
                   </Field>
                 </Box>
                 <Box mb={2}>
-                  <Field name="confirmPassword">
+                  <Field name="password">
                     {({ input, meta }) => (
                       <TextField
                         InputLabelProps={{ sx: { "color": "#9096B2", "fontFamily": "var(--lato)", "fontWeight": "400", "fontSize": "16px" } }}
                         {...input}
                         type="password"
-                        label="Confirm Password"
+                        label="Password"
+                        name="password"
                         fullWidth
                         mb={2}
                         error={!!(meta.touched && meta.error)}
@@ -110,6 +91,9 @@ console.log(resetCode)
                     )}
                   </Field>
                 </Box>
+                <Box display={"flex"} mb={2} justifyContent={"flex-start"} >
+                  <Typography color="#9096B2" fontFamily={"var(--lato)"} fontSize={"17px"} fontWeight={400} > <NavLink to={"/admin/forgot-password"}>Forgot your password?</NavLink> </Typography>
+                </Box>
                 <Box>
                   <Button
                     variant="contained"
@@ -117,7 +101,7 @@ console.log(resetCode)
                     type="submit"
                     fullWidth
                   >
-                    Reset Password
+                    Sign In
                   </Button>
                 </Box>
               </Box>
@@ -129,4 +113,4 @@ console.log(resetCode)
   )
 }
 
-export default ResetPassword
+export default LoginForm

@@ -1,55 +1,83 @@
 import * as React from 'react';
+import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Box, Tooltip, IconButton, Typography, Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
-import {  useDispatch, useSelector } from 'react-redux';
+import { deepOrange, deepPurple } from '@mui/material/colors';
+import { Avatar } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 import { signOut } from '../../store/actions/authActions';
+import { connect, useDispatch } from 'react-redux';
 
-function AvatarMenu() {
-
-  const dispatch = useDispatch();
+function AvatarMenu({user}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const user = useSelector(state => state.auth.user);
-  const openMenu = (event) => {
+  const open = Boolean(anchorEl);
+  const dispatch = useDispatch()
+
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-  }
-  const closeMenu = () => {
+  };
+  const handleClose = () => {
     setAnchorEl(null);
-  }
-  const logout = () => {
-    dispatch( signOut() );
-    closeMenu();
+  };
+
+  const handleSignOut = () => {
+    dispatch(signOut())
   }
 
   return (
-    <Box>
-      <Tooltip title="Open Settings">
-        <IconButton onClick={openMenu}>
-          <Avatar alt={user.name} src={process.env.REACT_APP_URL + `content/${user._id}/${user.profile_picture}`} />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right'
+    <div>
+      <Avatar
+        sx={{
+          bgcolor: deepOrange[500]
         }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={Boolean(anchorEl)}
-        onClose={closeMenu}
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
       >
-        <MenuItem component={Link} to="/admin/profile" onClick={closeMenu}>
-          <Typography textAlign="center">Profile Settings</Typography>
+        {
+          user.name.slice(0, 1)
+        }
+      </Avatar>
+      
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem>
+          <Button>
+            <NavLink
+              style={{ "textDecoration": "none", "color": "#000" }}
+              to={"/admin/users/profile"}
+              onClick={handleClose}
+            >
+              Profile Settings
+            </NavLink>
+          </Button>
         </MenuItem>
-        <MenuItem onClick={logout}>
-          <Typography textAlign="center">Sign Out</Typography>
+        <MenuItem>
+          <Button
+            onClick={handleSignOut}
+            style={{ "textDecoration": "none", "color": "#000" }}
+          >
+            Logout
+          </Button>
         </MenuItem>
       </Menu>
-    </Box>
+    </div>
   );
 }
-export default AvatarMenu
+
+const mapStatetoProps = (state) => {
+  return {
+      user: state.auth.user
+  }
+}
+
+export default connect(mapStatetoProps)(AvatarMenu)

@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './store/index';
 import { Provider } from 'react-redux';
 import configureAxios from './config/axios';
-import { ThemeProvider } from '@mui/styles';
-import { createTheme } from '@mui/material';
+import store from "./store/index"
+import { createTheme, ThemeProvider } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 
+
 configureAxios(store)
+
 
 const theme = createTheme({
   palette: {
@@ -19,16 +20,13 @@ const theme = createTheme({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
-  </ThemeProvider>
-  // </React.StrictMode>
+    </ThemeProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

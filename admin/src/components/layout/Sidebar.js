@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -15,19 +14,23 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import logo from '../../static/logo.png'
 import { Link, Outlet } from 'react-router-dom';
 import ListIcon from "@mui/icons-material/List";
 import { AddCircleOutline, PeopleOutline } from "@mui/icons-material";
-import { LinearProgress } from '@mui/material';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import { Avatar, Button, Collapse, Grid, LinearProgress } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ListDropdown from '../common/ListDropdown';
 import GroupIcon from '@mui/icons-material/Group';
 import { connect } from 'react-redux';
+import { makeStyles } from '@mui/styles';
 import SimpleSnackbar from '../library/SnackBar';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
+import { showSuccess } from '../../store/actions/alertActions';
 import AvatarMenu from '../library/AvatarMenu';
-import ListDropdown from '../library/ListDropdown';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 import CategoryIcon from '@mui/icons-material/Category';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const drawerWidth = 240;
 
@@ -109,7 +112,7 @@ const drodownsList = [
   },
   {
     title: 'Products',
-    icon: <ListIcon />,
+    icon: <PeopleOutline />,
     items: [{ to: '/admin/products/add', text: 'Add Product', icon: <AddCircleOutline /> }, { to: '/admin/products', text: 'Products', icon: <Inventory2Icon /> }]
   },
   {
@@ -139,13 +142,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Sidebar({ progressBar, configuration }) {
-  const classes = useStyles();
+function Sidebar({progressBar, configuration}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const classes = useStyles();
 
   const handleDrawerOpen = () => {
     setOpen(!open);
+  };
+
+
+  const [collapseOpen, setCollapseOpen] = React.useState(false);
+
+  const handleCollapse = () => {
+    setCollapseOpen(!collapseOpen);
   };
 
 
@@ -153,8 +163,8 @@ function Sidebar({ progressBar, configuration }) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" sx={{ background: "var(--purple)", fontFamily: "var(--josefin)" }} open={open}>
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box sx={{ display: "flex", alignItems: 'center' }}>
+        <Toolbar sx={ { display: "flex", justifyContent: "space-between" } }>
+          <Box sx={ { display: "flex" } }>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -167,35 +177,18 @@ function Sidebar({ progressBar, configuration }) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              {configuration.siteName}
+              {configuration.siteName} Admin Panel
             </Typography>
           </Box>
-          <AvatarMenu />
+            <AvatarMenu />
         </Toolbar>
       </AppBar>
-
-
       <Drawer variant="permanent" open={open}>
         <DrawerHeader sx={{ justifyContent: 'center' }}>
-          <Link to="/" target='_blank'>
-          {theme.direction === 'rtl' ? <img style={{ maxWidth: '100%', height: 'auto'}} src={ process.env.REACT_APP_URL + `content/configuration/${configuration.logo}`} alt={configuration.siteName} /> : <img style={{ maxWidth: '100%', height: 'auto'}} src={ process.env.REACT_APP_URL + `content/configuration/${configuration.logo}`} alt={configuration.siteName} />}
-          </Link>
+          {theme.direction === 'rtl' ? <img width={50} src={process.env.REACT_APP_BASE_URL + `content/site/${configuration.siteLogo}`} alt="Hekto" /> : <img width={50} src={process.env.REACT_APP_BASE_URL + `content/site/${configuration.siteLogo}`} alt="Hekto" />}
         </DrawerHeader>
         <Divider />
         <List>
-          <Link
-            to="/admin/dashboard"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <ListItem key={"dashboard"} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-              </ListItemButton>
-            </ListItem>
-          </Link>
           <Link
             to="/admin/settings"
             style={{ textDecoration: "none", color: "inherit" }}
@@ -229,11 +222,11 @@ function Sidebar({ progressBar, configuration }) {
   );
 }
 
-
 const mapStateToProps = state => {
   return {
     progressBar: state.progressBar,
-    configuration: state.auth.configuration
+    configuration: state.auth.configuration,
+    
   }
 }
 

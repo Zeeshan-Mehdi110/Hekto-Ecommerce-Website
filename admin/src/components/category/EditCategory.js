@@ -1,15 +1,15 @@
-import EditIcon from '@mui/icons-material/Edit'; import { Alert, Button, CircularProgress } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { Alert, Button, CircularProgress } from '@mui/material';
 import { Box } from '@mui/system';
 import axios from 'axios';
 import { FORM_ERROR } from 'final-form';
 import React from 'react'
 import { Field, Form } from 'react-final-form';
 import { connect } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { showError, showSuccess } from "../../store/actions/alertActions";
-import SelectInput from '../library/form/SelectInput';
-import TextInput from '../library/form/TextInput';
+import TextInput from '../library/TextInput';
 import { categoryActionTypes } from '../../store/actions/categoryActions';
 
 
@@ -39,7 +39,7 @@ function EditCategory({ categories }) {
         try {
             data.id = id;
             let result = await axios.post(
-                `/categories/edit`,
+                `/api/categories/edit`,
                 data
             );
 

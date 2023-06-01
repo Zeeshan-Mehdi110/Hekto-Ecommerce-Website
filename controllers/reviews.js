@@ -1,11 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Review = require("../models/Review");
-const { verifyUser } = require("../milddlewares/auth");
-const { isSuperAdmin, calculateAverageRating } = require("../utils/util");
+const { verifyuser } = require("../utils/middlewares");
+const { isSuperAdmin, calculateAverageRating } = require("../utils/utils");
 
 const router = express.Router();
-router.use(['/delete'], verifyUser);
+router.use(['/delete'], verifyuser);
 
 
 // Adding review

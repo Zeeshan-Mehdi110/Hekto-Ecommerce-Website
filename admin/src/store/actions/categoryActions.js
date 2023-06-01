@@ -35,13 +35,13 @@ export const loadCategories = (currentPage = 1, recordsPerPage = process.env.REA
     else
       skipRecords = (currentPage) * recordsPerPage;
 
-    axios.get('/categories', { params: { skip: skipRecords, limit: recordsPerPage } }).then(({ data }) => {
+    axios.get('api/categories', { params: { skip: skipRecords, limit: recordsPerPage } }).then(({ data }) => {
+      
       const state = getState();
       if (state.categories.categories.length === 0)
         dispatch(hideProgressBar());
 
-      if (data.totalRecords === 0) return;
-
+        if (data.totalRecords === 0) return;
       const allRecordsLoaded = (state.categories.categories.length + data.categories.length) === data.totalRecords;
       dispatch({ type: categoryActionTypes.CATEGORIES_LOADED, payload: { categories: data.categories, totalRecords: data.totalRecords, allRecordsLoaded, page: currentPage } });
       dispatch({ type: categoryActionTypes.UPDATE_PAGINATION_CURRENT_PAGE, payload: currentPage })
@@ -55,7 +55,7 @@ export const loadCategories = (currentPage = 1, recordsPerPage = process.env.REA
 
 export const deleteCategory = (id, page) => {
   return (dispatch) => {
-    axios.delete('categories/delete', { data: { id } }).then(() => {
+    axios.delete('api/categories/delete', { data: { id } }).then(() => {
       dispatch({ type: categoryActionTypes.DELETE_CATEGORY, payload: { id, page } })
       dispatch(showSuccess('Category deleted successfully'))
     }).catch(error => {
@@ -71,8 +71,7 @@ export const loadAllCategories = () => {
       return;
 
     dispatch(showProgressBar());
-    axios.get('/categories/all').then(({ data }) => {
-
+    axios.get('api/categories/all').then(({ data }) => {
       dispatch(hideProgressBar());
       dispatch({ type: categoryActionTypes.ALL_CATEGORIES_LOADED, payload: data.categories });
     }).catch(err => {

@@ -1,46 +1,47 @@
-require('dotenv').config();
+require("dotenv").config()
 const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const cors = require('cors')
 const app = express();
 
-//controllers
 const userController = require("./controllers/users")
+const categoryController = require("./controllers/categories")
 const productController = require("./controllers/products")
-const categoriesController = require("./controllers/categories")
-const brandsController = require("./controllers/brands")
-const reviewsController = require("./controllers/reviews")
-const configurationController = require("./controllers/configuration")
+const reviewController = require("./controllers/reviews")
+const siteController = require("./controllers/configurations")
+const brandController = require("./controllers/brands")
 
-//app.use
-app.use(express.json());
-app.use(cors());
-app.use('/content', express.static('content/'));
-app.use('/api/users', userController);
-app.use('/api/products', productController);
-app.use('/api/categories', categoriesController);
-app.use('/api/brands', brandsController);
-app.use('/api/reviews', reviewsController);
-app.use('/api/configuration', configurationController);
+
+
+// app.use
+app.use(express.json())
+app.use('/content', express.static('content/'))
+//cors Error is set here
+app.use(cors())
+
+
+app.use('/api/users', userController)
+app.use('/api/categories', categoryController)
+app.use('/api/products', productController)
+app.use('/api/reviews', reviewController)
+app.use('/api/store', siteController)
+app.use('/api/brands', brandController)
+
 
 mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
-    console.log('database connected successfully')
-}).catch(error => {
-    console.log(error)
+  console.log("database is connected Successfully!")
+}).catch(err => {
+  console.log(`Error`, err)
 })
-
-
-app.all('*', (req, res) => {
-    res.send('Page Not Found')
-});
 
 app.use((err, req, res, next) => {
-    if (err)
-        res.status(400).json({ error: err.message });
-    else
-        next();
+  if (err) {
+    res.status(400).json({ error: err.message });
+  } else {
+    next()
+  }
 })
 
-app.listen(5000, function () {
-    console.log('server is listening at 5000')
+app.listen(5000, () => {
+  console.log(`App Listing at Port 5000`)
 })

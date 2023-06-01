@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import progressReducer from './progressReducer';
 import userReducer from "./userReducer";
+import progressReducer from "./progressReducer"
 import alertReducer from "./alertReducer";
 import authReducer from "./authReducer";
 import productReducer from "./productReducer";
@@ -17,6 +17,7 @@ const allReducers = {
     categories: categoryReducer,
     brands: brandReducer,
     reviews: reviewReducer,
+
 }
 
 const rootReducer = combineReducers(allReducers);

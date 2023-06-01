@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Brand = require("../models/Brand")
-const { verifyUser } = require("../milddlewares/auth");
+const { verifyuser } = require("../utils/middlewares");
 
 const router = express.Router();
-router.use(verifyUser)
+router.use(verifyuser)
 
 
 // Adding Brands

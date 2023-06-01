@@ -30,7 +30,7 @@ export const loadProducts = (currentPage = 1, recordsPerPage = process.env.REACT
 
     skipRecords = (parseInt(currentPage)) * parseInt(recordsPerPage);
 
-    axios.get('/products', { params: { skip: skipRecords, limit: recordsPerPage } }).then(({ data }) => {
+    axios.get('/api/products', { params: { skip: skipRecords, limit: recordsPerPage } }).then(({ data }) => {
       const state = getState();
       if (state.products.products.length === 0)
         dispatch(hideProgressBar());
@@ -49,7 +49,7 @@ export const loadProducts = (currentPage = 1, recordsPerPage = process.env.REACT
 
 export const deleteProduct = (id, page) => {
   return (dispatch) => {
-    axios.delete('products/delete', { data: { id } }).then(() => {
+    axios.delete('/api/products/delete', { data: { id } }).then(() => {
       dispatch({ type: productActionTypes.DELETE_PRODUCT, payload: { id, page } })
       dispatch(showSuccess('Product deleted successfully'))
     }).catch(error => {

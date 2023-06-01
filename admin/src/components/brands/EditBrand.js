@@ -1,14 +1,13 @@
 import EditIcon from '@mui/icons-material/Edit'; import { Alert, Button, CircularProgress } from '@mui/material';
 import { Box } from '@mui/system';
 import axios from 'axios';
-import { FORM_ERROR } from 'final-form';
 import React from 'react'
 import { Field, Form } from 'react-final-form';
 import { connect } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
-import { showError, showSuccess } from "../../store/actions/alertActions";
-import TextInput from '../library/form/TextInput';
+import { showError, showSuccess } from '../../store/actions/alertActions';
+import TextInput from '../library/TextInput';
 import { brandActionTypes } from '../../store/actions/brandsActions.js';
 
 
@@ -38,7 +37,7 @@ function EditBrand({ brands }) {
         try {
             data.id = id;
             let result = await axios.post(
-                `/brands/edit`,
+                `/api/brands/edit`,
                 data
             );
 

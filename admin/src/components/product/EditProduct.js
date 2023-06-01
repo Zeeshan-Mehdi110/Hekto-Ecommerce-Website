@@ -3,20 +3,22 @@ import { Alert, Button, CircularProgress, FormHelperText } from '@mui/material';
 import { Box } from '@mui/system';
 import axios from 'axios';
 import { FORM_ERROR } from 'final-form';
+import React, { useEffect } from 'react'
 import { Field, Form } from 'react-final-form';
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { useParams, useNavigate, Navigate } from 'react-router-dom'
-import SelectInput from '../library/form/SelectInput';
-import TextInput from '../library/form/TextInput';
+import SelectInput from '../library/SelectInput';
+import TextInput from '../library/TextInput';
 import { useDispatch } from "react-redux";
 import { showSuccess } from "../../store/actions/alertActions";
+import { userActionTypes } from '../../store/actions/userActions';
 import { productActionTypes } from '../../store/actions/productActions';
-import TextAreaInput from '../library/form/TextAreaInput';
-import React, { useEffect } from 'react'
-import { loadAllCategories } from '../../store/actions/categoryActions'
+import TextAreaInput from '../library/TextAreaInput';
+import FileInput from '../library/FileInput';
+import CheckBoxInput from '../library/CheckBoxInput';
+import { loadAllCategories } from '../../store/actions/categoryActions';
 import { loadAllBrands } from '../../store/actions/brandsActions.js';
-import CheckBoxInput from '../library/form/CheckBoxInput';
-import FileInput from '../library/form/FileInput';
+
 
 
 function EditProduct({ products, categories, brands }) {
@@ -41,33 +43,28 @@ function EditProduct({ products, categories, brands }) {
     const errors = {};
 
     if (!data.name)
-      errors.name = "Product name is required";
+      errors.name = "Product Name is Required";
     else if (data.name.length < 3)
-      errors.name = "Name should be more then 3 chararacters";
-    if (!data.price) errors.price = "Please enter price";
-    if (!data.categoryId) errors.categoryId = "Please select category";
+      errors.name = "Name Should be more then 3 Chararacters";
+    if (!data.price) errors.price = "Please Enter Price";
+    if (!data.categoryId) errors.categoryId = "Please Select Category";
     if (!data.shortDescription) errors.shortDescription = "Short description is required";
-
     if (data.sale_price) {
-      if (parseFloat(data.price) < parseFloat(data.sale_price))
-        errors.sale_price = "Product price should be greated than sale price"
+      if (parseFloat(data.sale_price) > parseFloat(data.price))
+        errors.sale_price = "Sale price should be smaller than product price"
     }
-
-    if (data.discountPercentage) {
-      if (data.discountPercentage < 0 || data.discountPercentage > 100)
-        errors.discountPercentage = "Discount percentage must between 0 and 100%"
-    }
-
+    if (data.discountPercentage > 100) errors.discountPercentage = "Discount Percentage must be smaller than 100"
     return errors
   };
 
+  console.log(product)
 
 
   const handleUpdateUser = async (data, form) => {
     try {
       data.id = id;
       let result = await axios.postForm(
-        `/products/edit`,
+        `/api/products/edit`,
         data
       );
 

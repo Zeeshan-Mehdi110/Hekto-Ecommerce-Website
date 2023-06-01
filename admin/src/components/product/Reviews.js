@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 import { deleteReview, loadReviews, reviewActionTypes } from '../../store/actions/reviewActions';
-import DeletePopUp from '../library/DeletePopup';
+import DeletePopUp from '../common/DeletePopUp';
 
 const columns = [
     { id: 'reviewRating', label: 'Rating', },

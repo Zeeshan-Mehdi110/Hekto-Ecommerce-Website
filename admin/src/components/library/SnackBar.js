@@ -1,34 +1,32 @@
 import { Snackbar, Alert as MuiAlert } from "@mui/material";
-import { connect } from "react-redux";
+import { connect } from "react-redux"
 import { clearAlert } from "../../store/actions/alertActions";
 
-function SnackBar({ alert, clearAlert }) {
+function Alert({ alert,clearAlert }) {
 
-  let variant = null;
-  for (let key in alert) {
-    if (alert[key])
-      variant = key;
-  }
-  
-  if (!variant) return null;
 
-  return (
-    <>
-      <Snackbar
-        open={true}
-        autoHideDuration={5000}
-        onClose={clearAlert}
-      >
-        <MuiAlert severity={variant}>{alert[variant]}</MuiAlert>
-      </Snackbar>
-    </>
-  )
+    let variant = null
+
+    for (let key in alert)
+        if (alert[key])
+            variant = key
+
+
+    if (!variant) return null;
+
+    return (
+        <Snackbar open={true} anchorOrigin={{vertical: "top", horizontal: "center"}}  autoHideDuration={5000} onClose={clearAlert}>
+            <MuiAlert severity={variant}>{alert[variant]}</MuiAlert>
+        </Snackbar>
+    )
 }
 
-const mapStateToProps = ({ alert }) => {
-  return { alert }
+const mapStateToProps = (state) => {
+    return {
+        alert: state.alert
+    }
 }
 
-const Wrapper = connect(mapStateToProps, { clearAlert });
+const Wrapper = connect(mapStateToProps, {clearAlert});
 
-export default Wrapper(SnackBar);
+export default Wrapper(Alert)
