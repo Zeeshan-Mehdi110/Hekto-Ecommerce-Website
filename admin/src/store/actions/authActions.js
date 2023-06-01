@@ -21,7 +21,7 @@ export const signin = (user, token) => {
     localStorage.setItem("token", token)
 
     axios.get("/api/store").then(({ data }) => {
-      dispatch({ type: authActionsType.UPDATE_CONFIGURATION, payload: data.configuration });
+      dispatch({ type: authActionsType.UPDATE_CONFIGURATION, payload: data.site });
       dispatch({ type: authActionsType.DASHBAORD_DATA_LOADED, payload: { totalUsers: data.totalUsers, totalCategories: data.totalCategories, totalBrands: data.totalBrands, totalProducts: data.totalProducts } })
       dispatch({ type: authActionsType.SIGN_IN, user, token })
     })
@@ -47,7 +47,7 @@ export const loadAuth = () => {
     axios.get('/api/users/profile').then(result => {
       axios.get("/api/store").then(({ data }) => {
         // console.log("store data", data)
-        dispatch({ type: authActionsType.AUTH_LOADED, payload: { user: result.data.user, configuration: data } });
+        dispatch({ type: authActionsType.AUTH_LOADED, payload: { user: result.data.user, configuration: data.site } });
         dispatch({ type: authActionsType.DASHBAORD_DATA_LOADED, payload: { totalUsers: data.totalUsers, totalCategories: data.totalCategories, totalBrands: data.totalBrands, totalProducts: data.totalProducts } })
       })
     }).catch(error => {
