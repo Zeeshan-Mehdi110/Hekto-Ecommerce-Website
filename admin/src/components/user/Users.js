@@ -1,43 +1,42 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip, Rating, Button, Typography } from '@mui/material';
+import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import TableContainer from '@mui/material/TableContainer';
+import { deleteUser, loadUsers, userActionTypes } from '../../store/actions/userActions';
 
+import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
-import { deleteProduct, loadProducts, productActionTypes } from '../../store/actions/productActions';
-import DeletePopUp from '../library/DeletePopup';
-import { reviewActionTypes } from '../../store/actions/reviewActions';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import AddIcon from '@mui/icons-material/Add';
 
 const columns = [
-  { id: 'productName', label: 'Name', },
+  { id: 'userName', label: 'Name', },
+  { id: 'userEmail', label: 'Email' },
   {
-    id: 'sale-price',
-    label: 'Sale Price',
+    id: 'phone_number',
+    label: 'Phone Number',
     align: 'left',
 
   },
-  { id: 'productEmail', label: 'Discount Price' },
-  { id: 'productRating', label: 'Rating' },
   {
-    id: 'category',
-    label: 'Category',
+    id: 'userType',
+    label: 'Type',
+
     align: 'center',
   },
   {
-    id: 'productStatus',
+    id: 'userStatus',
     label: 'Status',
+
     align: 'center',
   },
   {
     id: 'created_on',
     label: 'Created On',
+
     align: 'center',
   },
   {
@@ -103,21 +102,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Products({ products, totalRecords, paginationArray, stateRowsPerPage, dispatch }) {
+function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatch }) {
   const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
 
   const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
-  const [rowsPerPage, setRowsPerPage] = useState(recordsPerPage ? parseInt(recordsPerPage) : parseInt(stateRowsPerPage));
-  const classes = useStyles();
+  const [rowsPerPage, setRowsPerPage] = useState(recordsPerPage ? parseInt(recordsPerPage) : parseInt(stateRowsPerPage));  const classes = useStyles();
 
-  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [products, rowsPerPage]);
-
-  const navigate = useNavigate();
+  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [users, rowsPerPage]);
 
   useEffect(() => {
-    if (!paginationArray[page]) {
-      dispatch(loadProducts(page, rowsPerPage))
-    }
+      if (!paginationArray[page]){
+        dispatch(loadUsers(page, rowsPerPage))
+      }
 
   }, [page, rowsPerPage])
 
@@ -128,44 +124,24 @@ function Products({ products, totalRecords, paginationArray, stateRowsPerPage, d
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
-    dispatch({ type: productActionTypes.RESET_PRODUCT })
-    dispatch({ type: productActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
+    dispatch({ type: userActionTypes.RESET_USER })
+    dispatch({ type: userActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
   };
 
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
-      return products.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
+      return users.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
     }
     else {
       return [];
     }
-  }, [products, page, rowsPerPage]);
-
-  const handleReviewsPage = (url) => {
-    dispatch({ type: reviewActionTypes.RESET_REVIEW })
-    navigate(url)
-  }
-
-  const refreshList = () => {
-    dispatch({ type: productActionTypes.RESET_PRODUCT })
-    if (page === 0)
-      dispatch(loadProducts(page, rowsPerPage))
-    else
-      setPage(0);
-  }
+  }, [users, page, rowsPerPage]);
 
   return (
     <Grid container>
       <Grid item md={12} xs={12}>
         <TableContainer component={Paper} className={classes.tableContainer}>
-          <Box display="flex" justifyContent='space-between' m={3}>
-            <Typography variant="h5">Products</Typography>
-            <Box>
-              <Button component={Link} to="/admin/products/add" variant="outlined" startIcon={<AddIcon />}>Add</Button>
-              <Button sx={{ ml: 1 }} onClick={refreshList} variant="outlined" endIcon={<RefreshIcon />}>Refresh</Button>
-            </Box>
-          </Box>
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
@@ -179,13 +155,20 @@ function Products({ products, totalRecords, paginationArray, stateRowsPerPage, d
             <TableBody>
               {visibleRows.map((row) => {
                 if (!row) return;
-                if (row.is_deleted) return;
+                if(row.is_deleted) return;
                 return <TableRow key={row._id} className={classes.headerRow}>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.sale_price}</TableCell>
-                  <TableCell>{row.discountPrice}</TableCell>
-                  <TableCell><Rating value={row.averageRating} precision={0.5} readOnly /></TableCell>
-                  <TableCell><Chip size='small' label={row.categoryName} color="info" /></TableCell>
+                  <TableCell>{row.email}</TableCell>
+                  <TableCell>{row.phone_number}</TableCell>
+                  <TableCell>
+                    {
+                      row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
+                        <Chip size='small' label="Super Admin" color="primary" /> :
+                        row.type == process.env.REACT_APP_USER_TYPE_ADMIN ?
+                          <Chip size='small' label="Admin" color="primary" /> :
+                          <Chip size='small' label="Standard" color="primary" />
+                    }
+                  </TableCell>
                   <TableCell>
                     {
                       row.active == process.env.REACT_APP_STATUS_ACTIVE ?
@@ -198,16 +181,13 @@ function Products({ products, totalRecords, paginationArray, stateRowsPerPage, d
                       format(new Date(row.created_on), 'dd MMMM, yyyy')
                     }
                   </TableCell>
-                  <TableCell sx={{ display: "flex", alignItems: "center" }}>
-                    <Link to={"/admin/products/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                  <TableCell sx={{ display: "flex" }}>
+                    <Link to={"/admin/users/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
                       <IconButton sx={{ color: "blue" }}>
                         <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
                       </IconButton>
                     </Link>
-                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteProduct} />
-                    <IconButton sx={{ color: "#FF9529" }} onClick={() => handleReviewsPage("/admin/products/reviews/" + row._id)}>
-                      <FontAwesomeIcon icon={faStar} style={{ fontSize: "1rem" }} />
-                    </IconButton>
+                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteUser}/>
                   </TableCell>
                 </TableRow>
               }
@@ -220,7 +200,7 @@ function Products({ products, totalRecords, paginationArray, stateRowsPerPage, d
               component="div"
               count={totalRecords}
               rowsPerPage={rowsPerPage}
-              page={products.length ? page : 0}
+              page={users.length ? page : 0}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
@@ -246,12 +226,12 @@ function Products({ products, totalRecords, paginationArray, stateRowsPerPage, d
 
 const mapStateToProps = state => {
   return {
-    products: state.products.products,
-    totalRecords: state.products.totalRecords,
+    users: state.users.users,
+    totalRecords: state.users.totalRecords,
     loadingRecords: state.progressBar.loading,
-    paginationArray: state.products.paginationArray,
+    paginationArray: state.users.paginationArray,
     stateRowsPerPage: state.brands.rowsPerPage
   }
 }
 
-export default connect(mapStateToProps)(Products);
+export default connect(mapStateToProps)(Users);

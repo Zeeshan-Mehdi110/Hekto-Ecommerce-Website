@@ -3,7 +3,7 @@ import { TextField, Button, Box, Typography } from "@mui/material";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { showError, showSuccess } from "../../store/actions/alertActions";
+import { showError, showSuccess } from "../store/actions/alertActions";
 
 
 
@@ -12,7 +12,7 @@ function ForgotPassword() {
   const navigate = useNavigate()
 
   const handleSubmit = (data, form) => {
-    axios.post("/users/forgot-password", data).then(({ data }) => {
+    axios.post("api/users/forgot-password", data).then(({ data }) => {
       if(data.success)
         dispatch(showSuccess("We have sent an Email"))
         navigate("/admin/signin")

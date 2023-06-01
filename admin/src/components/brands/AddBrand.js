@@ -4,10 +4,10 @@ import { Box } from "@mui/system";
 import { AddCircleOutline } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import TextInput from "../library/form/TextInput";
 import { showError, showSuccess } from "../../store/actions/alertActions";
 import { useDispatch } from "react-redux";
 import { addBrand, brandActionTypes } from "../../store/actions/brandsActions.js";
+import TextInput from "../library/TextInput";
 
 const AddBrand = () => {
   const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const AddBrand = () => {
 
   const handleAddBrand = async (data, form) => {
     try {
-      let result = await axios.post( "/brands/add", data );
+      let result = await axios.post( "/api/brands/add", data );
       dispatch(addBrand(result.data.brand));
       const fields = form.getRegisteredFields(); // Get all the registered field names
       fields.forEach((field) => {

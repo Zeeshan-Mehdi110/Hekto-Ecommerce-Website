@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import { AddCircleOutline } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import TextInput from "../library/form/TextInput";
+import TextInput from "../library/TextInput";
 import { showError, showSuccess } from "../../store/actions/alertActions";
 import { useDispatch } from "react-redux";
 import { addCategory, categoryActionTypes} from "../../store/actions/categoryActions";
@@ -24,7 +24,7 @@ const AddCategory = () => {
 
   const handleAddCategory = async (data, form) => {
     try {
-      let result = await axios.post( "/categories/add", data );
+      let result = await axios.post( "api/categories/add", data );
       dispatch(addCategory(result.data.category));
       const fields = form.getRegisteredFields(); // Get all the registered field names
       fields.forEach((field) => {
@@ -39,6 +39,7 @@ const AddCategory = () => {
     }
 
   };
+
 
 
   return (
@@ -90,4 +91,4 @@ const AddCategory = () => {
   );
 }
 
-export default AddCategory
+export default AddCategory;

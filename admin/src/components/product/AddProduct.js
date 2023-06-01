@@ -7,14 +7,14 @@ import { Field, Form } from 'react-final-form'
 import { connect, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { showSuccess } from '../../store/actions/alertActions'
-import { loadAllCategories } from '../../store/actions/categoryActions'
 import { productActionTypes } from '../../store/actions/productActions'
-import SelectInput from '../library/form/SelectInput'
-import CheckBoxInput from '../library/form/CheckBoxInput'
-import TextAreaInput from '../library/form/TextAreaInput'
-import TextInput from '../library/form/TextInput'
+import FileInput from '../library/FileInput'
+import SelectInput from '../library/SelectInput'
+import TextAreaInput from '../library/TextAreaInput'
+import TextInput from '../library/TextInput'
+import CheckBoxInput from '../library/CheckBoxInput'
+import { loadAllCategories } from '../../store/actions/categoryActions'
 import { loadAllBrands } from '../../store/actions/brandsActions.js'
-import FileInput from '../library/form/FileInput'
 
 function AddProduct({ categories, brands }) {
     const navigate = useNavigate();
@@ -30,23 +30,18 @@ function AddProduct({ categories, brands }) {
         const errors = {};
 
         if (!data.name)
-            errors.name = "Product name is required";
+            errors.name = "Product Name is Required";
         else if (data.name.length < 3)
-            errors.name = "Name should be more then 3 chararacters";
-        if (!data.price) errors.price = "Please enter price";
-        if (!data.categoryId) errors.categoryId = "Please select category";
+            errors.name = "Name Should be more then 3 Chararacters";
+        if (!data.price) errors.price = "Please Enter Price";
+        if (!data.categoryId) errors.categoryId = "Please Select Category";
         if (!data.shortDescription) errors.shortDescription = "Short description is required";
 
         if (data.sale_price) {
-            if (parseFloat(data.price) < parseFloat(data.sale_price))
-                errors.sale_price = "Product price should be greated than sale price"
+            if (parseFloat(data.sale_price) > parseFloat(data.price))
+                errors.sale_price = "Sale price should be smaller than product price"
         }
-
-        if (data.discountPercentage) {
-            if (data.discountPercentage < 0 || data.discountPercentage > 100)
-                errors.discountPercentage = "Discount percentage must between 0 and 100%"
-        }
-
+        if(data.discountPercentage > 100) errors.discountPercentage = "Discount Percentage must be smaller than 100"
         return errors
     };
 
@@ -55,7 +50,8 @@ function AddProduct({ categories, brands }) {
 
     const handleAddProduct = async (data, form) => {
         try {
-            let result = await axios.postForm("/products/add",
+            let result = await axios.postForm(
+                "/api/products/add",
                 data
             );
             const fields = form.getRegisteredFields(); // Get all the registered field names
@@ -75,6 +71,10 @@ function AddProduct({ categories, brands }) {
         }
 
     };
+
+
+
+
 
     return (
         <Box textAlign="center" maxWidth="500px" mx="auto">

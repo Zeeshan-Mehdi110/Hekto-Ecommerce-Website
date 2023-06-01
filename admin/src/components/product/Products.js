@@ -1,24 +1,51 @@
-import React, {  useMemo, useState } from 'react';
-import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Button, Typography } from '@mui/material';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip, Button, Typography, Rating } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import TableContainer from '@mui/material/TableContainer';
-
+import DeletePopUp from '../common/DeletePopUp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faStar } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
-import DeletePopUp from '../library/DeletePopup';
-import { categoryActionTypes, deleteCategory, loadCategories } from '../../store/actions/categoryActions';
+import { deleteProduct, loadProducts, productActionTypes } from '../../store/actions/productActions';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import AddIcon from '@mui/icons-material/Add';
+import { reviewActionTypes } from '../../store/actions/reviewActions';
+
 
 const columns = [
-  { id: 'categoryName', label: 'Name', },
-  { id: 'categoryDescription', label: 'Description' },
-  { id: 'categoryCreatedOn', label: 'Created On' },
-  { id: 'categoryActions', label: 'Actions' },
+  { id: 'productName', label: 'Name', },
+  { id: 'productEmail', label: 'Price' },
+  {
+    id: 'sale-price',
+    label: 'Sale Price',
+    align: 'left',
+
+  },
+  { id: 'productRating', label: 'Rating' },
+  {
+    id: 'category',
+    label: 'Category',
+    align: 'center',
+  },
+  {
+    id: 'productStatus',
+    label: 'Status',
+    align: 'center',
+  },
+  {
+    id: 'created_on',
+    label: 'Created On',
+    align: 'center',
+  },
+  {
+    id: 'actions',
+    label: 'Actions',
+    width: 170,
+    align: 'right'
+  }
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -76,18 +103,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Categories({ categories, totalRecords, paginationArray, stateRowsPerPage, dispatch }) {
+function Products({ products, totalRecords, paginationArray, stateRowsPerPage, dispatch }) {
   const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
 
   const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
   const [rowsPerPage, setRowsPerPage] = useState(recordsPerPage ? parseInt(recordsPerPage) : parseInt(stateRowsPerPage));
   const classes = useStyles();
 
-  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [categories, rowsPerPage]);
+  const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [products, rowsPerPage]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!paginationArray[page]) {
-      dispatch(loadCategories(page, rowsPerPage))
+      dispatch(loadProducts(page, rowsPerPage))
     }
 
   }, [page, rowsPerPage])
@@ -99,36 +128,42 @@ function Categories({ categories, totalRecords, paginationArray, stateRowsPerPag
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
-    dispatch({ type: categoryActionTypes.RESET_CATEGORY })
-    dispatch({ type: categoryActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
+    dispatch({ type: productActionTypes.RESET_PRODUCT })
+    dispatch({ type: productActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
   };
 
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
-      return categories.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
+      return products.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
     }
     else {
       return [];
     }
-  }, [categories, page, rowsPerPage]);
+  }, [products, page, rowsPerPage]);
+
+  const handleReviewsPage = (url) => {
+    dispatch({ type: reviewActionTypes.RESET_REVIEW })
+    navigate(url)
+  }
 
   const refreshList = () => {
-    dispatch({ type: categoryActionTypes.RESET_CATEGORY })
-    if(page === 0)
-      dispatch(loadCategories(page, rowsPerPage))
+    dispatch({ type: productActionTypes.RESET_PRODUCT })
+    if (page === 0)
+      dispatch(loadProducts(page, rowsPerPage))
     else
       setPage(0);
   }
+
 
   return (
     <Grid container>
       <Grid item md={12} xs={12}>
         <TableContainer component={Paper} className={classes.tableContainer}>
           <Box display="flex" justifyContent='space-between' m={3}>
-            <Typography variant="h5">Categories</Typography>
+            <Typography variant="h5">Products</Typography>
             <Box>
-              <Button component={Link} to="/admin/categories/add" variant="outlined" startIcon={<AddIcon />}>Add</Button>
+              <Button component={Link} to="/admin/products/add" variant="outlined" startIcon={<AddIcon />}>Add</Button>
               <Button sx={{ ml: 1 }} onClick={refreshList} variant="outlined" endIcon={<RefreshIcon />}>Refresh</Button>
             </Box>
           </Box>
@@ -148,19 +183,32 @@ function Categories({ categories, totalRecords, paginationArray, stateRowsPerPag
                 if (row.is_deleted) return;
                 return <TableRow key={row._id} className={classes.headerRow}>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.description}</TableCell>
+                  <TableCell>{row.sale_price}</TableCell>
+                  <TableCell>{row.discountPrice}</TableCell>
+                  <TableCell><Rating value={row.averageRating} precision={0.5} readOnly /></TableCell>
+                  <TableCell><Chip size='small' label={row.categoryName} color="info" /></TableCell>
+                  <TableCell>
+                    {
+                      row.active == process.env.REACT_APP_STATUS_ACTIVE ?
+                        <Chip size='small' label="Active" color="success" /> :
+                        <Chip size='small' label="Not Active" color="primary" />
+                    }
+                  </TableCell>
                   <TableCell>
                     {
                       format(new Date(row.created_on), 'dd MMMM, yyyy')
                     }
                   </TableCell>
-                  <TableCell sx={{ display: "flex" }}>
-                    <Link to={"/admin/categories/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                  <TableCell sx={{ display: "flex", alignItems: "center" }}>
+                    <Link to={"/admin/products/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
                       <IconButton sx={{ color: "blue" }}>
                         <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
                       </IconButton>
                     </Link>
-                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteCategory} />
+                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteProduct} />
+                    <IconButton sx={{ color: "#FF9529" }} onClick={() => handleReviewsPage("/admin/products/reviews/" + row._id)}>
+                      <FontAwesomeIcon icon={faStar} style={{ fontSize: "1rem" }} />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               }
@@ -173,7 +221,7 @@ function Categories({ categories, totalRecords, paginationArray, stateRowsPerPag
               component="div"
               count={totalRecords}
               rowsPerPage={rowsPerPage}
-              page={categories.length ? page : 0}
+              page={products.length ? page : 0}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
@@ -196,15 +244,16 @@ function Categories({ categories, totalRecords, paginationArray, stateRowsPerPag
   )
 }
 
-
 const mapStateToProps = state => {
   return {
-    categories: state.categories.categories,
-    totalRecords: state.categories.totalRecords,
+    products: state.products.products,
+    totalRecords: state.products.totalRecords,
     loadingRecords: state.progressBar.loading,
-    paginationArray: state.categories.paginationArray,
-    stateRowsPerPage: state.categories.rowsPerPage
+    paginationArray: state.products.paginationArray,
+    categories: state.categories.categories,
+    stateRowsPerPage: state.brands.rowsPerPage
+
   }
 }
 
-export default connect(mapStateToProps)(Categories);
+export default connect(mapStateToProps)(Products);

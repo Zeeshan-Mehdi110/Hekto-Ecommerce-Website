@@ -1,16 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("../models/Product")
-const { isSuperAdmin, isAdmin } = require("../utils/util");
-const { verifyUser } = require("../milddlewares/auth");
+const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const multer = require('multer');
 const fs = require('fs').promises;
 const fse = require('fs-extra');
 const path = require('path');
 const Category = require("../models/Category");
+const {verifyuser} = require('../utils/middlewares')
 
 const router = express.Router();
-router.use(verifyUser)
+router.use(verifyuser)
 
 const storage = multer.diskStorage({
     destination: async (req, file, cb) => {

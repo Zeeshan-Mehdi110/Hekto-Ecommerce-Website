@@ -9,11 +9,10 @@ import TableContainer from '@mui/material/TableContainer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
-import DeletePopUp from '../library/DeletePopup';
-import { brandActionTypes, deleteBrand, loadBrands } from '../../store/actions/brandsActions.js';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import AddIcon from '@mui/icons-material/Add';
-
+import DeletePopUp from '../common/DeletePopUp.js';
+import { brandActionTypes, deleteBrand, loadBrands } from '../../store/actions/brandsActions.js.js';
 const columns = [
   { id: 'brandName', label: 'Name', },
   { id: 'brandDescription', label: 'Description' },
@@ -120,6 +119,7 @@ function Brands({ brands, totalRecords, paginationArray, stateRowsPerPage, dispa
     else
       setPage(0);
   }
+
 
   return (
     <Grid container>
