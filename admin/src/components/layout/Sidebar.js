@@ -18,19 +18,17 @@ import logo from '../../static/logo.png'
 import { Link, Outlet } from 'react-router-dom';
 import ListIcon from "@mui/icons-material/List";
 import { AddCircleOutline, PeopleOutline } from "@mui/icons-material";
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import { Avatar, Button, Collapse, Grid, LinearProgress } from '@mui/material';
+import { LinearProgress } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ListDropdown from '../common/ListDropdown';
 import GroupIcon from '@mui/icons-material/Group';
 import { connect } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import SimpleSnackbar from '../library/SnackBar';
-import { showSuccess } from '../../store/actions/alertActions';
 import AvatarMenu from '../library/AvatarMenu';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import CategoryIcon from '@mui/icons-material/Category';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const drawerWidth = 240;
 
@@ -142,7 +140,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Sidebar({progressBar, configuration}) {
+function Sidebar({ progressBar, configuration }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const classes = useStyles();
@@ -163,8 +161,8 @@ function Sidebar({progressBar, configuration}) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" sx={{ background: "var(--purple)", fontFamily: "var(--josefin)" }} open={open}>
-        <Toolbar sx={ { display: "flex", justifyContent: "space-between" } }>
-          <Box sx={ { display: "flex" } }>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex" }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -180,7 +178,7 @@ function Sidebar({progressBar, configuration}) {
               {configuration.siteName} Admin Panel
             </Typography>
           </Box>
-            <AvatarMenu />
+          <AvatarMenu />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -189,6 +187,19 @@ function Sidebar({progressBar, configuration}) {
         </DrawerHeader>
         <Divider />
         <List>
+          <Link
+            to="/admin/dashboard"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <ListItem key={"dashboard"} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary="DashBoard" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
           <Link
             to="/admin/settings"
             style={{ textDecoration: "none", color: "inherit" }}
@@ -226,7 +237,7 @@ const mapStateToProps = state => {
   return {
     progressBar: state.progressBar,
     configuration: state.auth.configuration,
-    
+
   }
 }
 
