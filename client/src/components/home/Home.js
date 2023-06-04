@@ -26,9 +26,9 @@ function Home() {
                 <UniqueFeatures />
             </Box>
             <Container maxWidth="md" disableGutters>
-                <TrendingProducts />
+                {/* <TrendingProducts /> */}
                 <DiscountItem />
-                <TopCategories />
+                {/* <TopCategories /> */}
             </Container>
             <GetUpdates />
 

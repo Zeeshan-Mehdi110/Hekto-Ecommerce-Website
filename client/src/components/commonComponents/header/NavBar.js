@@ -99,7 +99,8 @@ function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              <Link to="/"> <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_BASE_URL + `content/configuration/${configuration?.logo}`} alt={configuration?.siteName} /> : <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_URL + `content/configuration/${configuration?.logo}`} /></Link>
+              img
+              {/* <Link to="/"><img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_BASE_URL + `content/site/${configuration?.logo}`} alt="img" /></Link> */}
             </Typography>
           </Toolbar>
         </Grid>

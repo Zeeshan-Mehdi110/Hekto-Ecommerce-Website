@@ -26,7 +26,7 @@ function App({ allRecordsLoaded, dispatch }) {
 
 const mapStateToProps = ({ home }) => {
   return {
-    allRecordsLoaded: home.allRecordsLoaded,
+    // allRecordsLoaded: home?.allRecordsLoaded,
   }
 }
 

@@ -263,7 +263,9 @@ router.get("/", verifyuser, async (req, res) => {
 
     res.status(200).json({ products, totalRecords });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    if (!res.headersSent) {
+      res.status(400).json({ error: error.message });
+    }
   }
 });
 
