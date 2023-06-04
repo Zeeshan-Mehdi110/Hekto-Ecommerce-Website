@@ -1,8 +1,7 @@
 import { IconButton } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import DeletePopUp from "./DeletePopUp";
+import { DataGrid } from '@mui/x-data-grid';
 
 
 
@@ -68,7 +67,7 @@ const columns = [
     }
   }
 ];
- 
+
 export default function DataList({ usersData }) {
   const rows = usersData
 
@@ -81,7 +80,7 @@ export default function DataList({ usersData }) {
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
-      
+
       />
     </div>
   );

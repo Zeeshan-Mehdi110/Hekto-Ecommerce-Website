@@ -26,8 +26,8 @@ const CheckOutPage = () => {
 
   useEffect(() => {
     let total = 0;
-    products.forEach((product) => {
-      total += product.sale_price ?product.sale_price : product.price;
+    products?.forEach((product) => {
+      total += product.sale_price ? product.sale_price : product.price;
     });
     setTotalPrice(total);
   }, [products]);
@@ -105,11 +105,11 @@ const CheckOutPage = () => {
                             <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"}  >{product.name}</Typography>
                             {
                               product.color &&
-                                <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color: {product.color}</Typography>
+                              <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color: {product.color}</Typography>
                             }
                             {
-                              product.size && 
-                                <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : {product.size}</Typography>
+                              product.size &&
+                              <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : {product.size}</Typography>
                             }
                           </Box>
                         </Box>
@@ -117,7 +117,7 @@ const CheckOutPage = () => {
                       <Grid item md={3} >
                         <Box display={"flex"} justifyContent={"flex-end"} >
                           <Box>
-                            <Typography>{product.sale_price ?product.sale_price : product.price}</Typography>
+                            <Typography>{product.sale_price ? product.sale_price : product.price}</Typography>
                           </Box>
                         </Box>
                       </Grid>

@@ -11,11 +11,6 @@ import MenuLink from '../menu/MenuLink';
 import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 
-
-
-
-
-
 function Header() {
     const data = [
         {
@@ -59,7 +54,7 @@ function Header() {
                 <Grid sx={themeStyles.topBar} alignItems='center' container color="var(--white)" bgcolor="var(--violet)" height="44px">
                     <Grid item md={4} xs={12} display={"flex"} justifyContent={"space-around"} >
                         <Box>
-                            <Typography fontFamily={"var(--josefin)"} variant='body1'><MailOutlineIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />aliturab@gmail.com</Typography>
+                            <Typography fontFamily={"var(--josefin)"} variant='body1'><MailOutlineIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />zeeshanmehdi@253@gmail.com</Typography>
                         </Box>
                         <Box>
                             <Typography fontFamily={"var(--josefin)"} variant='body1'><PhoneInTalkIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />(12345)67890</Typography>

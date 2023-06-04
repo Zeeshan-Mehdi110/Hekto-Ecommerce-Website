@@ -1,4 +1,4 @@
-import {  Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Template from './admin/components/layout/Template';
 import AddUser from './admin/components/user/AddUser';
 import UsersList from './admin/components/user/UsersList';
@@ -37,7 +37,6 @@ function AppRoutes() {
             path: "/order-complete",
             element: OrderCompleted
         },
-              
     ];
 
     return (
@@ -47,7 +46,7 @@ function AppRoutes() {
                     <Route key={index} exact path={route.path} element={<route.element />} />
                 ))
             }
-            
+
         </Routes>
     );
 
