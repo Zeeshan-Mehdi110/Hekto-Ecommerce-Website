@@ -1,7 +1,8 @@
 import { Box, Grid, Button, Paper, Typography } from "@mui/material"
-import sofa from '../../../static/images/sofa2.png';
+import sofa from '../../static/images/sofa2.png';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { themeStyles } from "../../../themeStyles";
+
+import { themeStyles } from "../../styles";
 
 export default function UniqueFeatures() {
   return (
@@ -15,15 +16,15 @@ export default function UniqueFeatures() {
             Unique Features Of leatest & Trending Poducts
           </Typography>
                 <Typography sx={{ lineHeight: "40px"}}>
-                  <FiberManualRecordIcon sx={{fontSize: "15px", color: 'var(--pink)' }} />
+                  <FiberManualRecordIcon sx={{fontSize: "15px", marginRight: '10px', color: 'var(--pink)' }} />
                   All frames constructed with hardwood solids and laminates
                 </Typography>
                 <Typography sx={{ lineHeight: "40px"}}>
-                  <FiberManualRecordIcon sx={{fontSize: "15px", color: '#2B2BF5' }} />
+                  <FiberManualRecordIcon sx={{fontSize: "15px", marginRight: '10px', color: '#2B2BF5' }} />
                   All frames constructed with hardwood solids and laminates
                 </Typography>
                 <Typography sx={{ lineHeight: "40px"}}>
-                  <FiberManualRecordIcon sx={{fontSize: "15px", color: '#2BF5CC' }} />
+                  <FiberManualRecordIcon sx={{fontSize: "15px", marginRight: '10px', color: '#2BF5CC' }} />
                   All frames constructed with hardwood solids and laminates
                 </Typography>
                 

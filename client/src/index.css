@@ -5,6 +5,10 @@
   color: var(--pink) !important;
 }
 
+html {
+  height: 100%;
+}
+
 *{
   margin: 0;
   padding: 0;
@@ -45,6 +49,15 @@
 
 }
 
+.josefin {
+  font-family: var(--josefin) !important;
+}
+
+body {
+  font-family: var(--josefin);
+  background-color: white;
+  height: 100%;
+}
 
 .slick-dots li button:before {
   font-size: 10px;
@@ -57,4 +70,10 @@
 }
 .MuiCard-root:hover {
   background-color: "brown";
+}
+#root {
+  height: 100%;
+}
+.appPreLoader {
+  height: 100%;
 }
