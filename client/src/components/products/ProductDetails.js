@@ -8,20 +8,18 @@ import {
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Button } from "@mui/material";
-
 import thumb1 from "../../static/images/products/thumb1.png";
 import thumb2 from "../../static/images/products/thumb2.png";
 import thumb3 from "../../static/images/products/thumb3.png";
 import { Container } from "@mui/system";
 import { themeStyles } from "../../themeStyles";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import ProductsDetailTabs from "./ProductsDetailTabs";
 import RelatedProducts from "./RelatedProducts";
-import { addProductToCart } from "../../store/addToCartActions";
+import { addProductToCart } from "../../store/actions/addToCartActions";
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 
@@ -30,16 +28,17 @@ export default function ProductDetails() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [product, setProduct] = useState({})
-  const {productId} = useParams()
+  const { productId } = useParams()
   useEffect(() => {
-    axios.get("http://localhost:5000/api/products/dummy").then( result => {
-      result.data.filter( product => {
-      if(product._id === productId) setProduct(product);
-    })}
+    axios.get("http://localhost:5000/api/products/dummy").then(result => {
+      result.data.filter(product => {
+        if (product._id === productId) setProduct(product);
+      })
+    }
     )
   }, [])
 
-  
+
   const handleAddToCart = () => {
     addProductToCart(product)
   }
@@ -192,7 +191,7 @@ export default function ProductDetails() {
               </Typography>
               <Typography mb={3} sx={{ ...themeStyles.productDetailsSubTitle }}>
                 {
-                  product.tags ? `Tags: ${product.tags}`: ""
+                  product.tags ? `Tags: ${product.tags}` : ""
                 }
               </Typography>
               <Box display="flex" alignItems="center">

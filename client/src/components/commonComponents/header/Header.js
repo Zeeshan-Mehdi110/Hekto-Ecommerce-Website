@@ -1,103 +1,110 @@
-import { Box, Grid, IconButton, Typography } from '@mui/material';
-import * as React from 'react';
-import Button from '@mui/material/Button';
+import { Button, Box, Grid, IconButton, Typography, LinearProgress } from "@mui/material";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
-import { themeStyles } from '../../../themeStyles';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import MenuLink from '../menu/MenuLink';
-import NavBar from './NavBar';
-import { Link } from 'react-router-dom';
+import MenuLink from "../menu/MenuLink";
+import { themeStyles } from "../../../themeStyles";
+import { Link } from "react-router-dom";
+import Navbar from "./NavBar";
+import SnackBar from "../../library/SnackBar";
+import { connect } from "react-redux";
 
+function Header({ progressBar, configuration }) {
 
+  const data = [
+    {
+      id: 'english',
+      label: 'English',
+      options: [
+        { to: "/English", option: "English" },
+        { to: "/urdu", option: "Urdu" },
+        { to: "/hindi", option: "Hindi" },
+      ],
+      anchorEl: null,
+      to: '/test',
+      open: false
+    },
+    {
+      id: 'currency',
+      label: 'USD',
+      options: [{ to: '/dollar', option: 'Dollar' }, { to: '/Rupees', option: 'Rupees' }, { to: '/yuan', option: 'Yuan' }],
+      anchorEl: null,
+      to: '/test',
+      open: false
+    }
+  ];
 
-
-
-
-function Header() {
-    const data = [
-        {
-            id: 'english',
-            label: 'English',
-            to: "/test",
-            options: [
-                { to: "/English", option: "English" },
-                { to: "/urdu", option: "Urdu" },
-                { to: "/hindi", option: "Hindi" },
-            ],
-            anchorEl: null,
-            open: false
-        },
-        {
-            id: 'currency',
-            label: 'USD',
-            to: "/test",
-            options: [
-                { to: "/usd", option: "USD" },
-                { to: "/urdu", option: "Urdu" },
-                { to: "/hindi", option: "Hindi" },
-            ],
-            anchorEl: null,
-            open: false
-        }
-    ];
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    return (
-        <header>
-
-            {/* top bar started */}
-            <Box fontFamily={"var(--josefin)"} >
-                <Grid sx={themeStyles.topBar} alignItems='center' container color="var(--white)" bgcolor="var(--violet)" height="44px">
-                    <Grid item md={4} xs={12} display={"flex"} justifyContent={"space-around"} >
-                        <Box>
-                            <Typography fontFamily={"var(--josefin)"} variant='body1'><MailOutlineIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />aliturab@gmail.com</Typography>
-                        </Box>
-                        <Box>
-                            <Typography fontFamily={"var(--josefin)"} variant='body1'><PhoneInTalkIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />(12345)67890</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item md={4} xs={12} display={"flex"} justifyContent="flex-end" >
-                        <Box display={'flex'}>
-
-                            <MenuLink data={data} />
-                            <Link to="/admin/login">
+  return (
+    <header>
+      {/* top bar: started */}
+      <section>
+        <Box className={themeStyles.topBarContainer}>
+          <Grid sx={themeStyles.topBarGrid} alignItems='center' container color="var(--white)" bgcolor="var(--voilet)" height="44px">
+            <Grid item lg={4} xs={12} display="flex" justifyContent={'space-around'}>
+              <Box >
+                <Typography className="josefin" variant="body1">
+                  <MailOutlineIcon sx={{ "verticalAlign": 'middle', "marginRight": '10px' }} />
+                  {configuration?.email}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="body1">
+                  <PhoneInTalkIcon sx={{ "verticalAlign": 'middle', "marginRight": '10px' }} />
+                  {configuration?.phoneNumber}
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item lg={4} display="flex" justifyContent={'flex-end'}>
+              <Box display={'flex'} alignItems={"center"}>
+                <MenuLink data={data} />
+                <Link to="/admin/login">
+                  <Button
+                    id="fade-button"
+                    aria-haspopup="true"
+                    sx={{ ...themeStyles.btnMenu }}
+                    endIcon={<PersonOutlineIcon style={{ ...themeStyles.btnMenuIcon }} />}
+                  >
+                    Login
+                  </Button>
+                </Link>
+                {/* 
                                 <Button
-                                    endIcon={<PersonOutlineIcon sx={{ ...themeStyles.topbarIcon }} />}
-                                    sx={{ ...themeStyles.btnMenu }}>
-                                    Login
-                                </Button>
-                            </Link>
-                            <Button
-                                endIcon={<FavoriteBorderIcon sx={{ ...themeStyles.topbarIcon }} />}
-                                sx={{ ...themeStyles.btnMenu }}>
-                                Wishlist
-                            </Button>
-                            <IconButton
-                                sx={{ ...themeStyles.btnMenu, "marginLeft": "20px" }}
-                            >
-                                <AddShoppingCartIcon />
-                            </IconButton>
-                        </Box>
-                    </Grid>
+                                    id="fade-button"
+                                    aria-haspopup="true"
+                                    sx={{ ...themeStyles.btnMenu }}
+                                    endIcon={<FavoriteBorderIcon style={{ ...themeStyles.btnMenuIcon }} />}
+                                >
+                                    <Link to="/" style={{ ...themeStyles.btnMenu }}>Wishlist</Link>
+                                </Button> */}
 
-                </Grid>
-            </Box>
-            {/* top bar ended */}
+                <IconButton aria-label="delete" sx={{ ...themeStyles.btnCartIcon, ...themeStyles.btnMenu }}>
+                  <Link to="/" style={{ ...themeStyles.btnMenu }}><AddShoppingCartIcon /></Link>
+                </IconButton>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </section>
+      {/* top bar: ended */}
 
-            {/* Navbar is started */}
-            <NavBar />
-            {/* Navbar is Ended */}
-        </header>
-    )
+      {/* navigation bar: started */}
+      <Navbar />
+      {/* navigation bar: ended */}
+
+      <Box>
+        <SnackBar />
+        {progressBar.loading && <LinearProgress />}
+      </Box>
+    </header>
+  );
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    progressBar: state.progressBar,
+    configuration: state.home.configuration
+  }
+}
+
+export default connect(mapStateToProps)(Header);

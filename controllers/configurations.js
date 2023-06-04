@@ -1,15 +1,15 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const Site = require("../models/Site");
-const User = require("../models/User");
-const Brand = require("../models/Brand");
-const Category = require("../models/Category");
-const Product = require("../models/Product");
 const { verifyuser } = require("../utils/middlewares");
 const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const multer = require("multer")
 const fs = require('fs').promises;
 const path = require("path")
+const fse = require('fs-extra');
+const User = require("../models/User");
+const Category = require("../models/Category");
+const Brand = require("../models/Brand");
+const Product = require("../models/Product");
 
 
 const router = express.Router();
@@ -44,15 +44,15 @@ const upload = multer({
 })
 
 
-// Adding Categories
+// Adding Site
 router.post("/add", async (req, res) => {
   const {
     siteName,
-    siteTagline,
-    siteLogo,
-    siteAddress,
-    siteEmail,
-    sitePhoneNumber,
+    tagline,
+    logo,
+    address,
+    email,
+    phoneNumber,
     facebookLink,
     twitterLink,
     instagramLink
@@ -61,11 +61,12 @@ router.post("/add", async (req, res) => {
   try {
 
     const site = new Site({
-      siteName, siteTagline,
-      siteLogo,
-      siteAddress,
-      siteEmail,
-      sitePhoneNumber,
+      siteName,
+      tagline,
+      logo,
+      address,
+      email,
+      phoneNumber,
       facebookLink,
       twitterLink,
       instagramLink
@@ -78,10 +79,11 @@ router.post("/add", async (req, res) => {
 });
 
 
-// Editing Categories
+// Editing Site
 router.post(
-  "/edit",
-  upload.single("siteLogo"),
+  "/update",
+  verifyuser,
+  upload.single("logo"),
   async (req, res
   ) => {
     try {
@@ -91,25 +93,26 @@ router.post(
 
       const record = {
         siteName: req.body.siteName,
-        siteTagline: req.body.siteTagline,
-        siteAddress: req.body.siteAddress,
-        siteEmail: req.body.siteEmail,
-        sitePhoneNumber: req.body.sitePhoneNumber,
+        tagline: req.body.tagline,
+        address: req.body.address,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
         facebookLink: req.body.facebookLink,
         twitterLink: req.body.twitterLink,
         instagramLink: req.body.instagramLink
       }
       if (req.file && req.file.filename) {
-        record.siteLogo = req.file.filename
+        record.logo = req.file.filename
 
-        if (site.siteLogo && site.siteLogo !== req.file.filename) {
-          const oldPicPath = `content/site/${site.siteLogo}`
-          await fs.unlink(oldPicPath)
+        if (site.logo && site.logo !== req.file.filename) {
+          const oldPicPath = `content/site/${site.logo}`
+          if (fse.existsSync(oldPicPath))
+            await fs.unlink(oldPicPath)
         }
       }
 
-      await Site.findOneAndUpdate(site._id, record)
-      res.json({ site: await Site.findById(site._id) })
+      let updatedConfiguration = await Site.findOneAndUpdate(site._id, record)
+      res.json(await Site.findOne())
 
     } catch (err) {
       res.status(400).json({ error: err.message })

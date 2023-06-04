@@ -1,12 +1,11 @@
 import { Button, Grid, Tab, Tabs, Typography, useMediaQuery } from '@mui/material';
-import { themeStyles } from '../../../themeStyles';
-import discountedProduct from '../../../static/images/DiscountedProduct/discountedItem.png'
+import { themeStyles } from '../../themeStyles';
+import discountedProduct from '../../static/images/DiscountedProduct/discountedItem.png'
 import { Box } from '@mui/system';
 import DoneIcon from '@mui/icons-material/Done';
 import { useState } from 'react';
 import { useTheme } from "@emotion/react";
-
-
+import { Link } from 'react-router-dom';
 
 function DiscountItem() {
 
@@ -88,7 +87,7 @@ function DiscountItem() {
 
                             </Grid>
                             <Grid container sx={{ justifyContent: { md: "start", xs: "center" } }}>
-                                <Button sx={{ ...themeStyles.Btn }}>Shop Now</Button>
+                                <Button sx={{ ...themeStyles.discountBtn }}><Link style={{ color: 'inherit', textDecoration: 'none' }} to="/products">Shop Now</Link></Button>
 
                             </Grid>
 

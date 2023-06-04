@@ -26,8 +26,8 @@ const CheckOutPage = () => {
 
   useEffect(() => {
     let total = 0;
-    products.forEach((product) => {
-      total += product.sale_price ?product.sale_price : product.price;
+    products?.forEach((product) => {
+      total += product.sale_price ? product.sale_price : product.price;
     });
     setTotalPrice(total);
   }, [products]);
@@ -54,7 +54,7 @@ const CheckOutPage = () => {
                 </Box>
               </Box>
               <Box mb={2}>
-                <TextField fullWidth sx={{ ...themeStyles.CheckOutpageInput }} placeholder="Email or mobile phone number" variant="standard" />
+                <TextField fullWidth sx={{ ...themeStyles.checkoutInput }} placeholder="Email or mobile phone number" variant="standard" />
               </Box>
               <Box display={"flex"} alignItems={"center"} >
                 <Checkbox size="small" color="success" defaultChecked />
@@ -65,24 +65,24 @@ const CheckOutPage = () => {
               </Box>
               <Box display={"flex"} justifyContent={"space-between"} sx={{ "flexDirection": { xs: "column", md: "row" } }} >
                 <Box mb={2} sx={{ "width": { xs: "100%", md: "230px" } }}  >
-                  <TextField fullWidth sx={{ ...themeStyles.CheckOutpageInput }} placeholder="First name (optional)" variant="standard" />
+                  <TextField fullWidth sx={{ ...themeStyles.checkoutInput }} placeholder="First name (optional)" variant="standard" />
                 </Box>
                 <Box mb={2} sx={{ "width": { xs: "100%", md: "230px" } }}>
-                  <TextField fullWidth sx={{ ...themeStyles.CheckOutpageInput }} placeholder="Last name" variant="standard" />
+                  <TextField fullWidth sx={{ ...themeStyles.checkoutInput }} placeholder="Last name" variant="standard" />
                 </Box>
               </Box>
               <Box mb={2}>
-                <TextField fullWidth sx={{ ...themeStyles.CheckOutpageInput }} placeholder="Appaetnentment,suit,e.t.c (optinal)" variant="standard" />
+                <TextField fullWidth sx={{ ...themeStyles.checkoutInput }} placeholder="Appaetnentment,suit,e.t.c (optinal)" variant="standard" />
               </Box>
               <Box mb={2}>
-                <TextField fullWidth sx={{ ...themeStyles.CheckOutpageInput }} placeholder="City" variant="standard" />
+                <TextField fullWidth sx={{ ...themeStyles.checkoutInput }} placeholder="City" variant="standard" />
               </Box>
               <Box display={"flex"} justifyContent={"space-between"} sx={{ "flexDirection": { xs: "column", md: "row" } }} >
                 <Box mb={2} sx={{ "width": { xs: "100%", md: "230px" } }} >
-                  <TextField fullWidth sx={{ ...themeStyles.CheckOutpageInput }} placeholder="Bangladesh" variant="standard" />
+                  <TextField fullWidth sx={{ ...themeStyles.checkoutInput }} placeholder="Bangladesh" variant="standard" />
                 </Box>
                 <Box mb={2} sx={{ "width": { xs: "100%", md: "230px" } }}>
-                  <TextField fullWidth sx={{ ...themeStyles.CheckOutpageInput }} placeholder="Postal Code" variant="standard" />
+                  <TextField fullWidth sx={{ ...themeStyles.checkoutInput }} placeholder="Postal Code" variant="standard" />
                 </Box>
               </Box>
               <Box sx={{ "mt": { xs: 4, md: 14 } }} >
@@ -105,11 +105,11 @@ const CheckOutPage = () => {
                             <Typography color="#000000" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"}  >{product.name}</Typography>
                             {
                               product.color &&
-                                <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color: {product.color}</Typography>
+                              <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Color: {product.color}</Typography>
                             }
                             {
-                              product.size && 
-                                <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : {product.size}</Typography>
+                              product.size &&
+                              <Typography color="#A1A8C1" fontSize={"14px"} fontFamily={"var(--josefin)"} lineHeight={"16px"} >Size : {product.size}</Typography>
                             }
                           </Box>
                         </Box>
@@ -117,7 +117,7 @@ const CheckOutPage = () => {
                       <Grid item md={3} >
                         <Box display={"flex"} justifyContent={"flex-end"} >
                           <Box>
-                            <Typography>{product.sale_price ?product.sale_price : product.price}</Typography>
+                            <Typography>{product.sale_price ? product.sale_price : product.price}</Typography>
                           </Box>
                         </Box>
                       </Grid>
