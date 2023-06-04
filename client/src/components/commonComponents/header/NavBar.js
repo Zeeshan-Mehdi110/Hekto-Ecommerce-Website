@@ -1,24 +1,17 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-
 import logo from '../../../static/images/logo.png';
-import MenuLink from '../menus/MenuLink';
-
+import MenuLink from '../menu/MenuLink';
 import SearchIcon from '@mui/icons-material/Search';
 import { Grid, TextField } from '@mui/material';
-import { themeStyles } from '../../../styles';
+import { themeStyles } from '../../../themeStyles';
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
@@ -106,7 +99,7 @@ function Navbar() {
                 textDecoration: 'none',
               }}
             >
-              <Link to="/"> <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_BASE_URL + `content/configuration/${configuration.logo}`} alt={configuration.siteName} /> : <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_URL + `content/configuration/${configuration.logo}`} /></Link>
+              <Link to="/"> <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_BASE_URL + `content/configuration/${configuration?.logo}`} alt={configuration?.siteName} /> : <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_URL + `content/configuration/${configuration?.logo}`} /></Link>
             </Typography>
           </Toolbar>
         </Grid>

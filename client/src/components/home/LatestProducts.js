@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme, useMediaQuery, Grid, Container } from "@mui/material"
-import ShopProductCard from "../common/ShopProductCard";
-import { themeStyles } from "../../styles";
-
+import ShopProductCard from "../commonComponents/ShopProductCard";
+import { themeStyles } from "../../themeStyles";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useState } from 'react';
@@ -60,7 +59,7 @@ function LatestProducts() {
                   <Box sx={{ p: !isMobile ? 3 : 0 }}>
                     <Grid container columnSpacing={1}>
                       {latestProducts[category].map((product) => (
-                        <ShopProductCard key={product._id} viewDetailsLink={`/products/details/${product._id}`} productImage={product.productPictures && product.productPictures.length > 0 ? process.env.REACT_APP_BASE_URL + `content/products/${product._id}/${product.productPictures[0]}` : null } title={product.name} discount={product.discountPrice} price={product.sale_price} saleText={product.discountPercentage ? `${product.discountPercentage}% OFF` : null} isMobile={isMobile} />
+                        <ShopProductCard key={product._id} viewDetailsLink={`/products/details/${product._id}`} productImage={product.productPictures && product.productPictures.length > 0 ? process.env.REACT_APP_BASE_URL + `content/products/${product._id}/${product.productPictures[0]}` : null} title={product.name} discount={product.discountPrice} price={product.sale_price} saleText={product.discountPercentage ? `${product.discountPercentage}% OFF` : null} isMobile={isMobile} />
                       ))
                       }
                     </Grid>

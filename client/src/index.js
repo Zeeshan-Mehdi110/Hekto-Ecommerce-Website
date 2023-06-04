@@ -4,8 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-
-import { theme } from './styles';
+import { theme } from './themeStyles';
 import { ThemeProvider } from '@mui/material/styles';
 import configureAxios from './config/axios';
 import { Provider } from 'react-redux';

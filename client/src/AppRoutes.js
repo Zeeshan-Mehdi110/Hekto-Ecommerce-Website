@@ -1,9 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Template from './admin/components/layout/Template';
-import AddUser from './admin/components/user/AddUser';
-import UsersList from './admin/components/user/UsersList';
-import Login from './admin/Login';
-import Home from './components/commonComponents/home/Home';
+import Home from './components/home/Home';
 import ShoppingCart from './components/commonComponents/products/ShoppingCard';
 import CheckOut from './components/products/CheckOut';
 import OrderCompleted from './components/products/OrderCompleted';

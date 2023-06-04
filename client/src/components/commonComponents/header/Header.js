@@ -1,16 +1,12 @@
 import { Button, Box, Grid, IconButton, Typography, LinearProgress } from "@mui/material";
-// import styles from "./header.module.css";
-
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
-import MenuLink from "../menus/MenuLink";
-import { themeStyles } from "../../../styles";
+import MenuLink from "../menu/MenuLink";
+import { themeStyles } from "../../../themeStyles";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "./NavBar";
 import SnackBar from "../../library/SnackBar";
 import { connect } from "react-redux";
 
@@ -49,13 +45,13 @@ function Header({ progressBar, configuration }) {
               <Box >
                 <Typography className="josefin" variant="body1">
                   <MailOutlineIcon sx={{ "verticalAlign": 'middle', "marginRight": '10px' }} />
-                  {configuration.email}
+                  {configuration?.email}
                 </Typography>
               </Box>
               <Box>
                 <Typography variant="body1">
                   <PhoneInTalkIcon sx={{ "verticalAlign": 'middle', "marginRight": '10px' }} />
-                  {configuration.phoneNumber}
+                  {configuration?.phoneNumber}
                 </Typography>
               </Box>
             </Grid>

@@ -1,6 +1,5 @@
-import { Grid, Box, Paper, Typography, Button, Rating } from "@mui/material";
-import { themeStyles } from '../../styles';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Grid, Box, Paper, Typography, Rating } from "@mui/material";
+import { themeStyles } from '../../themeStyles';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link } from "react-router-dom";

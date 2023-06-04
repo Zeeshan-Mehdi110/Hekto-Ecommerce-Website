@@ -6,7 +6,7 @@ import shopingCart4 from "../../../static/images/shoppingCart/shopingCart4.png"
 import shopingCart5 from "../../../static/images/shoppingCart/shopingCart5.png"
 import { useEffect, useState } from "react"
 import { Close } from "@mui/icons-material"
-import { deleteProduct } from "../../../store/addToCartActions"
+import { deleteProduct } from "../../../store/actions/addToCartActions"
 
 
 const ShoppingCart = () => {

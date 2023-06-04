@@ -1,7 +1,7 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Slider from "react-slick";
-import sofa from '../../static/images/sofa_promotional_header.png';
+import sofa from '../../static/images/sofa.png';
 import bell_image from '../../static/images/bell_image.png';
 import { Link } from "react-router-dom";
 
@@ -46,7 +46,7 @@ function InfoSlider() {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing
                             in phasellus non in justo.
                         </Typography>
-                        <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '16px 40px', 'fontFamily': 'Josefin Sans', 'fontSize': '17px', 'letterSpacing': '0.02em',  }} ><Link style={{ color: 'inherit', textDecoration: 'none' }} to="/products">Shop Now</Link></Button>
+                        <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '16px 40px', 'fontFamily': 'Josefin Sans', 'fontSize': '17px', 'letterSpacing': '0.02em', }} ><Link style={{ color: 'inherit', textDecoration: 'none' }} to="/products">Shop Now</Link></Button>
                     </Box>
                 </Grid>
                 <Grid item md={4} xs={12} sx={{ display: 'flex', 'alignItems': 'center', 'paddingRight': { md: '20px' }, marginTop: { xs: '15px' } }}>
@@ -72,7 +72,7 @@ function InfoSlider() {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing
                             in phasellus non in justo.
                         </Typography>
-                        <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '16px 40px', 'fontFamily': 'Josefin Sans', 'fontSize': '17px', 'letterSpacing': '0.02em',  }} ><Link style={{ color: 'inherit', textDecoration: 'none' }} to="/products">Shop Now</Link></Button>
+                        <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '16px 40px', 'fontFamily': 'Josefin Sans', 'fontSize': '17px', 'letterSpacing': '0.02em', }} ><Link style={{ color: 'inherit', textDecoration: 'none' }} to="/products">Shop Now</Link></Button>
                     </Box>
                 </Grid>
                 <Grid item md={4} xs={12} sx={{ display: 'flex', 'alignItems': 'center', 'paddingRight': { md: '20px' }, marginTop: { xs: '15px' } }}>
@@ -96,7 +96,7 @@ function InfoSlider() {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing
                             in phasellus non in justo.
                         </Typography>
-                        <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '16px 40px', 'fontFamily': 'Josefin Sans', 'fontSize': '17px', 'letterSpacing': '0.02em',  }} ><Link style={{ color: 'inherit', textDecoration: 'none' }} to="/products">Shop Now</Link></Button>
+                        <Button variant='contained' style={{ 'backgroundColor': 'var(--pink)', 'borderRadius': 0, 'padding': '16px 40px', 'fontFamily': 'Josefin Sans', 'fontSize': '17px', 'letterSpacing': '0.02em', }} ><Link style={{ color: 'inherit', textDecoration: 'none' }} to="/products">Shop Now</Link></Button>
                     </Box>
                 </Grid>
                 <Grid item md={4} xs={12} sx={{ display: 'flex', 'alignItems': 'center', 'paddingRight': { md: '20px' }, marginTop: { xs: '15px' } }}>

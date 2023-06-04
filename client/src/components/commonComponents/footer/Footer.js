@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Typography, TextField, Button, Grid, OutlinedInput, InputAdornment, FormControl, InputLabel, useMediaQuery, Box, Container } from '@mui/material';
+import { Typography, Button, Grid, OutlinedInput, InputAdornment, FormControl, useMediaQuery, Box, Container } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import { themeStyles } from '../../../styles';
+import { themeStyles } from '../../../themeStyles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -11,7 +11,7 @@ function Footer() {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { configuration, latestProducts } = useSelector(state => ({ configuration: state.home.configuration, latestProducts: state.home.data.latestProducts }));
+  const { configuration, latestProducts } = useSelector(state => ({ configuration: state?.home?.configuration, latestProducts: state.home?.data?.latestProducts }));
 
   const categories = Object.keys(latestProducts[0].latestProducts);
   return (
@@ -24,7 +24,7 @@ function Footer() {
           <Grid container justifyContent={isMobile ? "center" : "start"} >
             <Grid item md={5} marginBottom={isMobile ? 5 : 0} textAlign={isMobile ? "center" : "start"}>
               <Typography variant="h1" sx={{ ...themeStyles.footerLogo }}>
-                {configuration.siteName}
+                {configuration?.siteName}
               </Typography>
 
               <FormControl sx={{ margin: "5px 0", width: isMobile ? '100%' : '80%' }} variant="outlined">
@@ -125,7 +125,7 @@ function Footer() {
           <Grid container alignItems={"center"}>
             <Grid item md={6} xs={12} mt={isMobile ? 2 : 0} textAlign={isMobile ? "center" : "start"}>
               <Typography sx={{ ...themeStyles.footerCopyRightText }}>
-                &copy; {configuration.siteName} - All Rights Reserved
+                &copy; {configuration?.siteName} - All Rights Reserved
               </Typography>
             </Grid>
             <Grid item md={6} xs={12} my={isMobile ? 1 : 0} textAlign={isMobile ? "center" : "end"}>

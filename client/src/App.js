@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import AppRoutes from "./AppRoutes";
-import Footer from "./components/common/footer/Footer";
-import Header from "./components/common/header/Header";
+import Footer from "./components/commonComponents/footer/Footer";
+import Header from "./components/commonComponents/header/Header";
 import AppPreLoader from "./components/library/AppPreLoader";
 import { loadHomeData } from "./store/actions/homeActions";
 import { connect } from "react-redux";
@@ -12,8 +12,8 @@ function App({ allRecordsLoaded, dispatch }) {
     dispatch(loadHomeData());
   }, [])
 
-  if (!allRecordsLoaded)
-    return <AppPreLoader message="Loading..." />
+  // if (!allRecordsLoaded)
+  //   return <AppPreLoader message="Loading..." />
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme, useMediaQuery, Grid, Button } from "@mui/material"
-import ShopProductCard from "../common/ShopProductCard";
-import { themeStyles } from "../../styles";
+import ShopProductCard from "../commonComponents/ShopProductCard";
+import { themeStyles } from "../../themeStyles";
 import categoryImage1 from '../../static/images/top_categories/category1.png';
 import categoryImage2 from '../../static/images/top_categories/category2.png';
 import categoryImage3 from '../../static/images/top_categories/category3.png';
@@ -27,14 +27,14 @@ function TopCategories() {
 
     return (
         <>
-            {topProducts && topProducts.length > 0 && (
+            {topProducts && topProducts?.length > 0 && (
                 <>
                     <Box mt={5} textAlign="center">
                         <Typography variant="h1" sx={{ ...themeStyles.mainHeading, color: '#151875', fontSize: !isMobile ? '42px' : '32px' }}>Top Categories</Typography>
                     </Box>
 
                     <Slider key={isMobile ? "mobile" : "desktop"} {...settings}>
-                        {topProducts.map((product) => (
+                        {topProducts?.map((product) => (
                             <ShopProductCard
                                 key={product._id}
                                 columnNumber={3}
