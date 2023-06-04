@@ -12,45 +12,42 @@ import ProductsList from './components/products/ProductsList';
 
 function AppRoutes() {
 
-    const routes = [
-        {
-            path: '/',
-            element: Home,
-        },
-        {
-            path: '/products',
-            element: ProductsList,
-        },
-        {
-            path: "/details/:productId",
-            element: ProductDetails,
-        },
-        {
-            path: "/shoppingcart",
-            element: ShoppingCart,
-        },
-        {
-            path: "/checkout",
-            element: CheckOut,
-        },
-        {
-            path: "/order-complete",
-            element: OrderCompleted
-        },
-    ];
+  const routes = [
+    {
+      path: '/',
+      element: Home,
+    },
+    {
+      path: '/products',
+      element: ProductsList,
+    },
+    {
+      path: "/details/:productId",
+      element: ProductDetails,
+    },
+    {
+      path: "/shoppingcart",
+      element: ShoppingCart,
+    },
+    {
+      path: "/checkout",
+      element: CheckOut,
+    },
+    {
+      path: "/order-complete",
+      element: OrderCompleted
+    },
+  ];
 
-    return (
-        <Routes>
-            {
-                routes.map((route, index) => (
-                    <Route key={index} exact path={route.path} element={<route.element />} />
-                ))
-            }
-
-        </Routes>
-    );
-
-
+  return (
+    <Routes>
+      {
+        routes.map((route, index) => (
+          <Route key={index} exact path={route.path} element={<route.element />} />
+        ))
+      }
+    </Routes>
+  );
 }
 
 export default AppRoutes;
