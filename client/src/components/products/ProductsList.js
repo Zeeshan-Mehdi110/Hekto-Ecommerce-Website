@@ -1,16 +1,20 @@
-import {Container} from "@mui/material"
-import BreadCrumbs from "../common/products/BreadCrumbs"
-import ProductsFilters from "../common/ProductsFilters"
-import ProductsListVertical from "./ProductsListVertical"
-import ProductMultiFilters from "./ProductMultiFilters"
-import { globalStyles } from "../../globalStyle"
-import { FormControl, Grid, InputAdornment, OutlinedInput, Typography } from '@mui/material'
-import { useState } from 'react'
+import { Box, FormControl, Grid, InputAdornment, OutlinedInput, Typography } from '@mui/material'
+import { Container } from '@mui/system'
+import React, { useEffect } from 'react'
+import BreadCrumbs from '../commonComponents/breadCrumb/BreadCrumbs'
+import ProductsFilters from '../commonComponents/products/ProductsFilters'
+import ProductMultiFilters from './ProductMultiFilters'
+import ProductsListsHorizontal from './ProductsListsHorizontal'
+import ProductsListVertical from './ProductsListVertical'
 import SearchIcon from '@mui/icons-material/Search';
-import ProductsListsHorizontal from "./ProductsListsHorizontal"
+import { themeStyles } from '../../themeStyles'
+import { useState } from 'react'
+import axios from 'axios'
 
-const ProductsList = () => {
+
+function ProductsList() {
   const [selectedProductBrandOption, setSelectedProductBrandOptions] = useState([])
+  const [products, setProducts] = useState([])
 
   const handleProductBrandFilters = (event) => {
     if (event.target.checked) {
@@ -24,8 +28,7 @@ const ProductsList = () => {
       setSelectedProductBrandOptions(updateSelectedProductBrandOption)
     }
   }
-  console.log(selectedProductBrandOption)
-
+  
   const [selectedDiscountedProductOption, setSelectedDiscountedProductOptions] = useState([])
 
   const handleDiscountedProductFilters = (event) => {
@@ -40,7 +43,6 @@ const ProductsList = () => {
       setSelectedDiscountedProductOptions(updateSelectedDiscountedProductOption)
     }
   }
-  console.log(selectedDiscountedProductOption)
 
   const [selectedCategoriesOption, setSelectedCategoriesOptions] = useState([])
 
@@ -56,7 +58,6 @@ const ProductsList = () => {
       setSelectedCategoriesOptions(updateSelectedCategoriesOption)
     }
   }
-  console.log(selectedCategoriesOption)
 
 
   const [selectedRatingItemOption, setSelectedRatingItemOptions] = useState([])
@@ -73,7 +74,6 @@ const ProductsList = () => {
       setSelectedRatingItemOptions(updateSelectedRatingItemOption)
     }
   }
-  console.log(selectedRatingItemOption)
 
   const [selectedPriceOption, setSelectedPriceOptions] = useState([])
 
@@ -89,7 +89,6 @@ const ProductsList = () => {
       setSelectedPriceOptions(updateSelectedPriceOption)
     }
   }
-  console.log(selectedPriceOption)
 
   const [selectedColorOption, setSelectedColorOptions] = useState([])
 
@@ -105,6 +104,16 @@ const ProductsList = () => {
       setSelectedColorOptions(updateSelectedColorOption)
     }
   }
+
+
+
+
+  const breadCrumbs = [
+    { to: 'home', label: 'Home' },
+    { to: 'pages', label: 'Products' },
+  ]
+
+
   const filterData = {
     productBrands: {
       heading: "Product Brands",
@@ -137,17 +146,21 @@ const ProductsList = () => {
     }
 
   }
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/products/dummy").then( result => 
+    setProducts(result.data)
+    )
+  }, [])
 
-
-return (
-  <>
-    <Container maxWidth={'xl'} disableGutters sx={{ 'background': 'var(--bread-crumbs)' }}  >
-      <BreadCrumbs breadCrumbs={breadCrumbs} active={"Shop Grid Default"} />
-    </Container>
-    <Container maxWidth={'md'} disableGutters  >
-      <ProductsFilters />
-      <ProductsListVertical />
-      <Grid container sx={{display : {xs : "none", md : "flex"}}} >
+  return (
+    <div>
+      <Container maxWidth={'xl'} disableGutters sx={{ 'background': 'var(--bread-crumbs)' }}  >
+        <BreadCrumbs breadCrumbs={breadCrumbs} />
+      </Container>
+      <Container maxWidth={"md"} disableGutters>
+        <ProductsFilters />
+        <ProductsListVertical products={products} />
+        <Grid container>
           <Grid item md={3}  >
             <ProductMultiFilters selectedOption={selectedProductBrandOption} handleFilters={handleProductBrandFilters} filterData={filterData.productBrands} />
             <ProductMultiFilters selectedOption={selectedDiscountedProductOption} handleFilters={handleDiscountedProductFilters} filterData={filterData.discountOffer} />
@@ -157,7 +170,7 @@ return (
             <FormControl sx={{ margin: "5px 0", width: '80%' }} variant="outlined">
               <OutlinedInput
                 sx={{
-                  ...globalStyles.footerInput,
+                  ...themeStyles.footerInput,
                   paddingRight: "0",
                   "& fieldset": {
                     border: "1px solid gray !important",
@@ -168,7 +181,7 @@ return (
                   <InputAdornment position="end">
                     <Typography><SearchIcon sx={{ 
                       verticalAlign: "middle"
-                      }} size="small" /></Typography>
+                     }} size="small" /></Typography>
                   </InputAdornment>
                 }
                 placeholder="$10.00 - 20000$"
@@ -185,13 +198,9 @@ return (
             <ProductsListsHorizontal />
           </Grid>
         </Grid>
-    </Container>
-  </>
-)
+      </Container>
+    </div>
+  )
 }
-const breadCrumbs = [
-  { to: 'home', label: 'Home' },
-  { to: 'pages', label: 'Products' },
-]
 
 export default ProductsList

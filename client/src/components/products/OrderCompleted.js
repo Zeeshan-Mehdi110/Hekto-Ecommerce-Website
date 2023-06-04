@@ -1,14 +1,16 @@
-import {Container, Box, Button, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Container } from "@mui/system";
+import BreadCrumbs from "../commonComponents/breadCrumb/BreadCrumbs";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import clockImage from '../../static/images/products/orders/clock.png'
-import notepadImage from '../../static/images/products/orders/notepad.png'
-import sponsorsImage from '../../static/images/products/orders/sponsors.png'
-import { globalStyles } from "../../globalStyle";
-import BreadCrumbs from "../common/products/BreadCrumbs";
+import { themeStyles } from "../../themeStyles";
+import clockImage from '../../static/images/products/clock.png'
+import notepadImage from '../../static/images/products/notepad.png'
+import sponsorsImage from '../../static/images/products/sponsors.png'
 
 const breadCrumbs = [
   { to: "home", label: "Home" },
-  { to: "pages", label: "Products" }
+  { to: "pages", label: "Products" },
+  { to: "pages", label: "Orders" },
 ];
 
 export default function OrderCompleted() {
@@ -22,7 +24,7 @@ export default function OrderCompleted() {
         disableGutters
         sx={{ background: "var(--bread-crumbs)" }}
       >
-        <BreadCrumbs breadCrumbs={breadCrumbs} active={"Orders"} />
+        <BreadCrumbs breadCrumbs={breadCrumbs} />
       </Container>
       <Container maxWidth="md" disableGutters>
         <Box sx={{
@@ -43,7 +45,7 @@ export default function OrderCompleted() {
             }} />
           </Box>
           <CheckCircleOutlineIcon sx={{ color: 'var(--pink)', fontSize: '50px' }} />
-          <Typography mt={3} mb={3} sx={{ ...globalStyles.mainHeading, fontSize: '36px', lineHeight: '42px', color: '#101750' }}>
+          <Typography mt={3} mb={3} sx={{ ...themeStyles.mainHeading, fontSize: '36px', lineHeight: '42px', color: '#101750' }}>
             Your Order Is Completed!
           </Typography>
           <Typography mb={3} sx={{ color: '#8D92A7', fontSize: '16px', lineHeight: '30px' }}>
@@ -52,7 +54,7 @@ export default function OrderCompleted() {
 
           <Button
             variant="contained"
-            sx={{ ...globalStyles.productDetailsAddToCartButton, marginBottom: '30px', borderRadius: '3px', padding: '10px 20px' }}
+            sx={{ ...themeStyles.productDetailsAddToCartButton, marginBottom: '30px', borderRadius: '3px', padding: '10px 20px' }}
           >
             Continue Shopping
           </Button>

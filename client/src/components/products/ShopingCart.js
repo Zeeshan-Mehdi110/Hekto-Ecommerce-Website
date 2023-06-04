@@ -1,10 +1,12 @@
 import { Box, Button, Checkbox, Container, Grid, TextField, Typography } from "@mui/material"
-import shopingCart1 from "../../static/images/shopingCart/shopingCart1.png"
-import shopingCart2 from "../../static/images/shopingCart/shopingCart2.png"
-import shopingCart3 from "../../static/images/shopingCart/shopingCart3.png"
-import shopingCart4 from "../../static/images/shopingCart/shopingCart4.png"
-import shopingCart5 from "../../static/images/shopingCart/shopingCart5.png"
-import BreadCrumbs from "../common/products/BreadCrumbs"
+import shopingCart1 from "../../static/images/shoppingCart/shopingCart1.png"
+import shopingCart2 from "../../static/images/shoppingCart/shopingCart2.png"
+import shopingCart3 from "../../static/images/shoppingCart/shopingCart3.png"
+import shopingCart4 from "../../static/images/shoppingCart/shopingCart4.png"
+import shopingCart5 from "../../static/images/shoppingCart/shopingCart5.png"
+import BreadCrumbs from "../commonComponents/breadCrumb/BreadCrumbs"
+
+
 const ShopingCart = () => {
 
   const breadCrumbs = [
@@ -280,4 +282,4 @@ const ShopingCart = () => {
   )
 }
 
-export default ShopingCart
+export default ShopingCart;

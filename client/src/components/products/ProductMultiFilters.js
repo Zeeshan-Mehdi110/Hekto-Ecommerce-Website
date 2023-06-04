@@ -1,16 +1,16 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup, Grid, InputAdornment, OutlinedInput, Rating, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
+import { themeStyles } from '../../themeStyles';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
-import { globalStyles } from '../../globalStyle';
 
 function ProductMultiFilters({ filterData, handleFilters, selectedOption  }) {
   return (
 
     <Grid item md={12}>
 
-      <Typography sx={{ ...globalStyles.productMultiFilterHeading }}>
+      <Typography sx={{ ...themeStyles.productMultiFilterHeading }}>
         {
           filterData.heading
         }
@@ -23,7 +23,7 @@ function ProductMultiFilters({ filterData, handleFilters, selectedOption  }) {
               <FormControlLabel key={index} control={<Checkbox size="small"
                 value={option.value}
                 sx={{
-                  ...globalStyles.productMultiFilterHeading,
+                  ...themeStyles.productMultiFilterHeading,
                   '&.Mui-checked': {
                     color: filterData.color,
                   },
@@ -35,7 +35,7 @@ function ProductMultiFilters({ filterData, handleFilters, selectedOption  }) {
               <FormControlLabel key={index} control={<Checkbox size="small"
                 value={option.value}
                 sx={{
-                  ...globalStyles.productMultiFilterHeading,
+                  ...themeStyles.productMultiFilterHeading,
                   '&.Mui-checked': {
                     color: filterData.color ? filterData.color : option.color,
                   },

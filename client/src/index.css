@@ -1,9 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-* {
-  padding: 0;
-  margin: 0;
+
+.active {
+  color: var(--pink) !important;
 }
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+:root{
+  --purple : #800080;
+  --off-purple: #9F63B5;
+  --off-navy-blue: #3F509E ;
+  --pink: #FB2E86 ;
+  --red: #FB2448 ;
+  --blue: #2F1AC4 ;
+  --sky-blue: #F3F9FF ;
+  --off-blue: #151875 ;
+  --pantone-purple: #E0D3F5 ;
+  --violet: #7E33E0;
+  --white: #fff;
+  --josefin: "Josefin Sans";
+  --bg-color : "#e5e5e5";
+  --gray : #E7E6EF;
+  --light-purple: #f2f0ff;
+  --lato: "Lato";
+  --light-purple: #F2F0FF;
+  --soft-blue: #8A8FB9;
+  --heading-color: #1A0B5B;
+  --product-background: #F6F7FB;
+  --product-background-hover: #F7F7F7;
+    --light-gray: #B7BACB;
+    --light-blue : #EEEFFB;
+  --light-blue2 : #F5F6F8;
+  --light-gray: #B7BACB;
+  --light-pink : #FFF6FB;
+  --bread-crumbs : #F6F5FF;
+  --orange: #FF9437;
+  --brown: #FFBF95;
+  --green: #33D221;
+  --product-description-background: #F9F8FE;
+
+}
+
+
 .slick-dots li button:before {
   font-size: 10px;
   background-color: var(--pink);
@@ -13,33 +55,6 @@
   overflow:hidden;
   transform: rotate(45deg);
 }
-
-:root {
-  --purple: #800080;
-  --pink: #fb2e86;
-  --off-purple: #9f63b5;
-  --red: #fb2448;
-  --blue: #2f1ac4;
-  --navy-blue: #151875;
-  --off-navy-blue: #3f509e;
-  --pantone-purple: #e0d3f5;
-  --off-blue: #152875;
-  --sky-blue: #f3f9ff;
-  --voilet: #7e33e0;
-  --white: #f1f1f1;
-  --josefin: 'Josefin Sans';
-  --lato: 'Lato';
-  --light-purple: #f2f0ff;
-  --soft-blue: #8a8fb9;
-  --heading-color : #1A0B5B;
-  --productbackground : #F6F7FB;
-  --product-background-hover: #F7F7F7;
-  --slideToScroll-dot1 : #05E6B7;
-  --slideToScroll-dot2 : #F701A8;
-  --slideToScroll-dot3 : #00009D;
-  --light-pink : #FFF6FB;
-  --light-blue : #EEEFFB;
-  --light-blue2 : #F5F6F8;
-  --light-gray: #B7BACB;
-  --bread-crumbs : #F6F5FF;
+.MuiCard-root:hover {
+  background-color: "brown";
 }
