@@ -123,7 +123,6 @@ router.post(
 
 router.get("/", async (req, res) => {
   try {
-    console.log(req.body, "dskf")
     const site = await Site.findOne();
 
     const totalUsers = await User.countDocuments();
