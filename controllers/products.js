@@ -1,8 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("../models/Product")
-const { isSuperAdmin, isAdmin, dump } = require("../utils/util");
-const { verifyUser } = require("../milddlewares/auth");
+const { isSuperAdmin, isAdmin, dump } = require("../utils/utils");
+const { verifyuser } = require("../utils/middlewares");
 const multer = require('multer');
 const fs = require('fs').promises;
 const fse = require('fs-extra');
@@ -10,7 +10,7 @@ const path = require('path');
 const Category = require("../models/Category");
 
 const router = express.Router();
-router.use(['/add', '/edit', '/delete'], verifyUser)
+router.use(['/add', '/edit', '/delete'], verifyuser)
 
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
@@ -207,7 +207,7 @@ router.delete('/delete', async (req, res) => {
 
 
 //Getting Products
-router.get("/", verifyUser, async (req, res) => {
+router.get("/", verifyuser, async (req, res) => {
   try {
     if (isSuperAdmin(req.user) && isAdmin(req.user))
       throw new Error("Invalid Request")

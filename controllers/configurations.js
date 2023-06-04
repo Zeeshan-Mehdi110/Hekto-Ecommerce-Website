@@ -1,7 +1,7 @@
 const express = require("express");
 const Site = require("../models/Site");
-const { verifyUser } = require("../milddlewares/auth");
-const { isSuperAdmin, isAdmin } = require("../utils/util");
+const { verifyuser } = require("../utils/middlewares");
+const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const multer = require("multer")
 const fs = require('fs').promises;
 const path = require("path")
@@ -13,7 +13,7 @@ const Product = require("../models/Product");
 
 
 const router = express.Router();
-// router.use(verifyUser)
+router.use(verifyuser)
 
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
@@ -82,7 +82,7 @@ router.post("/add", async (req, res) => {
 // Editing Site
 router.post(
   "/update",
-  verifyUser,
+  verifyuser,
   upload.single("logo"),
   async (req, res
   ) => {
