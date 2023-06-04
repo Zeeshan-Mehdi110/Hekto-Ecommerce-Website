@@ -5,7 +5,7 @@ export default function configureAxios(store) {
 
   // handle response after sending auth header
   axios.interceptors.response.use(response => response, error => {
-      return Promise.reject(error);
+    return Promise.reject(error);
   })
 
 }

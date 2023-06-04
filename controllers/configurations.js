@@ -13,7 +13,7 @@ const Product = require("../models/Product");
 
 
 const router = express.Router();
-router.use(verifyuser)
+// router.use(verifyuser)
 
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
@@ -123,6 +123,7 @@ router.post(
 
 router.get("/", async (req, res) => {
   try {
+    console.log(req.body, "dskf")
     const site = await Site.findOne();
 
     const totalUsers = await User.countDocuments();
