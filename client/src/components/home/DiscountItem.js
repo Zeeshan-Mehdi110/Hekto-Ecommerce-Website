@@ -19,7 +19,7 @@ function DiscountItem() {
 
         <Grid container my={3} >
             <Grid item md={12} my={3} sx={{ display: "flex", textAlign: "center" }}>
-                <Typography sx={{ ...themeStyles.mainHeading }}>Discount Item</Typography>
+                <Typography sx={{ ...themeStyles.mainHeading, textAlign: "center" }}>Discount Item</Typography>
             </Grid>
             <Tabs
                 value={value}

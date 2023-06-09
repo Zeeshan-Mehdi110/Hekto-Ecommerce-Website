@@ -65,7 +65,7 @@ function TrendingProducts() {
       </Grid>
 
       {/* discount box section */}
-      <Grid container justifyContent={"space-between"} mt={5} mb={5}>
+      <Grid container justifyContent={"space-between"} mt={5} mb={3}>
         <Grid item xs={12} mb={2} md={4} style={{ backgroundColor: "var(--light-pink)", height: "250px" }}>
           <Box>
             <Box p={2}>
@@ -79,7 +79,7 @@ function TrendingProducts() {
               </Typography>
             </Box>
             <Box display={"flex"} justifyContent={"flex-end"}>
-              <Box width={"170px"} display={"flex"} justifyContent={"flex-end"}>
+              <Box width={"35%"} display={"flex"} justifyContent={"flex-end"}>
                 <img src={discountProduct1} alt="img" width={"100%"} />
               </Box>
             </Box>
@@ -98,7 +98,7 @@ function TrendingProducts() {
               </Typography>
             </Box>
             <Box display={"flex"} justifyContent={"flex-end"} mt={4} paddingRight={1}>
-              <Box width={"170px"} display={"flex"} justifyContent={"flex-end"}>
+              <Box width={"35%"} display={"flex"} justifyContent={"flex-end"}>
                 <img src={discountProduct2} alt="img" width={"120%"} />
               </Box>
             </Box>
