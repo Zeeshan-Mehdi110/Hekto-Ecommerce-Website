@@ -16,10 +16,10 @@ export const loadHomeData = () => {
     dispatch(showProgressBar());
     axios.get('api/products/home').then(({ data }) => {
 
-      axios.get('api/store').then(({ data: { configuration } }) => {
+      axios.get('api/store').then(({ data: { site } }) => {
         dispatch(hideProgressBar());
 
-        dispatch({ type: homeActionTypes.HOME_DATA_LOADED, payload: { data, configuration } });
+        dispatch({ type: homeActionTypes.HOME_DATA_LOADED, payload: { data, site } });
       }).catch(err => {
         dispatch(hideProgressBar());
         dispatch(showError(err.response && err.response.data.message ? err.response.data.message : err.message));

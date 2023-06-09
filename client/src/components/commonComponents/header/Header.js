@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 import Navbar from "./NavBar";
 import SnackBar from "../../library/SnackBar";
 import { connect } from "react-redux";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-function Header({ progressBar, configuration }) {
+function Header({ progressBar, site }) {
 
   const data = [
     {
@@ -39,50 +40,40 @@ function Header({ progressBar, configuration }) {
     <header>
       {/* top bar: started */}
       <section>
-        <Box className={themeStyles.topBarContainer}>
-          <Grid sx={themeStyles.topBarGrid} alignItems='center' container color="var(--white)" bgcolor="var(--voilet)" height="44px">
-            <Grid item lg={4} xs={12} display="flex" justifyContent={'space-around'}>
-              <Box >
-                <Typography className="josefin" variant="body1">
-                  <MailOutlineIcon sx={{ "verticalAlign": 'middle', "marginRight": '10px' }} />
-                  {configuration?.email}
-                </Typography>
+        <Box fontFamily={"var(--josefin)"} >
+          <Grid sx={themeStyles.topBar} alignItems='center' container color="var(--white)" bgcolor="var(--violet)" height="44px">
+            <Grid item md={4} xs={12} display={"flex"} justifyContent={"space-around"} >
+              <Box>
+                <Typography fontFamily={"var(--josefin)"} variant='body1'><MailOutlineIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />{site.siteEmail}</Typography>
               </Box>
               <Box>
-                <Typography variant="body1">
-                  <PhoneInTalkIcon sx={{ "verticalAlign": 'middle', "marginRight": '10px' }} />
-                  {configuration?.phoneNumber}
-                </Typography>
+                <Typography fontFamily={"var(--josefin)"} variant='body1'><PhoneInTalkIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />{site.sitePhoneNumber}</Typography>
               </Box>
             </Grid>
-            <Grid item lg={4} display="flex" justifyContent={'flex-end'}>
-              <Box display={'flex'} alignItems={"center"}>
+            <Grid item md={4} xs={12} display={"flex"} justifyContent="flex-end" >
+              <Box display={'flex'}>
+
                 <MenuLink data={data} />
                 <Link to="/admin/login">
                   <Button
-                    id="fade-button"
-                    aria-haspopup="true"
-                    sx={{ ...themeStyles.btnMenu }}
-                    endIcon={<PersonOutlineIcon style={{ ...themeStyles.btnMenuIcon }} />}
-                  >
+                    endIcon={<PersonOutlineIcon sx={{ ...themeStyles.topbarIcon }} />}
+                    sx={{ ...themeStyles.btnMenu }}>
                     Login
                   </Button>
                 </Link>
-                {/* 
-                                <Button
-                                    id="fade-button"
-                                    aria-haspopup="true"
-                                    sx={{ ...themeStyles.btnMenu }}
-                                    endIcon={<FavoriteBorderIcon style={{ ...themeStyles.btnMenuIcon }} />}
-                                >
-                                    <Link to="/" style={{ ...themeStyles.btnMenu }}>Wishlist</Link>
-                                </Button> */}
-
-                <IconButton aria-label="delete" sx={{ ...themeStyles.btnCartIcon, ...themeStyles.btnMenu }}>
-                  <Link to="/" style={{ ...themeStyles.btnMenu }}><AddShoppingCartIcon /></Link>
+                <Button
+                  endIcon={<FavoriteBorderIcon sx={{ ...themeStyles.topbarIcon }} />}
+                  sx={{ ...themeStyles.btnMenu }}>
+                  Wishlist
+                </Button>
+                <IconButton
+                  sx={{ ...themeStyles.btnMenu, "marginLeft": "20px" }}
+                >
+                  <AddShoppingCartIcon />
                 </IconButton>
               </Box>
             </Grid>
+
           </Grid>
         </Box>
       </section>
@@ -103,7 +94,7 @@ function Header({ progressBar, configuration }) {
 const mapStateToProps = state => {
   return {
     progressBar: state.progressBar,
-    configuration: state.home.configuration
+    site: state.home.site
   }
 }
 
