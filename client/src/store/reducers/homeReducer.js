@@ -3,13 +3,13 @@ import { homeActionTypes } from "../actions/homeActions";
 const initialState = {
     allRecordsLoaded: false,
     data: null,
-    configuration: null
+    site: null
 }
 
 function homeReducer(state = initialState, action) {
     switch (action.type) {
         case homeActionTypes.HOME_DATA_LOADED:
-            return { ...state, data: action.payload.data, configuration: action.payload.configuration, allRecordsLoaded: true }
+            return { ...state, data: action.payload.data, site: action.payload.site, allRecordsLoaded: true }
         default:
             return state;
     }

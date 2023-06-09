@@ -1,17 +1,15 @@
 import { Box, CircularProgress } from '@mui/material'
 import React from 'react'
 
-function AppPreLoader({ message }) {
-    return (
-        <Box display="flex" maxWidth={"100%"} height={"100%"} justifyContent={"center"} textAlign={"center"} alignItems={"center"}>
-            <Box>
-                <CircularProgress />
-                <h3>
-                    {message}
-                </h3>
-            </Box>
-        </Box>
-    )
+const AppPreLoader = ({ loader }) => {
+  return (
+    <Box display='flex' justifyContent='center' height='100%' alignItems='center'>
+      <Box display={"flex"} textAlign={'center'} >
+        {/* <CircularProgress /> */}
+        <img src={loader} alt="loadeing..." />
+      </Box>
+    </Box>
+  )
 }
 
 export default AppPreLoader

@@ -1,132 +1,148 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import logo from '../../../static/images/logo.png';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import AdbIcon from '@mui/icons-material/Adb';
+import logo from "../../../static/images/logo.png";
 import MenuLink from '../menu/MenuLink';
-import SearchIcon from '@mui/icons-material/Search';
 import { Grid, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { themeStyles } from '../../../themeStyles';
 import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-const pages = [
+
+const data = [
   {
     id: 'home',
     label: 'Home',
-    // options: [{ to: '/home1', option: 'Home1' }, { to: '/home2', option: 'Home 2' }, { to: '/home3', option: 'Home 3' }],
+    options: [{ to: '/', option: 'Home 1' }, { to: '/home2', option: 'Home 2' }, { to: '/home3', option: 'Home 3' }],
     anchorEl: null,
-    to: '/',
+    open: false
+  },
+  {
+    id: 'details',
+    label: 'Details',
+    to: "/details",
+    options: null,
+    anchorEl: null,
     open: false
   },
   {
     id: 'products',
     label: 'Products',
-    to: '/products',
+    to: "/products",
     options: null,
     anchorEl: null,
     open: false
   },
   {
-    id: 'cart',
-    to: '/cart',
-    label: 'Cart',
+    id: 'checkout',
+    label: 'Checkout',
+    to: "/checkout",
     options: null,
     anchorEl: null,
     open: false
   },
   {
-    id: 'product-details',
-    to: '/products/details',
-    label: 'Details',
+    id: 'shoppingcart',
+    label: 'ShoppingCart',
+    to: "/shoppingcart",
     options: null,
     anchorEl: null,
     open: false
   },
   {
     id: 'order-completed',
-    to: '/products/orders/completed',
-    label: 'Completed',
-    options: null,
-    anchorEl: null,
-    open: false
-  },
-  {
-    id: 'checkout-page',
-    to: '/products/orders/checkout',
-    label: 'Checkout',
+    label: 'Order Completed',
+    to: "/order-complete",
     options: null,
     anchorEl: null,
     open: false
   }
 ];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Navbar() {
+function NavBar() {
+  const site = useSelector(({ home: { site } }) => site);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const configuration = useSelector(({ home: { configuration } }) => configuration);
-
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
-    <AppBar position="static" sx={{ "backgroundColor": "var(--bgcolor)" }}>
+    <AppBar sx={{ background: "var(--bg-color)" }} position="static">
       <Grid container sx={{ "alignItems": 'center', 'justiyContent': 'space-evenly' }}>
-
         <Grid item md={1}></Grid>
         <Grid item md={2}>
           <Toolbar disableGutters>
             <Typography
               variant="h6"
               noWrap
+              component="a"
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
+                textDecoration: 'none'
               }}
             >
-              img
-              {/* <Link to="/"><img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_BASE_URL + `content/site/${configuration?.logo}`} alt="img" /></Link> */}
+              <Link to="/">
+                <img
+                  style={{ maxWidth: '100%', height: 'auto' }}
+                  src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
+                  alt={site.siteName} />
+              </Link>
             </Typography>
           </Toolbar>
         </Grid>
 
         <Grid item md={5}>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <MenuLink data={pages} styleObject={{ color: 'black' }} />
+            <MenuLink data={data} styleObject={{ color: 'black' }} />
           </Box>
         </Grid>
-
-
         {/* for mobile */}
         <Typography
           variant="h5"
           noWrap
+          component="a"
+          href=""
           sx={{
             ml: 2,
             display: { xs: 'flex', md: 'none' },
             flexGrow: 1,
             fontWeight: 700,
             letterSpacing: '.3rem',
-            color: 'inherit',
             textDecoration: 'none',
           }}
         >
-          <Link to="/"> <img src={logo} /></Link>
+          <Link to="/">
+            <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`} alt={site.siteName} />
+            :
+            <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_URL + `content/site/${site.siteLogo}`} />
+          </Link>
         </Typography>
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton
@@ -157,31 +173,30 @@ function Navbar() {
               display: { xs: 'block', md: 'none' },
             }}
           >
-            <MenuLink data={pages} styleObject={{ "color": 'black' }} />
+            <MenuLink data={data} styleObject={{ "color": 'black' }} />
           </Menu>
         </Box>
         {/* for mobile */}
-
-
-        <Grid item md={3} xs={12} sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Box sx={{ flexGrow: 0 }}>
-            <TextField size="small" label="" type='search' variant="outlined"
+        <Grid item md={3}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+            <TextField
+              type="search"
+              size="small"
+              placeholder="search"
+              variant="outlined"
+              fullWidth
               sx={{
                 "& fieldset": {
-                  borderColor: "#e7e6e8 !important",
-                  borderRadius: 0,
-                },
-                "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  border: '1px solid #e7e6e8 !important'
+                  border: "1px solid #e7e6e8 !important",
+                  borderRadius: 0
                 },
               }}
             />
-            <Button variant="contained" size="large" sx={{ ...themeStyles.headerSearchInputBtn }}> <SearchIcon /></Button>
+            <Button variant="contained" size="large" sx={{ ...themeStyles.searchInputBtn }}><SearchIcon /> </Button>
           </Box>
         </Grid>
-
       </Grid>
     </AppBar>
   );
 }
-export default Navbar;
+export default NavBar;

@@ -5,6 +5,8 @@ import Header from "./components/commonComponents/header/Header";
 import AppPreLoader from "./components/library/AppPreLoader";
 import { loadHomeData } from "./store/actions/homeActions";
 import { connect } from "react-redux";
+import loader from "./static/loader.gif"
+
 
 function App({ allRecordsLoaded, dispatch }) {
 
@@ -12,8 +14,8 @@ function App({ allRecordsLoaded, dispatch }) {
     dispatch(loadHomeData());
   }, [])
 
-  // if (!allRecordsLoaded)
-  //   return <AppPreLoader message="Loading..." />
+  if (!allRecordsLoaded)
+    return <AppPreLoader loader={loader} />
 
   return (
     <>
@@ -26,7 +28,7 @@ function App({ allRecordsLoaded, dispatch }) {
 
 const mapStateToProps = ({ home }) => {
   return {
-    // allRecordsLoaded: home?.allRecordsLoaded,
+    allRecordsLoaded: home?.allRecordsLoaded,
   }
 }
 
