@@ -125,9 +125,10 @@ const ShoppingCart = () => {
                       <Box display={"flex"} alignItems={"center"} >
                         <Typography>
                           {
-                            product.quantity ? `${product.price}` * `${product.quantity}` : `$${product.price}`
+                            product.quantity ? `$${product.sale_price ? `${product.sale_price * product.quantity}` : `${product.price * product.quantity}`}` : `$${product.price}`
                           }
                         </Typography>
+
                         <IconButton onClick={() => handleRemoveProduct(product._id)}> <Close /> </IconButton>
                       </Box>
                     </Grid>

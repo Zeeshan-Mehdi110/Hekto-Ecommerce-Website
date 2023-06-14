@@ -471,4 +471,18 @@ router.get("/home", async (req, res) => {
   }
 });
 
+// Getting one Product Details
+router.get("/details/:productId", async (req, res) => {
+  try {
+
+    if (!req.params.productId)
+      throw new Error("Product Id is Required");
+
+    const product = await Product.findById(req.params.productId);
+    res.status(200).json({ product });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;

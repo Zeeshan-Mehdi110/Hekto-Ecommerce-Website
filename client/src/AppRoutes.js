@@ -18,7 +18,7 @@ function AppRoutes() {
       element: ProductsList,
     },
     {
-      path: "/details/:productId",
+      path: "/products/details/:productId",
       element: ProductDetails,
     },
     {
