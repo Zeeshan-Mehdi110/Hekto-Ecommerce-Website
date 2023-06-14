@@ -251,6 +251,7 @@ router.get("/", verifyuser, async (req, res) => {
           isFeatured: 1,
           isTop: 1,
           isTrending: 1,
+          color: 1,
           categoryName: "$category.name" // Retrieve the category name field
         }
       }
@@ -327,6 +328,7 @@ router.get("/home", async (req, res) => {
                 isFeatured: 1,
                 isTop: 1,
                 isTrending: 1,
+                color: 1,
                 productPictures: 1,
                 categoryName: "$category.name"
               }
@@ -360,6 +362,7 @@ router.get("/home", async (req, res) => {
                 isTop: 1,
                 isTrending: 1,
                 productPictures: 1,
+                color: 1,
                 categoryName: "$category.name"
               }
             }
@@ -391,6 +394,7 @@ router.get("/home", async (req, res) => {
                 isFeatured: 1,
                 isTop: 1,
                 isTrending: 1,
+                color: 1,
                 productPictures: 1,
                 categoryName: "$category.name"
               }
