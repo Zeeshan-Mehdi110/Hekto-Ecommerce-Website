@@ -3,8 +3,11 @@ import ShopProductCard from "../commonComponents/ShopProductCard";
 import { themeStyles } from "../../themeStyles";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import discountProduct1 from "../../static/images/DiscountedProduct/discountedItem.png"
-import discountProduct2 from "../../static/images/DiscountedProduct/discountedItem.png"
+import discountProduct1 from "../../static/images/trendingProducts/discountProduct1.png"
+import discountProduct2 from "../../static/images/trendingProducts/discountProduct2.png"
+import discountProduct3 from "../../static/images/trendingProducts/discountProduct3.png"
+import discountProduct4 from "../../static/images/trendingProducts/discountProduct4.png"
+import discountProduct5 from "../../static/images/trendingProducts/discountProduct5.png"
 
 function TrendingProducts() {
   const theme = useTheme();
@@ -97,7 +100,7 @@ function TrendingProducts() {
                 </Link>
               </Typography>
             </Box>
-            <Box display={"flex"} justifyContent={"flex-end"} mt={4} paddingRight={1}>
+            <Box display={"flex"} justifyContent={"flex-end"} >
               <Box width={"35%"} display={"flex"} justifyContent={"flex-end"}>
                 <img src={discountProduct2} alt="img" width={"120%"} />
               </Box>
@@ -107,6 +110,60 @@ function TrendingProducts() {
         <Grid item xs={12} md={3} style={{ height: "250px" }}>
           <Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"} height={"100%"}>
             {/* Placeholder image and text */}
+            <Box display={"flex"} flexDirection={"row"} sx={{ height: { sm: "75px", xs: "80px" } }}>
+              <Box width={"35%"} height={"100%"} display={"flex"} justifyContent={"center"} alignItems={"center"} sx={{ backgroundColor: "var(--light-blue2)" }} >
+                <img src={discountProduct3} alt="img" sc={{ maxWidth: "100%", height: 'auto' }} />
+              </Box>
+              <Box padding={1} display={"flex"} justifyContent={"center"} flexDirection={"column"}>
+                <Typography fontFamily={"var(--josefin)"} fontSize={"14px"}>
+                  Executive Seat chair
+                </Typography>
+                <Typography fontFamily={"var(--josefin)"} fontSize={"12px"} fontWeight={"400"} >
+                  $32.00
+                </Typography>
+              </Box>
+            </Box>
+            <Box display={"flex"} flexDirection={"row"} sx={{ height: { sm: "75px", xs: "80px" } }}>
+              <Box width={"35%"} height={"100%"} display={"flex"} justifyContent={"center"} alignItems={"center"} sx={{ backgroundColor: "var(--light-blue2)" }} >
+                <img src={discountProduct4} alt="img" sc={{ maxWidth: "100%", height: 'auto' }} />
+              </Box>
+              <Box padding={1} display={"flex"} justifyContent={"center"} flexDirection={"column"}>
+                <Typography fontFamily={"var(--josefin)"} fontSize={"14px"}>
+                  Executive Seat chair
+                </Typography>
+                <Typography fontFamily={"var(--josefin)"} fontSize={"12px"} fontWeight={"400"}>
+                  $32.00
+                </Typography>
+              </Box>
+            </Box>
+            <Box display={"flex"} flexDirection={"row"} sx={{ height: { sm: "75px", xs: "80px" } }}>
+              <Box
+                width={"35%"}
+                height={"100%"}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                sx={{ backgroundColor: "var(--light-blue2)" }}
+              >
+                <img src={discountProduct5} alt="img" sc={{ maxWidth: "100%", height: 'auto' }} />
+              </Box>
+              <Box
+                padding={1}
+                display={"flex"}
+                justifyContent={"center"}
+                flexDirection={"column"}
+              >
+                <Typography fontFamily={"var(--josefin)"} fontSize={"14px"}>
+                  Executive Seat chair
+                </Typography>
+                <Typography fontFamily={"var(--josefin)"}
+                  fontSize={"12px"}
+                  fontWeight={"400"}
+                >
+                  $32.00
+                </Typography>
+              </Box>
+            </Box>
           </Box>
         </Grid>
       </Grid>

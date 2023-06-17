@@ -57,9 +57,6 @@ function EditProduct({ products, categories, brands }) {
     return errors
   };
 
-  console.log(product)
-
-
   const handleUpdateUser = async (data, form) => {
     try {
       data.id = id;

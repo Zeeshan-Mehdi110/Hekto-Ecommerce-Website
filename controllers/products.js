@@ -208,7 +208,6 @@ router.delete('/delete', async (req, res) => {
 
 //Getting Products
 router.get("/", verifyuser, async (req, res) => {
-  console.log(req.body)
   try {
     if (isSuperAdmin(req.user) && isAdmin(req.user))
       throw new Error("Invalid Request")
@@ -258,12 +257,15 @@ router.get("/", verifyuser, async (req, res) => {
       }
     ];
 
-    const [products, [{ totalRecords }]] = await Promise.all([
+    const [products, countResult] = await Promise.all([
       Product.aggregate(pipeline),
       Product.aggregate([{ $count: "totalRecords" }])
     ]);
 
+    const totalRecords = countResult.length > 0 ? countResult[0].totalRecords : 0;
+
     res.status(200).json({ products, totalRecords });
+
   } catch (error) {
     if (!res.headersSent) {
       res.status(400).json({ error: error.message });

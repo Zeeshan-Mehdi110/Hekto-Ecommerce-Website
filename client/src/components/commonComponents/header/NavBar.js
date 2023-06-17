@@ -105,12 +105,14 @@ function NavBar() {
                 display: { xs: 'none', md: 'flex' },
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                textDecoration: 'none'
+                textDecoration: 'none',
+                textAlign: "center",
+                justifyContent: "center"
               }}
             >
-              <Link to="/">
+              <Link to="/" style={{ "display": "flex" }} >
                 <img
-                  style={{ maxWidth: '100%', height: 'auto' }}
+                  style={{ width: '30%', "alignSelf": "center" }}
                   src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
                   alt={site.siteName} />
               </Link>
@@ -138,10 +140,11 @@ function NavBar() {
             textDecoration: 'none',
           }}
         >
-          <Link to="/">
-            <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`} alt={site.siteName} />
-            :
-            <img style={{ maxWidth: '100%', height: 'auto' }} src={process.env.REACT_APP_URL + `content/site/${site.siteLogo}`} />
+          <Link to="/" style={{ "display": "flex" }} >
+            <img
+              style={{ width: '30%', "alignSelf": "center" }}
+              src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
+              alt={site.siteName} />
           </Link>
         </Typography>
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

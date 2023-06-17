@@ -36,12 +36,14 @@ function AddProduct({ categories, brands }) {
         if (!data.price) errors.price = "Please Enter Price";
         if (!data.categoryId) errors.categoryId = "Please Select Category";
         if (!data.shortDescription) errors.shortDescription = "Short description is required";
-
+        if (data.color && !/^#([0-9a-fA-F]{6})$/.test(data.color)) {
+            errors.color = "Invalid color format. Please provide a valid hexadecimal color code.";
+        }
         if (data.sale_price) {
             if (parseFloat(data.sale_price) > parseFloat(data.price))
                 errors.sale_price = "Sale price should be smaller than product price"
         }
-        if(data.discountPercentage > 100) errors.discountPercentage = "Discount Percentage must be smaller than 100"
+        if (data.discountPercentage > 100) errors.discountPercentage = "Discount Percentage must be smaller than 100"
         return errors
     };
 
@@ -81,7 +83,7 @@ function AddProduct({ categories, brands }) {
             <Form
                 onSubmit={handleAddProduct}
                 validate={validate}
-                initialValues={{}}
+                initialValues={{ color: "#000000" }}
                 render={({
                     handleSubmit,
                     submitting,
