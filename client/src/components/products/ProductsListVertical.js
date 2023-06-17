@@ -24,7 +24,6 @@ function ProductsListVertical({ products }) {
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    console.log(products)
 
 
     return (

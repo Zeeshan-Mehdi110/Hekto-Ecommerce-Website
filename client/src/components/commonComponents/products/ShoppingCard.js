@@ -13,7 +13,6 @@ const ShoppingCart = () => {
 
   const [products, setProducts] = useState(null)
   const [productquantity, setProductQuantity] = useState(1)
-  console.log(products)
 
 
   useEffect(() => {
@@ -21,7 +20,6 @@ const ShoppingCart = () => {
     setProducts(JSON.parse(localStorage.getItem("cartProducts")))
   }, [])
 
-  // console.log(products)
 
   const handleIncreaseQuantity = (productId) => {
     setProducts(prevProducts => {

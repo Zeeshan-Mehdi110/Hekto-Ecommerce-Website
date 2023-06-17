@@ -17,7 +17,6 @@ import { themeStyles } from '../../../themeStyles';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
 const data = [
   {
     id: 'home',
@@ -67,6 +66,7 @@ const data = [
     open: false
   }
 ];
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavBar() {
@@ -77,6 +77,7 @@ function NavBar() {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -91,15 +92,15 @@ function NavBar() {
 
   return (
     <AppBar sx={{ background: "var(--bg-color)" }} position="static">
-      <Grid container sx={{ "alignItems": 'center', 'justiyContent': 'space-evenly' }}>
+      <Grid container sx={{ "alignItems": 'center', 'justifyContent': 'space-evenly' }}>
         <Grid item md={1}></Grid>
         <Grid item md={2}>
           <Toolbar disableGutters>
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
+              component={Link}
+              to="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -110,12 +111,11 @@ function NavBar() {
                 justifyContent: "center"
               }}
             >
-              <Link to="/" style={{ "display": "flex" }} >
-                <img
-                  style={{ width: '30%', "alignSelf": "center" }}
-                  src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
-                  alt={site.siteName} />
-              </Link>
+              <img
+                style={{ width: '30%', "alignSelf": "center" }}
+                src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
+                alt={site.siteName}
+              />
             </Typography>
           </Toolbar>
         </Grid>
@@ -125,12 +125,13 @@ function NavBar() {
             <MenuLink data={data} styleObject={{ color: 'black' }} />
           </Box>
         </Grid>
+
         {/* for mobile */}
         <Typography
           variant="h5"
           noWrap
-          component="a"
-          href=""
+          component={Link}
+          to="/"
           sx={{
             ml: 2,
             display: { xs: 'flex', md: 'none' },
@@ -140,13 +141,13 @@ function NavBar() {
             textDecoration: 'none',
           }}
         >
-          <Link to="/" style={{ "display": "flex" }} >
-            <img
-              style={{ width: '30%', "alignSelf": "center" }}
-              src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
-              alt={site.siteName} />
-          </Link>
+          <img
+            style={{ width: '30%', "alignSelf": "center" }}
+            src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
+            alt={site.siteName}
+          />
         </Typography>
+
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton
             size="large"
@@ -180,6 +181,7 @@ function NavBar() {
           </Menu>
         </Box>
         {/* for mobile */}
+
         <Grid item md={3}>
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
             <TextField
@@ -202,4 +204,5 @@ function NavBar() {
     </AppBar>
   );
 }
+
 export default NavBar;

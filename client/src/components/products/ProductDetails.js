@@ -36,7 +36,6 @@ export default function ProductDetails() {
       }
     });
   }, []);
-  console.log(product);
 
 
 
