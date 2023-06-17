@@ -129,7 +129,6 @@ export default function ProductDetails() {
               <Box mb={3}>
                 <Rating
                   value={5}
-                  readOnly
                   sx={{ fontSize: "14px", color: "#FFC416" }}
                 />
                 <Typography
