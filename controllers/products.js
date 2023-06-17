@@ -208,6 +208,7 @@ router.delete('/delete', async (req, res) => {
 
 //Getting Products
 router.get("/", verifyuser, async (req, res) => {
+  console.log(req.body)
   try {
     if (isSuperAdmin(req.user) && isAdmin(req.user))
       throw new Error("Invalid Request")
