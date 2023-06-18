@@ -1,8 +1,23 @@
 import React from 'react';
-import { Typography, Button } from '@mui/system';
+import { Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+    container: {
+        textAlign: 'center',
+        marginTop: theme.spacing(8),
+    },
+    title: {
+        marginBottom: theme.spacing(4),
+    },
+    button: {
+        marginTop: theme.spacing(2),
+    },
+}));
 
 const NotFound = () => {
+    const classes = useStyles();
     const navigate = useNavigate();
 
     const handleGoBack = () => {
@@ -10,8 +25,8 @@ const NotFound = () => {
     };
 
     return (
-        <div sx={{ textAlign: 'center', marginTop: 8 }}>
-            <Typography variant="h4" component="h1" sx={{ marginBottom: 4 }}>
+        <div className={classes.container}>
+            <Typography variant="h4" component="h1" className={classes.title}>
                 404 - Page Not Found
             </Typography>
             <Typography variant="body1" component="p">
@@ -20,7 +35,7 @@ const NotFound = () => {
             <Button
                 variant="contained"
                 color="primary"
-                sx={{ marginTop: 2 }}
+                className={classes.button}
                 onClick={handleGoBack}
             >
                 Go Back

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip, Rating } from '@mui/material';
-import { styled } from '@mui/system';
+import { makeStyles } from '@mui/styles';
 import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -13,7 +13,7 @@ import { deleteReview, loadReviews, reviewActionTypes } from '../../store/action
 import DeletePopUp from '../common/DeletePopUp';
 
 const columns = [
-    { id: 'reviewRating', label: 'Rating' },
+    { id: 'reviewRating', label: 'Rating', },
     { id: 'reviewText', label: 'Review Text' },
     {
         id: 'created_on',
@@ -24,67 +24,64 @@ const columns = [
         id: 'actions',
         label: 'Actions',
         width: 170,
-        align: 'right',
-    },
+        align: 'right'
+    }
 ];
-
-const CustomTable = styled(Table)(({ theme }) => ({
-    height: '100%',
-    width: '100%',
-}));
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'block',
-        flex: 1,
+        display: "block",
+        flex: 1
     },
     table: {
-        height: '100%',
-        width: '100%',
+        height: "100%",
+        width: "100%"
     },
     list: {},
     thead: {},
     tbody: {
-        width: '100%',
+        width: "100%"
     },
     row: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'nowrap',
-        alignItems: 'center',
-        boxSizing: 'border-box',
-        minWidth: '100%',
-        width: '100%',
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "nowrap",
+        alignItems: "center",
+        boxSizing: "border-box",
+        minWidth: "100%",
+        width: "100%"
     },
     headerRow: {
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
         },
+        // hide last border
         '&:last-child td, &:last-child th': {
             border: 0,
         },
     },
     cell: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        overflow: 'hidden',
+        display: "inline-flex",
+        alignItems: "center",
+        overflow: "hidden",
         flexGrow: 0,
-        flexShrink: 0,
+        flexShrink: 0
     },
     justifyCenter: {
-        justifyContent: 'center',
+        justifyContent: "center"
     },
     expandingCell: {
-        flex: 1,
+        flex: 1
     },
     column: {},
     tableContainer: {
-        maxWidth: '100vw',
-        overflow: 'scroll',
+        "maxWidth": "100vw",
+        overFlow: "scroll",
         WebkitOverflowScrolling: 'touch',
-        '-ms-overflow-style': '-ms-autohiding-scrollbar',
-    },
+        '-ms-overflow-style': '-ms-autohiding-scrollbar'
+    }
 }));
+
 
 function Reviews({ reviews, totalRecords, paginationArray, categories, dispatch }) {
     const { recordsPerPage, pageNumber, productId } = useParams(); // while coming back from Edit item
@@ -97,9 +94,10 @@ function Reviews({ reviews, totalRecords, paginationArray, categories, dispatch 
 
     useEffect(() => {
         if (!paginationArray[page]) {
-            dispatch(loadReviews(page, rowsPerPage, productId));
+            dispatch(loadReviews(page, rowsPerPage, productId))
         }
-    }, [page, rowsPerPage]);
+
+    }, [page, rowsPerPage])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage - 1);
@@ -108,14 +106,16 @@ function Reviews({ reviews, totalRecords, paginationArray, categories, dispatch 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(event.target.value);
         setPage(0);
-        dispatch({ type: reviewActionTypes.RESET_REVIEW });
-        dispatch({ type: reviewActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value });
+        dispatch({ type: reviewActionTypes.RESET_REVIEW })
+        dispatch({ type: reviewActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
     };
+
 
     const visibleRows = React.useMemo(() => {
         if (paginationArray[page]) {
             return reviews.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
-        } else {
+        }
+        else {
             return [];
         }
     }, [reviews, page, rowsPerPage]);
@@ -124,34 +124,40 @@ function Reviews({ reviews, totalRecords, paginationArray, categories, dispatch 
         <Grid container>
             <Grid item md={12} xs={12}>
                 <TableContainer component={Paper} className={classes.tableContainer}>
-                    <CustomTable aria-label="customized table">
+                    <Table aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                {columns.map((column, index) => (
-                                    <TableCell key={index}>{column.label}</TableCell>
-                                ))}
+                                {
+                                    columns.map((column, index) => (
+                                        <TableCell key={index}>{column.label}</TableCell>
+                                    ))
+                                }
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {visibleRows.map((row) => {
-                                if (row.is_deleted) return null;
-                                return (
-                                    <TableRow key={row._id} className={classes.headerRow}>
-                                        <TableCell>
-                                            <Rating value={row.rating} precision={0.5} readOnly />
-                                        </TableCell>
-                                        <TableCell>{row.reviewText}</TableCell>
-                                        <TableCell>
-                                            {format(new Date(row.created_on), 'dd MMMM, yyyy')}
-                                        </TableCell>
-                                        <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <DeletePopUp id={row._id} page={page} actionToDispatch={deleteReview} />
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
+                                if (row.is_deleted) return;
+                                return <TableRow key={row._id} className={classes.headerRow}>
+                                    <TableCell><Rating value={row.rating} precision={0.5} readOnly /></TableCell>
+                                    <TableCell>{row.reviewText}</TableCell>
+                                    <TableCell>
+                                        {
+                                            format(new Date(row.created_on), 'dd MMMM, yyyy')
+                                        }
+                                    </TableCell>
+                                    <TableCell sx={{ display: "flex", alignItems: "center" }}>
+                                        {/* <Link to={"/admin/reviews/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                                            <IconButton sx={{ color: "blue" }}>
+                                                <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
+                                            </IconButton>
+                                        </Link> */}
+                                        <DeletePopUp id={row._id} page={page} actionToDispatch={deleteReview} />
+                                    </TableCell>
+                                </TableRow>
+                            }
+                            )}
                         </TableBody>
-                    </CustomTable>
+                    </Table>
                     <Box display="flex" justifyContent="space-between" alignItems="center">
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
@@ -162,12 +168,13 @@ function Reviews({ reviews, totalRecords, paginationArray, categories, dispatch 
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
                             backIconButtonProps={{
-                                style: { display: 'none' },
+                                style: { display: "none" }
                             }}
                             nextIconButtonProps={{
-                                style: { display: 'none' },
+                                style: { display: "none" }
                             }}
-                            style={{ height: '45px', overflow: 'hidden' }}
+
+                            style={{ height: "45px", overflow: "hidden" }}
                         />
                         <Box>
                             <Pagination count={totalPages} page={page + 1} onChange={handleChangePage} variant="outlined" color="primary" shape="rounded" />
@@ -176,16 +183,18 @@ function Reviews({ reviews, totalRecords, paginationArray, categories, dispatch 
                 </TableContainer>
             </Grid>
         </Grid>
-    );
+
+    )
 }
 
-const mapStateToProps = (state) => {
+
+const mapStateToProps = state => {
     return {
         reviews: state.reviews.reviews,
         totalRecords: state.reviews.totalRecords,
         loadingRecords: state.progressBar.loading,
         paginationArray: state.reviews.paginationArray,
-    };
-};
+    }
+}
 
 export default connect(mapStateToProps)(Reviews);

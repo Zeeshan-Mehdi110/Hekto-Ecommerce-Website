@@ -1,27 +1,29 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/system';
-import Box from '@mui/system/Box';
-import MuiDrawer from '@mui/system/Drawer';
-import MuiAppBar from '@mui/system/AppBar';
-import Toolbar from '@mui/system/Toolbar';
-import List from '@mui/system/List';
-import Typography from '@mui/system/Typography';
-import Divider from '@mui/system/Divider';
-import IconButton from '@mui/system/IconButton';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import CssBaseline from '@mui/material/CssBaseline';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ListItem from '@mui/system/ListItem';
-import ListItemButton from '@mui/system/ListItemButton';
-import ListItemIcon from '@mui/system/ListItemIcon';
-import ListItemText from '@mui/system/ListItemText';
-import logo from '../../static/logo.png';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import logo from '../../static/logo.png'
 import { Link, Outlet } from 'react-router-dom';
 import ListIcon from "@mui/icons-material/List";
 import { AddCircleOutline, PeopleOutline } from "@mui/icons-material";
-import { LinearProgress } from '@mui/system';
+import { LinearProgress } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ListDropdown from '../common/ListDropdown';
 import GroupIcon from '@mui/icons-material/Group';
 import { connect } from 'react-redux';
+import { makeStyles } from '@mui/styles';
 import SimpleSnackbar from '../library/SnackBar';
 import AvatarMenu from '../library/AvatarMenu';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
@@ -118,7 +120,7 @@ const drodownsList = [
   }
 ];
 
-const useStyles = styled(({ theme }) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: '#fff',
     boxShadow: "0px 1px 4px 1px rgba(0, 0, 0, 0.12)",
@@ -157,7 +159,7 @@ function Sidebar({ progressBar, configuration }) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <MuiCssBaseline />
+      <CssBaseline />
       <AppBar position="fixed" sx={{ background: "var(--purple)", fontFamily: "var(--josefin)" }} open={open}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
