@@ -14,6 +14,9 @@ const brandController = require("./controllers/brands");
 // app.use
 app.use(express.json());
 app.use('/content', express.static('content/'));
+app.use(express.static(__dirname + `/client/build`))
+app.use(express.static(__dirname + `/admin/build`))
+
 app.use(cors({
   origin: ['http://localhost:3000', 'http://localhost:3001'],
 }));
@@ -30,6 +33,11 @@ mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
 }).catch(err => {
   console.log(`Error`, err);
 });
+
+app.all("*", (req, res) => {
+  res.sendFile(__dirname + `/client/build/index.html`)
+  res.sendFile(__dirname + `/admin/build/index.html`)
+})
 
 app.use((err, req, res, next) => {
   if (err) {
