@@ -11,6 +11,7 @@ const reviewController = require("./controllers/reviews");
 const siteController = require("./controllers/configurations");
 const brandController = require("./controllers/brands");
 
+
 // app.use
 app.use(express.json());
 app.use('/content', express.static('content/'));
