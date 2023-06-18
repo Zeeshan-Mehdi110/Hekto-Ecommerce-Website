@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip, Button, Typography, Rating } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 import { connect } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -14,15 +14,25 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import AddIcon from '@mui/icons-material/Add';
 import { reviewActionTypes } from '../../store/actions/reviewActions';
 
+const CustomTable = styled(Table)`
+  height: 100%;
+  width: 100%;
+`;
+
+const CustomTableContainer = styled(TableContainer)`
+  max-width: 100vw;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+`;
 
 const columns = [
-  { id: 'productName', label: 'Name', },
+  { id: 'productName', label: 'Name' },
   { id: 'productEmail', label: 'Price' },
   {
     id: 'sale-price',
     label: 'Sale Price',
     align: 'left',
-
   },
   { id: 'productRating', label: 'Rating' },
   {
@@ -44,64 +54,62 @@ const columns = [
     id: 'actions',
     label: 'Actions',
     width: 170,
-    align: 'right'
-  }
+    align: 'right',
+  },
 ];
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = () => ({
   root: {
-    display: "block",
-    flex: 1
+    display: 'block',
+    flex: 1,
   },
   table: {
-    height: "100%",
-    width: "100%"
+    height: '100%',
+    width: '100%',
   },
   list: {},
   thead: {},
   tbody: {
-    width: "100%"
+    width: '100%',
   },
   row: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    alignItems: "center",
-    boxSizing: "border-box",
-    minWidth: "100%",
-    width: "100%"
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    minWidth: '100%',
+    width: '100%',
   },
   headerRow: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
     },
   },
   cell: {
-    display: "inline-flex",
-    alignItems: "center",
-    overflow: "hidden",
+    display: 'inline-flex',
+    alignItems: 'center',
+    overflow: 'hidden',
     flexGrow: 0,
-    flexShrink: 0
+    flexShrink: 0,
   },
   justifyCenter: {
-    justifyContent: "center"
+    justifyContent: 'center',
   },
   expandingCell: {
-    flex: 1
+    flex: 1,
   },
   column: {},
   tableContainer: {
-    "maxWidth": "100vw",
-    overFlow: "scroll",
+    maxWidth: '100vw',
+    overflow: 'scroll',
     WebkitOverflowScrolling: 'touch',
-    '-ms-overflow-style': '-ms-autohiding-scrollbar'
-  }
-}));
-
+    '-ms-overflow-style': '-ms-autohiding-scrollbar',
+  },
+});
 
 function Products({ products, totalRecords, paginationArray, stateRowsPerPage, dispatch }) {
   const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
@@ -116,10 +124,9 @@ function Products({ products, totalRecords, paginationArray, stateRowsPerPage, d
 
   useEffect(() => {
     if (!paginationArray[page]) {
-      dispatch(loadProducts(page, rowsPerPage))
+      dispatch(loadProducts(page, rowsPerPage));
     }
-
-  }, [page, rowsPerPage])
+  }, [page, rowsPerPage]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage - 1);
@@ -128,93 +135,91 @@ function Products({ products, totalRecords, paginationArray, stateRowsPerPage, d
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
-    dispatch({ type: productActionTypes.RESET_PRODUCT })
-    dispatch({ type: productActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
+    dispatch({ type: productActionTypes.RESET_PRODUCT });
+    dispatch({ type: productActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value });
   };
 
-
-  const visibleRows = React.useMemo(() => {
+  const visibleRows = useMemo(() => {
     if (paginationArray[page]) {
       return products.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
-    }
-    else {
+    } else {
       return [];
     }
   }, [products, page, rowsPerPage]);
 
   const handleReviewsPage = (url) => {
-    dispatch({ type: reviewActionTypes.RESET_REVIEW })
-    navigate(url)
-  }
+    dispatch({ type: reviewActionTypes.RESET_REVIEW });
+    navigate(url);
+  };
 
   const refreshList = () => {
-    dispatch({ type: productActionTypes.RESET_PRODUCT })
-    if (page === 0)
-      dispatch(loadProducts(page, rowsPerPage))
-    else
-      setPage(0);
-  }
-
+    dispatch({ type: productActionTypes.RESET_PRODUCT });
+    if (page === 0) dispatch(loadProducts(page, rowsPerPage));
+    else setPage(0);
+  };
 
   return (
     <Grid container>
       <Grid item md={12} xs={12}>
-        <TableContainer component={Paper} className={classes.tableContainer}>
-          <Box display="flex" justifyContent='space-between' m={3}>
+        <CustomTableContainer component={Paper} className={classes.tableContainer}>
+          <Box display="flex" justifyContent="space-between" m={3}>
             <Typography variant="h5">Products</Typography>
             <Box>
-              <Button component={Link} to="/admin/products/add" variant="outlined" startIcon={<AddIcon />}>Add</Button>
-              <Button sx={{ ml: 1 }} onClick={refreshList} variant="outlined" endIcon={<RefreshIcon />}>Refresh</Button>
+              <Button component={Link} to="/admin/products/add" variant="outlined" startIcon={<AddIcon />}>
+                Add
+              </Button>
+              <Button sx={{ ml: 1 }} onClick={refreshList} variant="outlined" endIcon={<RefreshIcon />}>
+                Refresh
+              </Button>
             </Box>
           </Box>
-          <Table aria-label="customized table">
+          <CustomTable aria-label="customized table">
             <TableHead>
               <TableRow>
-                {
-                  columns.map((column, index) => (
-                    <TableCell key={index}>{column.label}</TableCell>
-                  ))
-                }
+                {columns.map((column, index) => (
+                  <TableCell key={index}>{column.label}</TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
               {visibleRows.map((row) => {
-                if (!row) return;
-                if (row.is_deleted) return;
-                return <TableRow key={row._id} className={classes.headerRow}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.sale_price}</TableCell>
-                  <TableCell>{row.discountPrice}</TableCell>
-                  <TableCell><Rating value={row.averageRating} precision={0.5} readOnly /></TableCell>
-                  <TableCell><Chip size='small' label={row.categoryName} color="info" /></TableCell>
-                  <TableCell>
-                    {
-                      row.active == process.env.REACT_APP_STATUS_ACTIVE ?
-                        <Chip size='small' label="Active" color="success" /> :
-                        <Chip size='small' label="Not Active" color="primary" />
-                    }
-                  </TableCell>
-                  <TableCell>
-                    {
-                      format(new Date(row.created_on), 'dd MMMM, yyyy')
-                    }
-                  </TableCell>
-                  <TableCell sx={{ display: "flex", alignItems: "center" }}>
-                    <Link to={"/admin/products/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
-                      <IconButton sx={{ color: "blue" }}>
-                        <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
+                if (!row) return null;
+                if (row.is_deleted) return null;
+                return (
+                  <TableRow key={row._id} className={classes.headerRow}>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.sale_price}</TableCell>
+                    <TableCell>{row.discountPrice}</TableCell>
+                    <TableCell>
+                      <Rating value={row.averageRating} precision={0.5} readOnly />
+                    </TableCell>
+                    <TableCell>
+                      <Chip size="small" label={row.categoryName} color="info" />
+                    </TableCell>
+                    <TableCell>
+                      {row.active === process.env.REACT_APP_STATUS_ACTIVE ? (
+                        <Chip size="small" label="Active" color="success" />
+                      ) : (
+                        <Chip size="small" label="Not Active" color="primary" />
+                      )}
+                    </TableCell>
+                    <TableCell>{format(new Date(row.created_on), 'dd MMMM, yyyy')}</TableCell>
+                    <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Link to={`/admin/products/edit/${row._id}/${rowsPerPage}/${page}`}>
+                        <IconButton sx={{ color: 'blue' }}>
+                          <FontAwesomeIcon icon={faEdit} style={{ fontSize: '1rem' }} />
+                        </IconButton>
+                      </Link>
+                      <DeletePopUp id={row._id} page={page} actionToDispatch={deleteProduct} />
+                      <IconButton sx={{ color: '#FF9529' }} onClick={() => handleReviewsPage(`/admin/products/reviews/${row._id}`)}>
+                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '1rem' }} />
                       </IconButton>
-                    </Link>
-                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteProduct} />
-                    <IconButton sx={{ color: "#FF9529" }} onClick={() => handleReviewsPage("/admin/products/reviews/" + row._id)}>
-                      <FontAwesomeIcon icon={faStar} style={{ fontSize: "1rem" }} />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              }
-              )}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
-          </Table>
+          </CustomTable>
           <Box display="flex" justifyContent="space-between" alignItems="center">
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
@@ -225,24 +230,23 @@ function Products({ products, totalRecords, paginationArray, stateRowsPerPage, d
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
-                style: { display: "none" }
+                style: { display: 'none' },
               }}
               nextIconButtonProps={{
-                style: { display: "none" }
+                style: { display: 'none' },
               }}
-
-              style={{ height: "45px", overflow: "hidden" }}
+              style={{ height: '45px', overflow: 'hidden' }}
             />
             <Box>
               <Pagination count={totalPages} page={page + 1} onChange={handleChangePage} variant="outlined" color="primary" shape="rounded" />
             </Box>
           </Box>
-        </TableContainer>
+        </CustomTableContainer>
       </Grid>
     </Grid>
-
-  )
+  );
 }
+
 
 const mapStateToProps = state => {
   return {

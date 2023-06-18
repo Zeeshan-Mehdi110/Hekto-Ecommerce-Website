@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Grid, Box, Typography, Button, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -8,13 +8,13 @@ import TableContainer from '@mui/material/TableContainer';
 import { deleteUser, loadUsers, userActionTypes } from '../../store/actions/userActions';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import AddIcon from '@mui/icons-material/Add';
-import DeletePopUp from '../common/DeletePopUp'
+import DeletePopUp from '../common/DeletePopUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 
 const columns = [
-  { id: 'userName', label: 'Name', },
+  { id: 'userName', label: 'Name' },
   { id: 'userEmail', label: 'Email' },
   {
     id: 'phone_number',
@@ -25,19 +25,16 @@ const columns = [
   {
     id: 'userType',
     label: 'Type',
-
     align: 'center',
   },
   {
     id: 'userStatus',
     label: 'Status',
-
     align: 'center',
   },
   {
     id: 'created_on',
     label: 'Created On',
-
     align: 'center',
   },
   {
@@ -47,6 +44,11 @@ const columns = [
     align: 'right'
   }
 ];
+
+const CustomTable = styled(Table)(({ theme }) => ({
+  height: '100%',
+  width: '100%'
+}));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,7 +77,6 @@ const useStyles = makeStyles((theme) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
     },
@@ -95,8 +96,8 @@ const useStyles = makeStyles((theme) => ({
   },
   column: {},
   tableContainer: {
-    "maxWidth": "100vw",
-    overFlow: "scroll",
+    maxWidth: "100vw",
+    overflow: "scroll",
     WebkitOverflowScrolling: 'touch',
     '-ms-overflow-style': '-ms-autohiding-scrollbar'
   }
@@ -107,7 +108,8 @@ function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatc
   const { recordsPerPage, pageNumber } = useParams(); // while coming back from Edit item
 
   const [page, setPage] = useState(pageNumber ? parseInt(pageNumber) : 0);
-  const [rowsPerPage, setRowsPerPage] = useState(recordsPerPage ? parseInt(recordsPerPage) : parseInt(stateRowsPerPage)); const classes = useStyles();
+  const [rowsPerPage, setRowsPerPage] = useState(recordsPerPage ? parseInt(recordsPerPage) : parseInt(stateRowsPerPage));
+  const classes = useStyles();
 
   const totalPages = useMemo(() => Math.ceil(totalRecords / rowsPerPage), [users, rowsPerPage]);
 
@@ -115,8 +117,7 @@ function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatc
     if (!paginationArray[page]) {
       dispatch(loadUsers(page, rowsPerPage))
     }
-
-  }, [page, rowsPerPage])
+  }, [page, rowsPerPage]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage - 1);
@@ -125,26 +126,25 @@ function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatc
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
-    dispatch({ type: userActionTypes.RESET_USER })
-    dispatch({ type: userActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value })
+    dispatch({ type: userActionTypes.RESET_USER });
+    dispatch({ type: userActionTypes.UPDATE_ROWS_PERPAGE, payload: event.target.value });
   };
-
 
   const visibleRows = React.useMemo(() => {
     if (paginationArray[page]) {
       return users.slice(paginationArray[page].startIndex, paginationArray[page].endIndex);
-    }
-    else {
+    } else {
       return [];
     }
   }, [users, page, rowsPerPage]);
+
   const refreshList = () => {
-    dispatch({ type: userActionTypes.RESET_USER })
+    dispatch({ type: userActionTypes.RESET_USER });
     if (page === 0)
-      dispatch(loadUsers(page, rowsPerPage))
+      dispatch(loadUsers(page, rowsPerPage));
     else
       setPage(0);
-  }
+  };
 
   return (
     <Grid container>
@@ -157,58 +157,50 @@ function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatc
               <Button sx={{ ml: 1 }} onClick={refreshList} variant="outlined" endIcon={<RefreshIcon />}>Refresh</Button>
             </Box>
           </Box>
-          <Table aria-label="customized table">
+          <CustomTable aria-label="customized table">
             <TableHead>
               <TableRow>
-                {
-                  columns.map((column, index) => (
-                    <TableCell key={index}>{column.label}</TableCell>
-                  ))
-                }
+                {columns.map((column, index) => (
+                  <TableCell key={index}>{column.label}</TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
               {visibleRows.map((row) => {
-                if (!row) return;
-                if (row.is_deleted) return;
-                return <TableRow key={row._id} className={classes.headerRow}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.phone_number}</TableCell>
-                  <TableCell>
-                    {
-                      row.type == process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
+                if (!row || row.is_deleted) return null;
+                return (
+                  <TableRow key={row._id} className={classes.headerRow}>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.email}</TableCell>
+                    <TableCell>{row.phone_number}</TableCell>
+                    <TableCell>
+                      {row.type === process.env.REACT_APP_USER_TYPE_SUPERADMIN ?
                         <Chip size='small' label="Super Admin" color="primary" /> :
-                        row.type == process.env.REACT_APP_USER_TYPE_ADMIN ?
+                        row.type === process.env.REACT_APP_USER_TYPE_ADMIN ?
                           <Chip size='small' label="Admin" color="primary" /> :
-                          <Chip size='small' label="Standard" color="primary" />
-                    }
-                  </TableCell>
-                  <TableCell>
-                    {
-                      row.active == process.env.REACT_APP_STATUS_ACTIVE ?
+                          <Chip size='small' label="Standard" color="primary" />}
+                    </TableCell>
+                    <TableCell>
+                      {row.active === process.env.REACT_APP_STATUS_ACTIVE ?
                         <Chip size='small' label="Active" color="success" /> :
-                        <Chip size='small' label="Not Active" color="primary" />
-                    }
-                  </TableCell>
-                  <TableCell>
-                    {
-                      format(new Date(row.created_on), 'dd MMMM, yyyy')
-                    }
-                  </TableCell>
-                  <TableCell sx={{ display: "flex" }}>
-                    <Link to={"/admin/users/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
-                      <IconButton sx={{ color: "blue" }}>
-                        <FontAwesomeIcon icon={faEdit} style={{ fontSize: "1rem" }} />
-                      </IconButton>
-                    </Link>
-                    <DeletePopUp id={row._id} page={page} actionToDispatch={deleteUser} />
-                  </TableCell>
-                </TableRow>
-              }
-              )}
+                        <Chip size='small' label="Not Active" color="primary" />}
+                    </TableCell>
+                    <TableCell>
+                      {format(new Date(row.created_on), 'dd MMMM, yyyy')}
+                    </TableCell>
+                    <TableCell sx={{ display: 'flex' }}>
+                      <Link to={"/admin/users/edit/" + row._id + "/" + rowsPerPage + "/" + page}>
+                        <IconButton sx={{ color: 'blue' }}>
+                          <FontAwesomeIcon icon={faEdit} style={{ fontSize: '1rem' }} />
+                        </IconButton>
+                      </Link>
+                      <DeletePopUp id={row._id} page={page} actionToDispatch={deleteUser} />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
-          </Table>
+          </CustomTable>
           <Box display="flex" justifyContent="space-between" alignItems="center">
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
@@ -219,13 +211,12 @@ function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatc
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               backIconButtonProps={{
-                style: { display: "none" }
+                style: { display: 'none' }
               }}
               nextIconButtonProps={{
-                style: { display: "none" }
+                style: { display: 'none' }
               }}
-
-              style={{ height: "45px", overflow: "hidden" }}
+              style={{ height: '45px', overflow: 'hidden' }}
             />
             <Box>
               <Pagination count={totalPages} page={page + 1} onChange={handleChangePage} variant="outlined" color="primary" shape="rounded" />
@@ -234,19 +225,17 @@ function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatc
         </TableContainer>
       </Grid>
     </Grid>
-
-  )
+  );
 }
 
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     users: state.users.users,
     totalRecords: state.users.totalRecords,
     loadingRecords: state.progressBar.loading,
     paginationArray: state.users.paginationArray,
     stateRowsPerPage: state.brands.rowsPerPage
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Users);
