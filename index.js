@@ -12,7 +12,6 @@ const siteController = require("./controllers/configurations");
 const brandController = require("./controllers/brands");
 
 // app.use
-
 app.use(express.json());
 app.use('/content', express.static('content/'));
 app.use(express.static(__dirname + `/client/build`))
