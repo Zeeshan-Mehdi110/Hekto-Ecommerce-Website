@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Typography, Button } from '@mui/material';
+import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Typography, Button, Pagination } from '@mui/material';
 import { styled } from '@mui/system';
 import { connect } from 'react-redux';
 import { format } from 'date-fns';
@@ -9,6 +9,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import AddIcon from '@mui/icons-material/Add';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import DeletePopUp from '../common/DeletePopUp';
 
 const columns = [
   { id: 'categoryName', label: 'Name' },

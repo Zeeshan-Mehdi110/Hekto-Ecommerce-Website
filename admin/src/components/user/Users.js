@@ -48,7 +48,7 @@ const RootContainer = styled('div')({
   flex: 1,
 });
 
-const TableContainerStyled = styled(TableContainer)({
+const TableContainerStyled = styled()({
   "maxWidth": "100vw",
   overflow: "scroll",
   WebkitOverflowScrolling: 'touch',

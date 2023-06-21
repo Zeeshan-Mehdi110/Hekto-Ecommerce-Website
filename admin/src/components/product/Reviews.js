@@ -25,7 +25,7 @@ const columns = [
     }
 ];
 
-const StyledTableContainer = styled(TableContainer)({
+const StyledTableContainer = styled()({
     maxWidth: '100vw',
     overflow: 'scroll',
     WebkitOverflowScrolling: 'touch',

@@ -101,7 +101,7 @@ const Brands = ({ brands, totalRecords, paginationArray, stateRowsPerPage, dispa
                 if (!row) return null;
                 if (row.is_deleted) return null;
                 return (
-                  <TableRow key={row._id} className={headerRow}>
+                  <TableRow key={row._id}>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.description}</TableCell>
                     <TableCell>{format(new Date(row.created_on), 'dd MMMM, yyyy')}</TableCell>
