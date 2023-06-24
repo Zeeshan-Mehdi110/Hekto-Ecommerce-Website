@@ -492,4 +492,9 @@ router.get("/details/:productId", async (req, res) => {
   }
 });
 
+router.get("/dummy", async (req, res) => {
+  const products = await Product.find()
+  res.json(products)
+})
+
 module.exports = router;
