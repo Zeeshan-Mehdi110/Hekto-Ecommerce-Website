@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("../models/Product")
-const { isSuperAdmin, isAdmin, dump } = require("../utils/utils");
+const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const { verifyuser } = require("../utils/middlewares");
 const multer = require('multer');
 const fs = require('fs').promises;
@@ -472,7 +472,7 @@ router.get("/home", async (req, res) => {
     const products = await Product.aggregate(pipeline);
 
 
-    res.status(200).json(dump(products[0], res));
+    res.status(200).json((products[0]));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
