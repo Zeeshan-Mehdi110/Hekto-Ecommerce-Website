@@ -6,14 +6,18 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { useSelector } from "react-redux";
+import { useMemo } from 'react';
 
 function Footer() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { configuration, latestProducts } = useSelector(state => ({
-    configuration: state?.home?.configuration,
-    latestProducts: state.home?.data?.latestProducts
-  }));
+
+  const { configuration, latestProducts } = useSelector(
+    useMemo(() => ({ home }) => ({
+      configuration: home.configuration,
+      latestProducts: home.data.latestProducts,
+    }), [])
+  );
 
   const categories = latestProducts ? Object.keys(latestProducts[0].latestProducts) : [];
 

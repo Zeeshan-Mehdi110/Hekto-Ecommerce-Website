@@ -136,4 +136,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/site", async (req, res) => {
+  try {
+    const site = await Site.findOne();
+
+    res.status(200).json({ site });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;
