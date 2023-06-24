@@ -18,7 +18,6 @@ import { Link, Outlet } from 'react-router-dom';
 import ListIcon from '@mui/icons-material/List';
 import { AddCircleOutline, PeopleOutline } from '@mui/icons-material';
 import { LinearProgress } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import ListDropdown from '../common/ListDropdown';
 import GroupIcon from '@mui/icons-material/Group';
 import { connect } from 'react-redux';
@@ -118,29 +117,8 @@ const drodownsList = [
   },
 ];
 
-const useStyles = styled((theme) => ({
-  root: {
-    backgroundColor: '#fff',
-    boxShadow: '0px 1px 4px 1px rgba(0, 0, 0, 0.12)',
-    color: '#606060',
-  },
-  logo: {
-    flexGrow: 1,
-  },
-  toolbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    color: '#606060',
-  },
-  progressContainer: {
-    height: '4px',
-    width: '100%',
-  },
-}));
-
 function Sidebar({ progressBar, configuration }) {
   const [open, setOpen] = React.useState(true);
-  const classes = useStyles();
 
   const handleDrawerOpen = () => {
     setOpen(!open);
@@ -201,7 +179,7 @@ function Sidebar({ progressBar, configuration }) {
         <Divider />
         <List>
           {drodownsList.map((dropdown, index) => (
-            <ListDropdown key={index} dropdown={dropdown} collapseOpen={collapseOpen} handleCollapse={handleCollapse} />
+            <ListDropdown icon={dropdown.icon} title={dropdown.title} key={index} items={dropdown.items} collapseOpen={collapseOpen} handleCollapse={handleCollapse} />
           ))}
         </List>
       </DrawerWrapper>
@@ -216,8 +194,8 @@ function Sidebar({ progressBar, configuration }) {
 }
 
 const mapStateToProps = (state) => ({
-  progressBar: state.progressBar,
-  configuration: state.configuration,
+  progressBar: state.progressBar.loading,
+  configuration: state.auth.configuration,
 });
 
 export default connect(mapStateToProps)(Sidebar);

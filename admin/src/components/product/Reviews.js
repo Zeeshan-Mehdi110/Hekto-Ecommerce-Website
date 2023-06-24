@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip, Rating } from '@mui/material';
+import { Grid, Box, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, Paper, Pagination, Chip, Rating } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { connect } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { deleteReview, loadReviews, reviewActionTypes } from '../../store/actions/reviewActions';
 import DeletePopUp from '../common/DeletePopUp';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { TableContainer } from '@mui/material';
 
 const columns = [
     { id: 'reviewRating', label: 'Rating' },
@@ -25,7 +24,7 @@ const columns = [
     }
 ];
 
-const StyledTableContainer = styled()({
+const StyledTableContainer = styled(TableContainer)({
     maxWidth: '100vw',
     overflow: 'scroll',
     WebkitOverflowScrolling: 'touch',

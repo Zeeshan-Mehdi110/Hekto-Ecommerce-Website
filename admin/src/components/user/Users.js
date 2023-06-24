@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Grid, Box, Typography, Button, Table, TableBody, TableCell, TableHead, TableRow, TablePagination, IconButton, Paper, Pagination, Chip } from '@mui/material';
 import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
 import { styled } from '@mui/system';
+import { TableContainer } from '@mui/material';
 
 const columns = [
   { id: 'userName', label: 'Name' },
@@ -48,7 +49,7 @@ const RootContainer = styled('div')({
   flex: 1,
 });
 
-const TableContainerStyled = styled()({
+const TableContainerStyled = styled(TableContainer)({
   "maxWidth": "100vw",
   overflow: "scroll",
   WebkitOverflowScrolling: 'touch',
@@ -67,7 +68,7 @@ function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatc
     if (!paginationArray[page]) {
       dispatch(loadUsers(page, rowsPerPage));
     }
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, dispatch]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage - 1);
@@ -86,7 +87,8 @@ function Users({ users, totalRecords, paginationArray, stateRowsPerPage, dispatc
     } else {
       return [];
     }
-  }, [users, page, rowsPerPage]);
+  }, [paginationArray, page, rowsPerPage]);
+
 
   const refreshList = () => {
     dispatch({ type: userActionTypes.RESET_USER });
