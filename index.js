@@ -36,9 +36,12 @@ mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
 });
 
 app.all("*", (req, res) => {
-  res.sendFile(__dirname + `/client/build/index.html`)
-  res.sendFile(__dirname + `/admin/build/index.html`)
-})
+  if (req.url.includes('/admin/')) {
+    res.sendFile(__dirname + `/admin/build/index.html`);
+  } else {
+    res.sendFile(__dirname + `/client/build/index.html`);
+  }
+});
 
 app.use((err, req, res, next) => {
   if (err) {
