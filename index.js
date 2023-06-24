@@ -29,12 +29,6 @@ app.use('/api/reviews', reviewController);
 app.use('/api/store', siteController);
 app.use('/api/brands', brandController);
 
-mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
-  console.log("Database is connected successfully!");
-}).catch(err => {
-  console.log(`Error`, err);
-});
-
 app.all("*", (req, res) => {
   if (req.url.includes('/admin/')) {
     res.sendFile(__dirname + `/admin/build/index.html`);
@@ -49,6 +43,12 @@ app.use((err, req, res, next) => {
   } else {
     next();
   }
+});
+
+mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
+  console.log("Database is connected successfully!");
+}).catch(err => {
+  console.log(`Error`, err);
 });
 
 const port = process.env.PORT || 5000;

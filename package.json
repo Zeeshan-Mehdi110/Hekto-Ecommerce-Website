@@ -1,10 +1,10 @@
 {
-  "name": "Hekto Ecommerce website",
+  "name": "hekto",
   "version": "1.0.0",
   "description": "MERN Stack Project",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js --ignore client/, admin/",
+    "server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Zeeshan",
