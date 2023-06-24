@@ -51,8 +51,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION_URI).then(() => {
   console.log(`Error`, err);
 });
 
-const port = process.env.PORT || 5000;
 
-app.listen(port, () => {
-  console.log(`App listening at Port ${port}`);
+app.listen(5000, () => {
+  console.log(`App listening at Port 5000`);
 });
