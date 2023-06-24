@@ -16,7 +16,7 @@ export const loadHomeData = () => {
     dispatch(showProgressBar());
     axios.get('api/products/home').then(({ data }) => {
 
-      axios.get('api/store').then(({ data: { site } }) => {
+      axios.get('api/store/site').then(({ data: { site } }) => {
         dispatch(hideProgressBar());
 
         dispatch({ type: homeActionTypes.HOME_DATA_LOADED, payload: { data, site } });

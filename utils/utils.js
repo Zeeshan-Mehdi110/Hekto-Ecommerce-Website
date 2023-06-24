@@ -43,14 +43,14 @@ const calculateAverageRating = async (productId) => {
 }
 
 
-const dump = (input, res) => {
+const dump = (input) => {
   // Convert the response to a formatted JSON string
   const responseJson = JSON.stringify(input, null, 2);
 
-  // Send the response as JSON with proper headers
-  res.setHeader("Content-Type", "application/json");
-  res.send(responseJson);
-}
+  // Return the JSON response
+  return responseJson;
+};
+
 
 module.exports = {
   createJWTToken,

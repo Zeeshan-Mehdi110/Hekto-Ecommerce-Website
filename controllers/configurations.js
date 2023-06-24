@@ -1,7 +1,6 @@
 const express = require("express");
 const Site = require("../models/Site");
 const { verifyuser } = require("../utils/middlewares");
-const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const multer = require("multer")
 const fs = require('fs').promises;
 const path = require("path")
@@ -131,6 +130,14 @@ router.get("/", async (req, res) => {
     const totalProducts = await Product.countDocuments();
 
     res.status(200).json({ site, totalUsers, totalCategories, totalBrands, totalProducts });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+router.get("/site", async (req, res) => {
+  try {
+    const site = await Site.findOne()
+    res.status(200).json({ site });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

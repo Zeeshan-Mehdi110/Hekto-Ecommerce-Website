@@ -44,10 +44,10 @@ function Header({ progressBar, site }) {
           <Grid sx={themeStyles.topBar} alignItems='center' container color="var(--white)" bgcolor="var(--violet)" height="44px">
             <Grid item md={4} xs={12} display={"flex"} justifyContent={"space-around"} >
               <Box>
-                <Typography fontFamily={"var(--josefin)"} variant='body1'><MailOutlineIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />{site.siteEmail}</Typography>
+                <Typography fontFamily={"var(--josefin)"} variant='body1'><MailOutlineIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />{site?.siteEmail}</Typography>
               </Box>
               <Box>
-                <Typography fontFamily={"var(--josefin)"} variant='body1'><PhoneInTalkIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />{site.sitePhoneNumber}</Typography>
+                <Typography fontFamily={"var(--josefin)"} variant='body1'><PhoneInTalkIcon sx={{ verticalAlign: "middle", marginRight: "10px" }} />{site?.sitePhoneNumber}</Typography>
               </Box>
             </Grid>
             <Grid item md={4} xs={12} display={"flex"} justifyContent="flex-end" >
@@ -94,7 +94,7 @@ function Header({ progressBar, site }) {
 const mapStateToProps = state => {
   return {
     progressBar: state.progressBar,
-    site: state.home.site
+    site: state.home?.site
   }
 }
 

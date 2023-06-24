@@ -14,8 +14,8 @@ function App({ allRecordsLoaded, dispatch }) {
     dispatch(loadHomeData());
   }, [])
 
-  // if (!allRecordsLoaded)
-  //   return <AppPreLoader loader={loader} />
+  if (!allRecordsLoaded)
+    return <AppPreLoader loader={loader} />
 
   return (
     <>

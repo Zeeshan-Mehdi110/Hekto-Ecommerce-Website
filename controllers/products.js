@@ -472,7 +472,7 @@ router.get("/home", async (req, res) => {
     const products = await Product.aggregate(pipeline);
 
 
-    res.status(200).json(dump(products[0], res));
+    res.status(200).json(dump(products[0]));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -491,5 +491,10 @@ router.get("/details/:productId", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.get("/dummy", async (req, res) => {
+  const products = await Product.find()
+  res.json(products)
+})
 
 module.exports = router;

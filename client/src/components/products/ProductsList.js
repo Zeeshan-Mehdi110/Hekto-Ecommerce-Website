@@ -1,4 +1,4 @@
-import { Box, FormControl, Grid, InputAdornment, OutlinedInput, Typography } from '@mui/material'
+import { FormControl, Grid, InputAdornment, OutlinedInput, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import React, { useEffect } from 'react'
 import BreadCrumbs from '../commonComponents/breadCrumb/BreadCrumbs'
@@ -28,7 +28,7 @@ function ProductsList() {
       setSelectedProductBrandOptions(updateSelectedProductBrandOption)
     }
   }
-  
+
   const [selectedDiscountedProductOption, setSelectedDiscountedProductOptions] = useState([])
 
   const handleDiscountedProductFilters = (event) => {
@@ -147,8 +147,8 @@ function ProductsList() {
 
   }
   useEffect(() => {
-    axios.get("http://localhost:5000/api/products/dummy").then( result => 
-    setProducts(result.data)
+    axios.get("api/products/dummy").then(result =>
+      setProducts(result.data)
     )
   }, [])
 
@@ -179,9 +179,9 @@ function ProductsList() {
                 id="outlined-adornment-password"
                 endAdornment={
                   <InputAdornment position="end">
-                    <Typography><SearchIcon sx={{ 
+                    <Typography><SearchIcon sx={{
                       verticalAlign: "middle"
-                     }} size="small" /></Typography>
+                    }} size="small" /></Typography>
                   </InputAdornment>
                 }
                 placeholder="$10.00 - 20000$"
