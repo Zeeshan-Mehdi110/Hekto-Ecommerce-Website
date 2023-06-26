@@ -29,14 +29,10 @@ function AddUser() {
         if (!data.type || data.type == ' ') errors.type = "Please Select User Type";
         return errors
     };
-
-
-
-
     const handleAddUser = async (data, form) => {
         try {
             let result = await axios.post(
-                "http://localhost:5000/api/users/add",
+                "/api/users/add",
                 data
             );
             const fields = form.getRegisteredFields(); // Get all the registered field names

@@ -30,7 +30,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState({})
   const { productId } = useParams()
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/products/details/${productId}`).then(({ data }) => {
+    axios.get(`/api/products/details/${productId}`).then(({ data }) => {
       if (data.product._id === productId) {
         setProduct(data.product);
       }
