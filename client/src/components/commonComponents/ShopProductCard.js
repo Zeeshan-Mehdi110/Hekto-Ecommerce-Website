@@ -11,7 +11,6 @@ function ShopProductCard({
   discount,
   saleText,
   imageIcons,
-
   isMobile,
   columnNumber,
   paperStyle,

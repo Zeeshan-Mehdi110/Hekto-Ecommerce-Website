@@ -114,7 +114,7 @@ function NavBar() {
               <img
                 style={{ width: '30%', "alignSelf": "center" }}
                 src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
-                alt={site.siteName}
+                alt={logo}
               />
             </Typography>
           </Toolbar>
