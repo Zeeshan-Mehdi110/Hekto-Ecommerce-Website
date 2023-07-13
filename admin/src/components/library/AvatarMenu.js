@@ -30,7 +30,7 @@ function AvatarMenu({ user }) {
         sx={{
           bgcolor: deepOrange[500]
         }}
-        src={process.env.REACT_APP_BASE_URL + `content/${user._id}/${user.profile_picture}`}
+        src={user.profilePicture}
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"

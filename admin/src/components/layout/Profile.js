@@ -70,7 +70,7 @@ function Profile({ user, authUpdate }) {
           <Box display={"flex"} pt={5} flexDirection="column" alignItems={"center"} textAlign={"center"} justifyContent={"center"}>
             <Avatar
               sx={{ height: "100px", width: "100px" }}
-              src={process.env.REACT_APP_BASE_URL + `content/${id}/${user.profile_picture}`}
+              src={user.profilePicture}
             >
               {
                 user.name.slice(0, 1)

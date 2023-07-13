@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     required: [true, "Email is required"],
     maxlength: 250,
     validate: {
-      validator: async function(value) {
+      validator: async function (value) {
         const count = await mongoose.model('User').countDocuments({ email: value });
         return count === 0;
       },
@@ -26,9 +26,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     maxlength: 20
   },
-  profile_picture: {
-    type: String,
-    maxlength: 100
+  profilePicture: {
+    type: String
   },
   password: {
     type: String,

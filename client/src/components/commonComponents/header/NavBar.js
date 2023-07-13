@@ -136,11 +136,7 @@ function NavBar() {
             textDecoration: 'none',
           }}
         >
-          <img
-            style={{ width: '30%', "alignSelf": "center" }}
-            src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
-            alt={site.siteName}
-          />
+          <Avatar src={site.siteLogo} alt="Hekto" />
         </Typography>
 
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

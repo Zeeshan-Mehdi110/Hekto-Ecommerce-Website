@@ -159,7 +159,7 @@ function Sidebar({ progressBar, configuration }) {
         <DrawerHeader sx={{ justifyContent: 'center' }}>
           <img
             width={50}
-            src={process.env.REACT_APP_BASE_URL + `content/site/${configuration?.siteLogo}`}
+            src={configuration.siteLogo}
             alt="Hekto"
           />
         </DrawerHeader>
