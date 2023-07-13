@@ -32,7 +32,7 @@ function Configurations({ configuration }) {
   const handleUpdateSite = async (data, form) => {
     try {
       dispatch(showProgressBar())
-      axios.postForm(`/api/store/edit`, data).then(({ data }) => {
+      axios.postForm(`/api/store/update`, data).then(({ data }) => {
         if (data.site) {
           dispatch(updateConfiguration(data.site))
           dispatch(showSuccess("Store updated successfully"))
@@ -76,7 +76,12 @@ function Configurations({ configuration }) {
         }) => (
           <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
             <Field component={TextInput} type='text' name="siteName" placeholder="Enter Site Name" label="Site Name" />
-            <Field component={FileInput} name="siteLogo" />
+            <Field
+              component={FileInput}
+              type="file"
+              name="siteLogo"
+              inputProps={{ accept: 'image/*' }}
+            />
             <Field component={TextInput} name="siteAddress" placeholder="address" label="Address" />
             <Field component={TextInput} name="siteEmail" placeholder="email" label="Email" />
             <Field component={TextInput} name="sitePhoneNumber" placeholder="phoneNumber" label="Phone Number" />

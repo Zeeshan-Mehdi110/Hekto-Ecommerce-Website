@@ -6,12 +6,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import AdbIcon from '@mui/icons-material/Adb';
 import logo from "../../../static/images/logo.png";
 import MenuLink from '../menu/MenuLink';
-import { Grid, TextField } from '@mui/material';
+import { Avatar, Grid, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { themeStyles } from '../../../themeStyles';
 import { Link } from 'react-router-dom';
@@ -111,11 +110,7 @@ function NavBar() {
                 justifyContent: "center"
               }}
             >
-              <img
-                style={{ width: '30%', "alignSelf": "center" }}
-                src={process.env.REACT_APP_BASE_URL + `content/site/${site.siteLogo}`}
-                alt={logo}
-              />
+              <Avatar sx={{ "width": "48px", "height": "48px" }} src={site.siteLogo} alt="Profile Picture" />
             </Typography>
           </Toolbar>
         </Grid>

@@ -4,86 +4,98 @@ const Product = require("../models/Product")
 const { isSuperAdmin, isAdmin } = require("../utils/utils");
 const { verifyuser } = require("../utils/middlewares");
 const multer = require('multer');
-const fs = require('fs').promises;
-const fse = require('fs-extra');
+const Aws = require('aws-sdk')
+const uuid = require("uuid");
+
 const path = require('path');
 const Category = require("../models/Category");
 
 const router = express.Router();
 router.use(['/add', '/edit', '/delete'], verifyuser)
 
-const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    try {
-      cb(null, `content/products/`);
-    } catch (err) {
-      cb(err, null);
-    }
+// Configure AWS SDK with your credentials and region
+Aws.config.update({
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_SECRET,
+  region: process.env.AWS_REGION,
+  endpoint: `https://s3.${process.env.AWS_REGION}.amazonaws.com`
+});
 
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
+// Create an S3 instance
+const s3 = new Aws.S3();
+
+// Multer Configuration
+const upload = multer({
+  fileFilter: (req, file, cb) => {
+    // cb = callback
+    const allowedTypes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
+    const ext = path.extname(file.originalname).replace('.', '')
+    if (allowedTypes.includes(ext)) {
+      cb(null, true)
+    } else {
+      cb(new Error('File type not allowed'), false)
+    }
   }
 })
 
-const upload = multer({
-  storage,
-});
+
 
 
 // Adding product
 router.post("/add", upload.array('productPictures[]'), async (req, res) => {
 
+  const { name, shortDescription, price, sale_price, discountPercentage, categoryId, brandId,
+    color, isFeatured, isTrending, isTop, tags, longDescription, additionalInformation } = req.body
+
   const record = {
-    name: req.body.name,
-    shortDescription: req.body.shortDescription,
-    price: req.body.price,
-    sale_price: req.body.sale_price,
-    discountPercentage: req.body.discountPercentage,
-    categoryId: req.body.categoryId,
-    brandId: req.body.brandId,
-    color: req.body.color,
-    isFeatured: req.body.isFeatured,
-    isTrending: req.body.isTrending,
-    isTop: req.body.isTop,
-    tags: req.body.tags,
-    longDescription: req.body.longDescription,
-    additionalInformation: req.body.additionalInformation,
+    name,
+    shortDescription,
+    price,
+    sale_price,
+    discountPercentage,
+    categoryId,
+    brandId,
+    color,
+    isFeatured,
+    isTrending,
+    isTop,
+    tags,
+    longDescription,
+    additionalInformation,
   }
 
-  if (req.body.discountPercentage)
-    record.discountPrice = (req.body.sale_price - (req.body.sale_price * (req.body.discountPercentage / 100))).toFixed(2);
+  if (discountPercentage)
+    record.discountPrice = (sale_price - (sale_price * (discountPercentage / 100))).toFixed(2);
 
   try {
     if (isSuperAdmin(req.user) && isAdmin(req.user))
       throw new Error("Invalid Requests")
 
+    const files = req.files; // Retrieve the array of uploaded files
+
+    if (files && files.length > 0) {
+      const filePromises = files.map(async (file) => {
+        const uniqueFilename = `products/${uuid.v4()}-${file.originalname}`;
+        const params = {
+          Bucket: process.env.AWS_BUCKET,
+          Key: uniqueFilename, // Generate a unique key for each file
+          Body: file.buffer,
+        };
+
+        const result = await s3.upload(params).promise();
+        // Return the S3 object key
+        return result.Location;
+      });
+
+      const uploadedFiles = await Promise.all(filePromises);
+      record.productPictures = uploadedFiles; // Save the array of S3 object keys as the productPictures field
+    }
+
     let product = new Product(record);
 
     await product.save()
 
-    let productPicturesArr = [];
-    if (req.files && req.files.length > 0) {
-      // Move the uploaded files to the product folder
-      await fs.mkdir(`content/products/${product._id}/`, { recursive: true });
-      const movePromises = req.files.map((file) => {
-        productPicturesArr.push(file.filename);
-
-        const sourcePath = file.path;
-        const targetPath = path.join(`content/products/${product._id}`, file.originalname);
-
-        // Delete the existing file if it already exists
-        if (fse.existsSync(targetPath)) {
-          fse.removeSync(targetPath);
-        }
-        return fse.move(sourcePath, targetPath);
-      });
-      await Promise.all(movePromises);
-
-      await Product.findByIdAndUpdate(req.body.id, { productPictures: productPicturesArr });
-    }
-
-    const category = await Category.findOne({ _id: req.body.categoryId });
+    const category = await Category.findOne({ _id: categoryId });
     product = {
       ...product.toObject(),
       categoryName: category.name
@@ -111,8 +123,6 @@ router.post("/edit", upload.array('productPictures[]'), async (req, res) => {
     if (!mongoose.isValidObjectId(req.body.id))
       throw new Error("Invalid Id");
 
-    let oldProductRecord = await Product.findById(req.body.id);
-
     const record = {
       name: req.body.name,
       shortDescription: req.body.shortDescription,
@@ -132,31 +142,27 @@ router.post("/edit", upload.array('productPictures[]'), async (req, res) => {
     if (req.body.discountPercentage)
       record.discountPrice = (req.body.sale_price - (req.body.sale_price * (req.body.discountPercentage / 100))).toFixed(2);
 
-    let productPicturesArr = [];
-    if (req.files && req.files.length > 0) {
-      // Move the uploaded files to the product folder
-      await fs.mkdir(`content/products/${req.body.id}/`, { recursive: true });
-      const movePromises = req.files.map((file) => {
-        productPicturesArr.push(file.filename);
+    const files = req.files; // Retrieve the array of uploaded files
 
-        const sourcePath = file.path;
-        const targetPath = path.join(`content/products/${req.body.id}`, file.originalname);
+    if (files && files.length > 0) {
+      const filePromises = files.map(async (file) => {
+        const uniqueFilename = `products/${uuid.v4()}-${file.originalname}`;
+        const params = {
+          Bucket: process.env.AWS_BUCKET,
+          Key: uniqueFilename, // Generate a unique key for each file
+          Body: file.buffer,
+        };
 
-        // Delete the existing file if it already exists
-        if (fse.existsSync(targetPath)) {
-          fse.removeSync(targetPath);
-        }
-        return fse.move(sourcePath, targetPath);
+        const result = await s3.upload(params).promise();
+
+        // Return the S3 object key
+        return result.Location;
       });
-      await Promise.all(movePromises);
 
-
-      record.productPictures = productPicturesArr;
-      for (let index = 0; index < oldProductRecord.productPictures.length; index++) {
-        if (fse.existsSync(`content/products/${req.body.id}/${oldProductRecord.productPictures[index]}`))
-          fse.removeSync(`content/products/${req.body.id}/${oldProductRecord.productPictures[index]}`);
-      }
+      const uploadedFiles = await Promise.all(filePromises);
+      record.productPictures = uploadedFiles; // Save the array of S3 object keys as the productPictures field
     }
+
 
     await Product.findByIdAndUpdate(req.body.id, record);
 

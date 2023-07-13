@@ -40,7 +40,7 @@ function TrendingProducts() {
             key={product._id}
             columnNumber={3}
             viewDetailsLink={`/products/details/${product._id}`}
-            productImage={product.productPictures && product.productPictures.length > 0 ? process.env.REACT_APP_BASE_URL + `content/products/${product._id}/${product.productPictures[0]}` : null}
+            productImage={product.productPictures && product.productPictures.length > 0 ? product.productPictures[0] : null}
             isMobile={isMobile}
             title={product.name}
             price={product.sale_price}

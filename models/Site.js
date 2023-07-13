@@ -13,7 +13,7 @@ const siteSchema = new mongoose.Schema({
     required: [true, "Email is required"],
     maxlength: 250,
     validate: {
-      validator: async function(value) {
+      validator: async function (value) {
         const count = await mongoose.model('User').countDocuments({ email: value });
         return count === 0;
       },
@@ -29,8 +29,7 @@ const siteSchema = new mongoose.Schema({
     type: String,
   },
   siteLogo: {
-    type: String,
-    maxlength: 100
+    type: String
   },
   siteTagline: {
     type: String,
@@ -48,7 +47,7 @@ const siteSchema = new mongoose.Schema({
     type: String,
     maxlength: 300
   }
-  
+
 
 });
 

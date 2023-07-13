@@ -52,7 +52,7 @@ function ProductCardVertical({
                 maxWidth: '100%',
                 height: 'auto',
               }}
-              src={productImage} />
+              src={productImage} alt="img" />
 
             <Box className="iconsContainer" sx={{
               position: 'absolute',

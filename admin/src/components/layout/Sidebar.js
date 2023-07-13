@@ -26,7 +26,7 @@ import AvatarMenu from '../library/AvatarMenu';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import CategoryIcon from '@mui/icons-material/Category';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-
+import SettingsIcon from '@mui/icons-material/Settings';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -149,7 +149,7 @@ function Sidebar({ progressBar, configuration }) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              {configuration.siteName} Admin Panel
+              {configuration?.siteName} Admin Panel
             </Typography>
           </Box>
           <AvatarMenu />
@@ -159,7 +159,7 @@ function Sidebar({ progressBar, configuration }) {
         <DrawerHeader sx={{ justifyContent: 'center' }}>
           <img
             width={50}
-            src={process.env.REACT_APP_BASE_URL + `content/site/${configuration.siteLogo}`}
+            src={process.env.REACT_APP_BASE_URL + `content/site/${configuration?.siteLogo}`}
             alt="Hekto"
           />
         </DrawerHeader>
@@ -172,6 +172,18 @@ function Sidebar({ progressBar, configuration }) {
                   <DashboardIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        </List>
+        <List>
+          <Link to="/admin/settings" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <ListItem key="setting" disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Configuration" />
               </ListItemButton>
             </ListItem>
           </Link>

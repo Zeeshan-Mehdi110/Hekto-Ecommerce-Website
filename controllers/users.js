@@ -7,40 +7,40 @@ const User = require("../models/User")
 const { verifyuser } = require("../utils/middlewares")
 const { randomBytes } = require('crypto');
 const multer = require('multer');
-const fs = require('fs').promises;
 const path = require('path');
-const fse = require('fs-extra');
+const Aws = require('aws-sdk')
+const uuid = require("uuid");
+
 
 const router = express.Router();
 router.use(['/profile-update', '/add', '/edit', '/delete', "/profile"], verifyuser);
 
-const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    try {
-      await fs.mkdir(`content/${req.user._id}/`, { recursive: true });
-      cb(null, `content/${req.user._id}/`);
-    } catch (err) {
-      cb(err, null);
-    }
+// Configure AWS SDK with your credentials and region
+Aws.config.update({
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_SECRET,
+  region: process.env.AWS_REGION,
+  endpoint: `https://s3.${process.env.AWS_REGION}.amazonaws.com`
+});
 
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
+// Create an S3 instance
+const s3 = new Aws.S3();
+
+// Multer Configuration
+const upload = multer({
+  fileFilter: (req, file, cb) => {
+    // cb = callback
+    const allowedTypes = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
+    const ext = path.extname(file.originalname).replace('.', '')
+    if (allowedTypes.includes(ext)) {
+      cb(null, true)
+    } else {
+      cb(new Error('File type not allowed'), false)
+    }
   }
 })
 
-const upload = multer({
-  storage,
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = ['jpg', 'png', 'gif', 'bmp', 'jpeg'];
-    const ext = path.extname(file.originalname).replace('.', '');
-    if (allowedTypes.includes(ext))
-      cb(null, true);
-    else {
-      cb(new Error("File type is not allowed"), false);
-    }
-  }
-});
+
 
 router.post("/login", async (req, res) => {
   try {
@@ -168,14 +168,19 @@ router.post("/profile-update", upload.single('profile_picture'), async (req, res
       name: req.body.name,
       phone_number: req.body.phone_number,
     }
-    if (req.file && req.file.filename) {
-      record.profile_picture = req.file.filename;
-      if (req.user.profile_picture && req.user.profile_picture !== req.file.filename) {
-        const oldPicPath = `content/${req.user._id}/${req.user.profile_picture}`;
-        if (fse.existsSync(oldPicPath))
-          await fs.unlink(oldPicPath);
-      }
+
+    if (req.file) {
+      const uniqueFilename = `users/${uuid.v4()}-${req.file.originalname}`;
+      const params = {
+        Bucket: process.env.AWS_BUCKET,
+        Key: uniqueFilename, // Generate a unique key for each file
+        Body: req.file.buffer,
+      };
+
+      const result = await s3.upload(params).promise();
+      record.profilePicture = result.Location; // Save the S3 object key as the profilePicture field
     }
+
     if (!req.body.name) throw new Error("Name is required");
 
     if (req.body.newPassword) {
