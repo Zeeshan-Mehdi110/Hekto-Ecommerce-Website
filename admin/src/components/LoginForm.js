@@ -44,7 +44,10 @@ const LoginForm = () => {
       <Box textAlign="center" maxWidth="500px" margin="auto">
         <Form
           onSubmit={handleSubmit}
-          initialValues={{}}
+          initialValues={{
+            email : "admin@gmail.com",
+            password : "123456"
+          }}
           validate={handleValidation}
           render={({
             handleSubmit,
